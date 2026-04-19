@@ -6,15 +6,19 @@ public class User {
     private String name;
     private String email;
     private String password;
-    private int authorization;
 
 
-    public User(int id, String name, String email, String password, int authorization){
-        this.id = id;
-        this.name = name;
-        this.email = email;
-        this.password = password;
-        this.authorization = authorization;
+    public User(int id, String name, String email, String password){
+        setId(id);
+        setName(name);
+        setEmail(email);
+        setPassword(password);
+    }
+
+    public User(String name, String email, String password){
+        setName(name);
+        setEmail(email);
+        setPassword(password);
     }
 
     public void show(){
@@ -53,11 +57,5 @@ public class User {
         this.password = password;
     }
 
-    public int getAuthorization() {
-        return authorization;
-    }
 
-    public void setAuthorization(int authorization) {
-        this.authorization = authorization;
-    }
 }
