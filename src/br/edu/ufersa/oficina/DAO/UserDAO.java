@@ -33,8 +33,7 @@ public class UserDAO extends GenericDAO {
 
     public User getUserById(int id){
         try (ResultSet rs = filterById(id)) {
-            assert rs != null;
-            if (rs.next()) {
+            if (rs != null && rs.next()) {
                 return UserFactory.createUser(rs);
             }
         }
@@ -49,22 +48,21 @@ public class UserDAO extends GenericDAO {
     public ArrayList<User> getAllUsers(){
         ResultSet rs = getALl();
 
-        assert rs != null;
-
+        if (rs == null) return null;
         try {
             return UserFactory.createArrayUsers(rs);
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());
-
-            return null;
         }
+        return null;
+
     }
 
     private void register(String name, String email, String password){
         Connection conn = ConnectionDB.getConnection();
 
-        assert conn != null;
+        if (conn == null) return;
 
         String sql = "INSERT INTO " + table + " (name, email, password) values (?, ?, ?, ?)";
 
@@ -92,7 +90,7 @@ public class UserDAO extends GenericDAO {
     public void updateUser(User user){
         Connection conn = ConnectionDB.getConnection();
 
-        assert conn != null;
+        if (conn == null) return;
 
         String sql = "UPDATE TABLE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";
 
