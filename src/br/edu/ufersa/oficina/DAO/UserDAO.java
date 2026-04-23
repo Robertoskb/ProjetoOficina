@@ -46,7 +46,7 @@ public class UserDAO extends GenericDAO {
     }
 
     public ArrayList<User> getAllUsers(){
-        ResultSet rs = getALl();
+        ResultSet rs = getAll();
 
         if (rs == null) return null;
         try {
