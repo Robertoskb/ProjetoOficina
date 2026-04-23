@@ -51,6 +51,26 @@ public class GenericDAO {
         }
     }
 
+    public ResultSet getAll(){
+        Connection conn = ConnectionDB.getConnection();
+        System.out.println(table);
+        if (conn == null) return null;
+
+        String sql = "SELECT * FROM " + this.table;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            return ps.executeQuery();
+
+        }
+
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+
+            return null;
+        }
+    }
+
     public ResultSet filter(String column, String value){
         Connection conn = ConnectionDB.getConnection();
 

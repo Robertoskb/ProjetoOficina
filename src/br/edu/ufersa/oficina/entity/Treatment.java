@@ -22,7 +22,26 @@ public class Treatment {
         setDate_start(LocalDate.now());
     }
 
+    public Treatment(ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price){
+        setParts(parts);
+        setServices(services);
+        setCar(car);
+        setPrice(price);
+        setDate_start(LocalDate.now());
+    }
+
     public Treatment(int id, ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+        setId(id);
+        setParts(parts);
+        setServices(services);
+        setCar(car);
+        setPrice(price);
+        setDate_start(date_start);
+        setDate_finish(date_finish);
+
+    }
+
+    public Treatment(ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setId(id);
         setParts(parts);
         setServices(services);
