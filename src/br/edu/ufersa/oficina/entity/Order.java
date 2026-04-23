@@ -26,6 +26,11 @@ public class Order extends Treatment{
         setCompleted(completed);
     }
 
+    public void finish(){
+        setCompleted(true);
+        setDate_finish(LocalDate.now());
+    }
+
     public boolean isCompleted() {
         return completed;
     }
