@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 class CarFactory {
     public static Car createCar(ResultSet rs) throws SQLException {
-        Client client = new ClientDAO().getClientById(rs.getInt("fk_owner"));
+        Client client = new ClientDAO().getClientById(rs.getInt("client_id"));
         int id = rs.getInt("id");
         String brand = rs.getString("brand");
         String model = rs.getString("model");
@@ -39,6 +39,17 @@ public class CarDAO extends GenericDAO {
         super("car");
     }
 
+    public ArrayList<Car> getAllCar() {
+        ResultSet rs = getAll();
+        if (rs == null) return new ArrayList<>();
+        try{
+            return CarFactory.createArrayCars(rs);
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            return new ArrayList<>();
+        }
+    }
+    
     public Car getCarById(int id) {
         try (ResultSet rs = filterById(id)) {
             if (rs != null && rs.next()) {
@@ -62,7 +73,7 @@ public class CarDAO extends GenericDAO {
     }
 
     public ArrayList<Car> getCarsByClientId(int id) {
-        try (ResultSet rs = filter("fk_owner", Integer.toString(id))) {
+        try (ResultSet rs = filter("client_id", Integer.toString(id))) {
             if (rs == null) return new ArrayList<>();
             return CarFactory.createArrayCars(rs);
         } catch (SQLException e) {
@@ -75,7 +86,7 @@ public class CarDAO extends GenericDAO {
         Connection conn = ConnectionDB.getConnection();
         if (conn == null) return;
 
-        String sql = "INSERT INTO " + table + " (fk_owner, brand, model, color, plate, `year`, mileage) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (client_id, brand, model, color, plate, `year`, mileage) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, car.getClient().getId());
@@ -95,7 +106,7 @@ public class CarDAO extends GenericDAO {
         Connection conn = ConnectionDB.getConnection();
         if (conn == null) return;
 
-        String sql = "UPDATE " + table + " SET fk_owner = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, car.getClient().getId());
