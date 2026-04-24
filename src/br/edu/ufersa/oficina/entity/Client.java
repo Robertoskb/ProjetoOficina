@@ -25,9 +25,9 @@ public class Client {
     public long getCPF () { return CPF; }
 
     public void show() {
-        System.out.println('(' + id +
+        System.out.println("(" + id +
                 ", " + name +
                 ", " + address +
-                ", " + CPF + ')');
+                ", " + CPF + ")");
     }
 }

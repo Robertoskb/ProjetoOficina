@@ -22,8 +22,8 @@ public class Service {
     public double getPrice() { return price; }
 
     public void show() {
-        System.out.println('(' + id +
+        System.out.println("(" + id +
                 ", " + name +
-                ", " + price + ')');
+                ", " + price + ")");
     }
 }
