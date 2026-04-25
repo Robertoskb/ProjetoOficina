@@ -26,7 +26,7 @@ public class BudgetPartServiceDAO{
     }
 
     public static void addService(Budget budget, Connection conn) throws SQLException {
-        String sql = "INSERT INTO Budget_Parts (budget_id, service_id) " + "VALUES (?, ?)";
+        String sql = "INSERT INTO Budget_Service (budget_id, service_id) " + "VALUES (?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -72,13 +72,14 @@ public class BudgetPartServiceDAO{
     }
 
     public static void updateService(Budget budget, Connection conn) throws SQLException{
-        String deleteRelations = "DELETE FROM Budget_Parts WHERE budget_id = ?";
+        String deleteRelations = "DELETE FROM Budget_Service WHERE budget_id = ?";
 
         String insertRelation = "INSERT INTO Budget_Parts (budget_id, service_id) VALUES (?, ?)";
 
         PreparedStatement psDelete = conn.prepareStatement(deleteRelations);
         psDelete.setInt(1, budget.getId());
         psDelete.executeUpdate();
+        psDelete.close();
 
         PreparedStatement psInsert = conn.prepareStatement(insertRelation);
 
