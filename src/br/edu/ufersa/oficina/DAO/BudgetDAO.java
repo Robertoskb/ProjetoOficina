@@ -60,8 +60,6 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-
-
     public Budget getBudgetById(int id){
         ResultSet rs = filterById(id);
 
@@ -177,6 +175,4 @@ public class BudgetDAO extends GenericDAO{
             return null;
         }
     }
-
-
 }
