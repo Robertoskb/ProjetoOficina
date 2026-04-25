@@ -43,7 +43,6 @@ public class BudgetDAO extends GenericDAO{
         super("Budget");
     }
 
-
     public ArrayList<Budget> getAllBudget(){
         ResultSet rs = getAll();
 
@@ -66,17 +65,21 @@ public class BudgetDAO extends GenericDAO{
         if (rs == null) return null;
 
         try {
-            ArrayList<Parts> parts = getPartsByBudget(id);
-            ArrayList<Service> services = getServiceByBudget(id);
+            if (rs.next()){
+                ArrayList<Parts> parts = getPartsByBudget(id);
+                ArrayList<Service> services = getServiceByBudget(id);
 
-            return BudgetFactory.createBudget(rs, parts, services);
+                return BudgetFactory.createBudget(rs, parts, services);
+            }
         }
 
         catch (SQLException e){
             System.out.println(e.getMessage());
 
-            return null;
         }
+
+        return null;
+
     }
 
     public ArrayList<Budget> getBudgetByCar(Car car){
@@ -98,10 +101,11 @@ public class BudgetDAO extends GenericDAO{
     public ArrayList<Budget> getBudgetByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
+        if (conn == null) return null;
+
         String sql = " SELECT b.* FROM Budget b JOIN Car c ON b.car_id = c.id  WHERE c.client_id = ? ";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
             return BudgetFactory.createArrayBudget(ps.executeQuery());
@@ -117,10 +121,11 @@ public class BudgetDAO extends GenericDAO{
     public ArrayList<Budget> getBudgetByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
+        if (conn == null) return null;
+
         String sql = "SELECT * FROM Budget WHERE date_start BETWEEN ? AND ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
@@ -141,8 +146,8 @@ public class BudgetDAO extends GenericDAO{
 
         String sql = "SELECT p.* FROM Parts p JOIN Budget_Parts bp ON p.id = bp.part_id WHERE bp.budget_id = ? ";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+
             ps.setInt(1, id);
 
             return PartsFactory.createArrayParts(ps.executeQuery());
@@ -160,10 +165,10 @@ public class BudgetDAO extends GenericDAO{
 
         if (conn == null) return null;
 
-        String sql = "SELECT s.* FROM Parts s JOIN Budget_Service bs ON s.id = bs.part_id WHERE bs.budget_id = ? ";
+        String sql = "SELECT s.* FROM Service s JOIN Budget_Service bs ON s.id = bs.service_id WHERE bs.budget_id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+
             ps.setInt(1, id);
 
             return ServiceFactory.createArrayServices(ps.executeQuery());
@@ -173,6 +178,96 @@ public class BudgetDAO extends GenericDAO{
             System.out.println(e.getMessage());
 
             return null;
+        }
+    }
+
+    public void addBudget(Budget budget){
+        Connection conn = ConnectionDB.getConnection();
+
+        if (conn == null) return;
+
+        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish) " +
+                            "VALUES (?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
+            conn.setAutoCommit(false);
+
+            ps.setInt(1, budget.getCar().getId());
+            ps.setDouble(2, budget.getPrice());
+            ps.setDate(3, Date.valueOf(budget.getDate_start()));
+            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+
+            ps.executeUpdate();
+
+            try (ResultSet rs = ps.getGeneratedKeys()) {
+                if (rs.next())
+                    budget.setId(rs.getInt(1));
+                else
+                    throw new SQLException("Falha ao carregar o ID do Orçamento");
+            }
+
+            BudgetPartServiceDAO.addComplete(budget, conn);
+
+            conn.commit();
+        }
+
+        catch (SQLException e){
+            try {
+                conn.rollback();
+                System.out.println(e.getMessage());
+            }
+
+            catch (SQLException e1){
+                System.out.println(e1.getMessage());
+            }
+        }
+
+        finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ignored) {}
+        }
+    }
+
+    public void updateBudget(Budget budget){
+        Connection conn = ConnectionDB.getConnection();
+
+        if (conn == null) return;
+
+        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ? WHERE id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            conn.setAutoCommit(false);
+
+            ps.setInt(1, budget.getCar().getId());
+            ps.setDouble(2, budget.getPrice());
+            ps.setDate(3, Date.valueOf(budget.getDate_start()));
+            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+
+            ps.setInt(5, budget.getId());
+
+            ps.executeUpdate();
+
+            BudgetPartServiceDAO.UpdateComplete(budget, conn);
+
+            conn.commit();
+        }
+
+        catch (SQLException e){
+            try {
+                conn.rollback();
+                System.out.println(e.getMessage());
+            }
+
+            catch (SQLException e1){
+                System.out.println(e1.getMessage());
+            }
+        }
+
+        finally {
+            try {
+                conn.setAutoCommit(true);
+            } catch (SQLException ignored) {}
         }
     }
 }
