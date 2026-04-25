@@ -248,7 +248,7 @@ public class BudgetDAO extends GenericDAO{
 
             ps.executeUpdate();
 
-            BudgetPartServiceDAO.UpdateComplete(budget, conn);
+            BudgetPartServiceDAO.updateComplete(budget, conn);
 
             conn.commit();
         }

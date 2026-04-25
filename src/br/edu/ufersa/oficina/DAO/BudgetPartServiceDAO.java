@@ -93,7 +93,7 @@ public class BudgetPartServiceDAO{
         psInsert.close();
     }
 
-    public static void UpdateComplete(Budget budget, Connection conn) throws SQLException{
+    public static void updateComplete(Budget budget, Connection conn) throws SQLException{
         updateService(budget, conn);
         updatePart(budget, conn);
     }
