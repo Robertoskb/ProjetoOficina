@@ -42,7 +42,7 @@ class OrderFactory{
 }
 public class OrderDAO extends GenericDAO{
     public OrderDAO(){
-        super("Order");
+        super("`Order`");
     }
 
     public ArrayList<Order> getAllOrder(){
@@ -167,7 +167,7 @@ public class OrderDAO extends GenericDAO{
 
         if (conn == null) return null;
 
-        String sql = "SELECT s.* FROM Service s JOIN Order_Service os ON s.id = os.service_id WHERE os.order_id = ?";
+        String sql = "SELECT s.* FROM Service s JOIN Order_Services os ON s.id = os.service_id WHERE os.order_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 

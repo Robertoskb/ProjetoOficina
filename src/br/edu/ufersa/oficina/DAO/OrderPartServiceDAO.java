@@ -26,7 +26,7 @@ public class OrderPartServiceDAO{
     }
 
     public static void addService(Order order, Connection conn) throws SQLException {
-        String sql = "INSERT INTO Order_Service (order_id, service_id) " + "VALUES (?, ?)";
+        String sql = "INSERT INTO Order_Services (order_id, service_id) " + "VALUES (?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -72,7 +72,7 @@ public class OrderPartServiceDAO{
     }
 
     public static void updateService(Order order, Connection conn) throws SQLException{
-        String deleteRelations = "DELETE FROM Order_Service WHERE order_id = ?";
+        String deleteRelations = "DELETE FROM Order_Services WHERE order_id = ?";
 
         String insertRelation = "INSERT INTO Order_Parts (order_id, service_id) VALUES (?, ?)";
 

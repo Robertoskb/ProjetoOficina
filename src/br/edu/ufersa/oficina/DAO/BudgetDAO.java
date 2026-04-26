@@ -165,7 +165,7 @@ public class BudgetDAO extends GenericDAO{
 
         if (conn == null) return null;
 
-        String sql = "SELECT s.* FROM Service s JOIN Budget_Service bs ON s.id = bs.service_id WHERE bs.budget_id = ?";
+        String sql = "SELECT s.* FROM Service s JOIN Budget_Services bs ON s.id = bs.service_id WHERE bs.budget_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 

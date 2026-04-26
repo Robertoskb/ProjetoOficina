@@ -52,6 +52,10 @@ public class Treatment {
 
     }
 
+    public void show(){
+        System.out.println("(" + id + ", " + car.getId() + ", " + price + ", " + date_start.toString() + ")");
+    }
+
 
     public int getId() {
         return id;
