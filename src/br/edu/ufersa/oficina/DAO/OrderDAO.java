@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.DAO;
 
+
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.*;
 
@@ -7,49 +8,50 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-class BudgetFactory{
-    public static Budget createSimpleBudget(ResultSet rs) throws SQLException{
+class OrderFactory{
+    public static Order createSimpleOrder(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         Car car = new CarDAO().getCarById(rs.getInt("car_id"));
         double price = rs.getDouble("price");
         LocalDate date_start = rs.getDate("date_start").toLocalDate();
         LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
+        boolean completed = rs.getBoolean("completed");
 
-        return new Budget(id, null, null, car, price, date_start, date_finish);
+        return new Order(id, null, null, car, price, date_start, date_finish, completed);
     }
 
-    public static Budget createBudget(ResultSet rs, ArrayList<Parts> parts, ArrayList<Service> services) throws SQLException{
+    public static Order createOrder(ResultSet rs, ArrayList<Parts> parts, ArrayList<Service> services) throws SQLException{
         int id = rs.getInt("id");
         Car car = new CarDAO().getCarById(rs.getInt("car_id"));
         double price = rs.getDouble("price");
         LocalDate date_start = rs.getDate("date_start").toLocalDate();
         LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
+        boolean completed = rs.getBoolean("completed");
 
-        return new Budget(id, parts, services, car, price, date_start, date_finish);
+        return new Order(id, parts, services, car, price, date_start, date_finish, completed);
     }
 
-    public static ArrayList<Budget> createArrayBudget(ResultSet rs) throws SQLException{
-        ArrayList<Budget> budgets = new ArrayList<Budget>();
+    public static ArrayList<Order> createArrayOrder(ResultSet rs) throws SQLException{
+        ArrayList<Order> orders = new ArrayList<Order>();
 
         while (rs.next())
-            budgets.add(createSimpleBudget(rs));
+            orders.add(createSimpleOrder(rs));
 
-        return budgets;
+        return orders;
     }
 }
-
-public class BudgetDAO extends GenericDAO{
-    public BudgetDAO(){
-        super("Budget");
+public class OrderDAO extends GenericDAO{
+    public OrderDAO(){
+        super("`Order`");
     }
 
-    public ArrayList<Budget> getAllBudget(){
+    public ArrayList<Order> getAllOrder(){
         ResultSet rs = getAll();
 
         if (rs == null) return null;
 
         try {
-            return BudgetFactory.createArrayBudget(rs);
+            return OrderFactory.createArrayOrder(rs);
         }
 
         catch (SQLException e){
@@ -59,17 +61,17 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    public Budget getBudgetById(int id){
+    public Order getOrderById(int id){
         ResultSet rs = filterById(id);
 
         if (rs == null) return null;
 
         try {
             if (rs.next()){
-                ArrayList<Parts> parts = getPartsByBudget(id);
-                ArrayList<Service> services = getServiceByBudget(id);
+                ArrayList<Parts> parts = getPartsByOrder(id);
+                ArrayList<Service> services = getServiceByOrder(id);
 
-                return BudgetFactory.createBudget(rs, parts, services);
+                return OrderFactory.createOrder(rs, parts, services);
             }
         }
 
@@ -82,13 +84,13 @@ public class BudgetDAO extends GenericDAO{
 
     }
 
-    public ArrayList<Budget> getBudgetByCar(Car car){
+    public ArrayList<Order> getOrderByCar(Car car){
         ResultSet rs = filter("car_id", Integer.toString(car.getId()));
 
         if (rs == null) return null;
 
         try {
-            return BudgetFactory.createArrayBudget(rs);
+            return OrderFactory.createArrayOrder(rs);
         }
 
         catch (SQLException e){
@@ -98,17 +100,17 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    public ArrayList<Budget> getBudgetByClient(Client client){
+    public ArrayList<Order> getOrderByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
 
-        String sql = " SELECT b.* FROM Budget b JOIN Car c ON b.car_id = c.id  WHERE c.client_id = ? ";
+        String sql = " SELECT b.* FROM Order b JOIN Car c ON b.car_id = c.id  WHERE c.client_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
-            return BudgetFactory.createArrayBudget(ps.executeQuery());
+            return OrderFactory.createArrayOrder(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -118,18 +120,18 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    public ArrayList<Budget> getBudgetByPeriod(LocalDate start, LocalDate end){
+    public ArrayList<Order> getOrderByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
 
-        String sql = "SELECT * FROM Budget WHERE date_start BETWEEN ? AND ?";
+        String sql = "SELECT * FROM Order WHERE date_start BETWEEN ? AND ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
-            return BudgetFactory.createArrayBudget(ps.executeQuery());
+            return OrderFactory.createArrayOrder(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -139,12 +141,12 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    private ArrayList<Parts> getPartsByBudget(int id){
+    private ArrayList<Parts> getPartsByOrder(int id){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
 
-        String sql = "SELECT p.* FROM Parts p JOIN Budget_Parts bp ON p.id = bp.part_id WHERE bp.budget_id = ? ";
+        String sql = "SELECT p.* FROM Parts p JOIN Order_Parts op ON p.id = op.part_id WHERE op.order_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 
@@ -160,12 +162,12 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    private ArrayList<Service> getServiceByBudget(int id){
+    private ArrayList<Service> getServiceByOrder(int id){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
 
-        String sql = "SELECT s.* FROM Service s JOIN Budget_Services bs ON s.id = bs.service_id WHERE bs.budget_id = ?";
+        String sql = "SELECT s.* FROM Service s JOIN Order_Services os ON s.id = os.service_id WHERE os.order_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 
@@ -181,32 +183,33 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    public void addBudget(Budget budget){
+    public void addOrder(Order order){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;
 
-        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish) " +
-                            "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish, completed) " +
+                "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             conn.setAutoCommit(false);
 
-            ps.setInt(1, budget.getCar().getId());
-            ps.setDouble(2, budget.getPrice());
-            ps.setDate(3, Date.valueOf(budget.getDate_start()));
-            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+            ps.setInt(1, order.getCar().getId());
+            ps.setDouble(2, order.getPrice());
+            ps.setDate(3, Date.valueOf(order.getDate_start()));
+            ps.setDate(4, Date.valueOf(order.getDate_finish()));
+            ps.setBoolean(5, order.isCompleted());
 
             ps.executeUpdate();
 
             try (ResultSet rs = ps.getGeneratedKeys()) {
                 if (rs.next())
-                    budget.setId(rs.getInt(1));
+                    order.setId(rs.getInt(1));
                 else
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            BudgetPartServiceDAO.addComplete(budget, conn);
+            OrderPartServiceDAO.addComplete(order, conn);
 
             conn.commit();
         }
@@ -229,26 +232,27 @@ public class BudgetDAO extends GenericDAO{
         }
     }
 
-    public void updateBudget(Budget budget){
+    public void updateOrder(Order order){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;
 
-        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ?, completed = ? WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             conn.setAutoCommit(false);
 
-            ps.setInt(1, budget.getCar().getId());
-            ps.setDouble(2, budget.getPrice());
-            ps.setDate(3, Date.valueOf(budget.getDate_start()));
-            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+            ps.setInt(1, order.getCar().getId());
+            ps.setDouble(2, order.getPrice());
+            ps.setDate(3, Date.valueOf(order.getDate_start()));
+            ps.setDate(4, Date.valueOf(order.getDate_finish()));
+            ps.setBoolean(5, order.isCompleted());
 
-            ps.setInt(5, budget.getId());
+            ps.setInt(6, order.getId());
 
             ps.executeUpdate();
 
-            BudgetPartServiceDAO.updateComplete(budget, conn);
+            OrderPartServiceDAO.updateComplete(order, conn);
 
             conn.commit();
         }

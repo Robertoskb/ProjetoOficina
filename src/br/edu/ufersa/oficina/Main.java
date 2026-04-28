@@ -1,18 +1,44 @@
 package br.edu.ufersa.oficina;
 
-import br.edu.ufersa.oficina.DAO.UserDAO;
+import br.edu.ufersa.oficina.DAO.*;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
-import br.edu.ufersa.oficina.entity.User;
+import br.edu.ufersa.oficina.entity.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Connection conn = ConnectionDB.getConnection();
+        CarDAO cd = new CarDAO();
+        PartsDAO pd = new PartsDAO();
 
-        UserDAO userDao = new UserDAO();
+        for (Car c: cd.getAllCar())
+            c.show();
 
-        User user = new User("Roberto", "email@email.com", "123");
-        userDao.addUser(user);
+        for (Parts p: pd.getAllParts())
+            p.show();
+
+        ClientDAO cld = new ClientDAO();
+        ServiceDAO sd = new ServiceDAO();
+
+        for (Client c: cld.getAllClient())
+            c.show();
+
+        for (Service s: sd.getAllService())
+            s.show();
+
+        UserDAO ud = new UserDAO();
+        BudgetDAO bd = new BudgetDAO();
+        OrderDAO od = new OrderDAO();
+
+        for (User u: ud.getAllUsers())
+            u.show();
+
+        for (Budget b: bd.getAllBudget())
+            b.show();
+
+        for (Order o: od.getAllOrder()){
+            o.show();
+        }
     }
 }
