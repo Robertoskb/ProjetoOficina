@@ -41,6 +41,8 @@ class OrderFactory{
     }
 }
 public class OrderDAO extends GenericDAO{
+    private final TreatmentPartServiceDAO PSD = new TreatmentPartServiceDAO("Order");
+
     public OrderDAO(){
         super("`Order`");
     }
@@ -209,7 +211,7 @@ public class OrderDAO extends GenericDAO{
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            OrderPartServiceDAO.addComplete(order, conn);
+            PSD.addComplete(order, conn);
 
             conn.commit();
         }
@@ -252,7 +254,7 @@ public class OrderDAO extends GenericDAO{
 
             ps.executeUpdate();
 
-            OrderPartServiceDAO.updateComplete(order, conn);
+            PSD.updateComplete(order, conn);
 
             conn.commit();
         }
@@ -273,5 +275,9 @@ public class OrderDAO extends GenericDAO{
                 conn.setAutoCommit(true);
             } catch (SQLException ignored) {}
         }
+    }
+
+    public TreatmentPartServiceDAO getPSD() {
+        return PSD;
     }
 }

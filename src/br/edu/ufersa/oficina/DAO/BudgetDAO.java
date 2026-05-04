@@ -39,6 +39,8 @@ class BudgetFactory{
 }
 
 public class BudgetDAO extends GenericDAO{
+    private final TreatmentPartServiceDAO PSD = new TreatmentPartServiceDAO("Budget");
+
     public BudgetDAO(){
         super("Budget");
     }
@@ -206,7 +208,7 @@ public class BudgetDAO extends GenericDAO{
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            BudgetPartServiceDAO.addComplete(budget, conn);
+            PSD.addComplete(budget, conn);
 
             conn.commit();
         }
@@ -248,7 +250,7 @@ public class BudgetDAO extends GenericDAO{
 
             ps.executeUpdate();
 
-            BudgetPartServiceDAO.updateComplete(budget, conn);
+            PSD.updateComplete(budget, conn);
 
             conn.commit();
         }
@@ -269,5 +271,9 @@ public class BudgetDAO extends GenericDAO{
                 conn.setAutoCommit(true);
             } catch (SQLException ignored) {}
         }
+    }
+
+    public TreatmentPartServiceDAO getPSD() {
+        return PSD;
     }
 }
