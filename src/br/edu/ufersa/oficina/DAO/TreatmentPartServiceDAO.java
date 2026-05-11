@@ -16,7 +16,7 @@ public class TreatmentPartServiceDAO{
     }
     
     public void addPart(Treatment treatment, Connection conn) throws SQLException {
-        String sql = "INSERT INTO " + base + "_Parts (order_id, part_id) " + "VALUES (?, ?)";
+        String sql = "INSERT INTO " + base + "_Parts (" + base + "_id, part_id) " + "VALUES (?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -32,7 +32,7 @@ public class TreatmentPartServiceDAO{
     }
 
     public void addService(Treatment treatment, Connection conn) throws SQLException {
-        String sql = "INSERT INTO " + base + "_Services (order_id, service_id) " + "VALUES (?, ?)";
+        String sql = "INSERT INTO " + base + "_Services (" + base + "_id, service_id) " + "VALUES (?, ?)";
 
         PreparedStatement ps = conn.prepareStatement(sql);
 
@@ -53,9 +53,9 @@ public class TreatmentPartServiceDAO{
     }
 
     public void updatePart(Treatment treatment, Connection conn) throws SQLException{
-        String deleteRelations = "DELETE FROM " + base + "_Parts WHERE order_id = ?";
+        String deleteRelations = "DELETE FROM " + base + "_Parts WHERE " + base + "_id = ?";
 
-        String insertRelation = "INSERT INTO " + base + "_Parts (order_id, part_id) VALUES (?, ?)";
+        String insertRelation = "INSERT INTO " + base + "_Parts (" + base + "_id, part_id) VALUES (?, ?)";
 
         PreparedStatement psDelete = conn.prepareStatement(deleteRelations);
         psDelete.setInt(1, treatment.getId());
@@ -77,9 +77,9 @@ public class TreatmentPartServiceDAO{
     }
 
     public void updateService(Treatment treatment, Connection conn) throws SQLException{
-        String deleteRelations = "DELETE FROM " + base + "_Services WHERE order_id = ?";
+        String deleteRelations = "DELETE FROM " + base + "_Services WHERE " + base + "_id = ?";
 
-        String insertRelation = "INSERT INTO " + base + "_Parts (order_id, service_id) VALUES (?, ?)";
+        String insertRelation = "INSERT INTO " + base + "_Parts (" + base + "_id, service_id) VALUES (?, ?)";
 
         PreparedStatement psDelete = conn.prepareStatement(deleteRelations);
         psDelete.setInt(1, treatment.getId());
@@ -98,7 +98,7 @@ public class TreatmentPartServiceDAO{
         psInsert.close();
     }
 
-    public  void updateComplete(Treatment treatment, Connection conn) throws SQLException{
+    public void updateComplete(Treatment treatment, Connection conn) throws SQLException{
         updateService(treatment, conn);
         updatePart(treatment, conn);
     }
