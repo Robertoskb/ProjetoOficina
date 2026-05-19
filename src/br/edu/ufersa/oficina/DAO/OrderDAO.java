@@ -8,8 +8,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-class OrderFactory{
-    public static Order createSimpleOrder(ResultSet rs) throws SQLException {
+class OrderFactory implements GenericFactory<Order>{
+    public Order createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         Car car = new CarDAO().getCarById(rs.getInt("car_id"));
         double price = rs.getDouble("price");
@@ -20,29 +20,18 @@ class OrderFactory{
         return new Order(id, null, null, car, price, date_start, date_finish, completed);
     }
 
-    public static Order createOrder(ResultSet rs, ArrayList<Parts> parts, ArrayList<Service> services) throws SQLException{
-        int id = rs.getInt("id");
-        Car car = new CarDAO().getCarById(rs.getInt("car_id"));
-        double price = rs.getDouble("price");
-        LocalDate date_start = rs.getDate("date_start").toLocalDate();
-        LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
-        boolean completed = rs.getBoolean("completed");
-
-        return new Order(id, parts, services, car, price, date_start, date_finish, completed);
-    }
-
-    public static ArrayList<Order> createArrayOrder(ResultSet rs) throws SQLException{
+    public ArrayList<Order> createArrayEntity(ResultSet rs) throws SQLException{
         ArrayList<Order> orders = new ArrayList<Order>();
 
         while (rs.next())
-            orders.add(createSimpleOrder(rs));
+            orders.add(createEntity(rs));
 
         return orders;
     }
 }
-public class OrderDAO extends GenericDAO{
+public class OrderDAO extends GenericDAO<Order>{
     public OrderDAO(){
-        super("`Order`");
+        super("`Order`", new OrderFactory());
     }
 
     public ArrayList<Order> getAllOrder(){
@@ -51,7 +40,7 @@ public class OrderDAO extends GenericDAO{
         if (rs == null) return null;
 
         try {
-            return OrderFactory.createArrayOrder(rs);
+            return factory.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -71,7 +60,11 @@ public class OrderDAO extends GenericDAO{
                 ArrayList<Parts> parts = getPartsByOrder(id);
                 ArrayList<Service> services = getServiceByOrder(id);
 
-                return OrderFactory.createOrder(rs, parts, services);
+                Order order = factory.createEntity(rs);
+                order.setParts(parts);
+                order.setServices(services);
+
+                return order;
             }
         }
 
@@ -90,7 +83,7 @@ public class OrderDAO extends GenericDAO{
         if (rs == null) return null;
 
         try {
-            return OrderFactory.createArrayOrder(rs);
+            return factory.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -110,7 +103,7 @@ public class OrderDAO extends GenericDAO{
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
-            return OrderFactory.createArrayOrder(ps.executeQuery());
+            return factory.createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -131,7 +124,7 @@ public class OrderDAO extends GenericDAO{
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
-            return OrderFactory.createArrayOrder(ps.executeQuery());
+            return factory.createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){

@@ -42,7 +42,6 @@ public class Treatment {
     }
 
     public Treatment(ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
-        setId(id);
         setParts(parts);
         setServices(services);
         setCar(car);

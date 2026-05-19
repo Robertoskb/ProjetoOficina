@@ -5,8 +5,8 @@ import br.edu.ufersa.oficina.entity.User;
 import java.sql.*;
 import java.util.ArrayList;
 
-class UserFactory{
-    public static User createUser(ResultSet rs) throws SQLException{
+class UserFactory implements GenericFactory<User>{
+    public User createEntity(ResultSet rs) throws SQLException{
         int id = rs.getInt("id");
         String name = rs.getString("name");
         String email = rs.getString("email");
@@ -15,26 +15,27 @@ class UserFactory{
         return new User(id, name, email, password);
     }
 
-    public static ArrayList<User> createArrayUsers(ResultSet rs) throws SQLException{
+    public ArrayList<User> createArrayEntity(ResultSet rs) throws SQLException{
         ArrayList<User> users = new ArrayList<User>();
 
         while (rs.next())
-            users.add(createUser(rs));
+            users.add(createEntity(rs));
 
         return users;
     }
 }
 
-public class UserDAO extends GenericDAO {
+public class UserDAO extends GenericDAO<User> {
 
     public UserDAO(){
-        super("User");
+
+        super("User", new UserFactory());
     }
 
     public User getUserById(int id){
         try (ResultSet rs = filterById(id)) {
             if (rs != null && rs.next()) {
-                return UserFactory.createUser(rs);
+                return factory.createEntity(rs);
             }
         }
 
@@ -50,7 +51,7 @@ public class UserDAO extends GenericDAO {
 
         if (rs == null) return null;
         try {
-            return UserFactory.createArrayUsers(rs);
+            return factory.createArrayEntity(rs);
         }
         catch (SQLException e) {
             System.out.println(e.getMessage());

@@ -7,8 +7,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-class BudgetFactory{
-    public static Budget createSimpleBudget(ResultSet rs) throws SQLException{
+class BudgetFactory implements GenericFactory<Budget>{
+    public Budget createEntity(ResultSet rs) throws SQLException{
         int id = rs.getInt("id");
         Car car = new CarDAO().getCarById(rs.getInt("car_id"));
         double price = rs.getDouble("price");
@@ -18,29 +18,19 @@ class BudgetFactory{
         return new Budget(id, null, null, car, price, date_start, date_finish);
     }
 
-    public static Budget createBudget(ResultSet rs, ArrayList<Parts> parts, ArrayList<Service> services) throws SQLException{
-        int id = rs.getInt("id");
-        Car car = new CarDAO().getCarById(rs.getInt("car_id"));
-        double price = rs.getDouble("price");
-        LocalDate date_start = rs.getDate("date_start").toLocalDate();
-        LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
-
-        return new Budget(id, parts, services, car, price, date_start, date_finish);
-    }
-
-    public static ArrayList<Budget> createArrayBudget(ResultSet rs) throws SQLException{
+    public ArrayList<Budget> createArrayEntity(ResultSet rs) throws SQLException{
         ArrayList<Budget> budgets = new ArrayList<Budget>();
 
         while (rs.next())
-            budgets.add(createSimpleBudget(rs));
+            budgets.add(createEntity(rs));
 
         return budgets;
     }
 }
 
-public class BudgetDAO extends GenericDAO{
+public class BudgetDAO extends GenericDAO<Budget>{
     public BudgetDAO(){
-        super("Budget");
+        super("Budget", new BudgetFactory());
     }
 
     public ArrayList<Budget> getAllBudget(){
@@ -49,7 +39,7 @@ public class BudgetDAO extends GenericDAO{
         if (rs == null) return null;
 
         try {
-            return BudgetFactory.createArrayBudget(rs);
+            return factory.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -69,7 +59,11 @@ public class BudgetDAO extends GenericDAO{
                 ArrayList<Parts> parts = getPartsByBudget(id);
                 ArrayList<Service> services = getServiceByBudget(id);
 
-                return BudgetFactory.createBudget(rs, parts, services);
+                Budget budget = factory.createEntity(rs);
+                budget.setParts(parts);
+                budget.setServices(services);
+
+                return budget;
             }
         }
 
@@ -88,7 +82,7 @@ public class BudgetDAO extends GenericDAO{
         if (rs == null) return null;
 
         try {
-            return BudgetFactory.createArrayBudget(rs);
+            return factory.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -108,7 +102,7 @@ public class BudgetDAO extends GenericDAO{
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
-            return BudgetFactory.createArrayBudget(ps.executeQuery());
+            return factory.createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -129,7 +123,7 @@ public class BudgetDAO extends GenericDAO{
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
-            return BudgetFactory.createArrayBudget(ps.executeQuery());
+            return factory.createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){

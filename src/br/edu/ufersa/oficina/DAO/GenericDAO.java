@@ -6,12 +6,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class GenericDAO {
-    String table;
+public class GenericDAO<T> {
+    protected String table;
+    protected GenericFactory<T> factory;
+
+    public GenericDAO(String table, GenericFactory<T> factory){
+        setTable(table);
+        setFactory(factory);
+    }
 
     public GenericDAO(String table){
-        this.table = table;
+        setTable(table);
     }
 
     public void delete(int id){
@@ -98,4 +105,19 @@ public class GenericDAO {
         return filter("id", Integer.toString(id));
     }
 
+    public String getTable() {
+        return table;
+    }
+
+    public void setTable(String table) {
+        this.table = table;
+    }
+
+    public GenericFactory<T> getFactory() {
+        return factory;
+    }
+
+    public void setFactory(GenericFactory<T> factory) {
+        this.factory = factory;
+    }
 }
