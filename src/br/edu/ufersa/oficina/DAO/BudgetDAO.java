@@ -1,6 +1,8 @@
 package br.edu.ufersa.oficina.DAO;
 
 import br.edu.ufersa.oficina.Factories.BudgetFactory;
+import br.edu.ufersa.oficina.Factories.PartsFactory;
+import br.edu.ufersa.oficina.Factories.ServiceFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.*;
 

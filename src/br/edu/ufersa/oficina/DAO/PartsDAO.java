@@ -1,29 +1,10 @@
 package br.edu.ufersa.oficina.DAO;
 
+import br.edu.ufersa.oficina.Factories.PartsFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.Parts;
 import java.sql.*;
 import java.util.ArrayList;
-
-class PartsFactory {
-    public static Parts createPart(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        double price = rs.getDouble("price");
-        String manufacturer = rs.getString("manufacturer");
-        String model = rs.getString("model");
-
-        return new Parts(id, name, price, manufacturer, model);
-    }
-
-    public static ArrayList<Parts> createArrayParts(ResultSet rs) throws SQLException {
-        ArrayList<Parts> parts = new ArrayList<>();
-        while (rs.next()) {
-            parts.add(createPart(rs));
-        }
-        return parts;
-    }
-}
 
 public class PartsDAO extends GenericDAO {
 

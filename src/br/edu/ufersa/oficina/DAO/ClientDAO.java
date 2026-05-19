@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.DAO;
 
+import br.edu.ufersa.oficina.Factories.ClientFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.Client;
 
@@ -8,27 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
-class ClientFactory{
-    public static Client createClient(ResultSet rs) throws SQLException{
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String address = rs.getNString("address");
-        long cpf = rs.getLong("cpf");
-
-        return new Client(id, name, address, cpf);
-
-    }
-
-    public static ArrayList<Client> createArrayClients(ResultSet rs) throws SQLException{
-        ArrayList<Client> clients = new ArrayList<Client>();
-
-        while (rs.next())
-            clients.add(createClient(rs));
-
-        return clients;
-    }
-}
 
 public class ClientDAO extends GenericDAO{
 
