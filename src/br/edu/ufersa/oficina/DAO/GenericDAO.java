@@ -17,6 +17,7 @@ public class GenericDAO<T> {
         setFactory(factory);
     }
 
+    @Deprecated
     public GenericDAO(String table){
         setTable(table);
     }
