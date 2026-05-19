@@ -1,12 +1,12 @@
 package br.edu.ufersa.oficina.DAO;
 
+import br.edu.ufersa.oficina.Factories.GenericFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class GenericDAO<T> {
     protected String table;

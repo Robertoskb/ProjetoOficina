@@ -1,29 +1,10 @@
 package br.edu.ufersa.oficina.DAO;
 
+import br.edu.ufersa.oficina.Factories.UserFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.User;
 import java.sql.*;
 import java.util.ArrayList;
-
-class UserFactory implements GenericFactory<User>{
-    public User createEntity(ResultSet rs) throws SQLException{
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        String email = rs.getString("email");
-        String password = rs.getString("password");
-
-        return new User(id, name, email, password);
-    }
-
-    public ArrayList<User> createArrayEntity(ResultSet rs) throws SQLException{
-        ArrayList<User> users = new ArrayList<User>();
-
-        while (rs.next())
-            users.add(createEntity(rs));
-
-        return users;
-    }
-}
 
 public class UserDAO extends GenericDAO<User> {
 

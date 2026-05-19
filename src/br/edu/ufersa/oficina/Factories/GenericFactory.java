@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.DAO;
+package br.edu.ufersa.oficina.Factories;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

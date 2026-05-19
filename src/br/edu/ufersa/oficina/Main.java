@@ -1,11 +1,8 @@
 package br.edu.ufersa.oficina;
 
 import br.edu.ufersa.oficina.DAO.*;
-import br.edu.ufersa.oficina.connection.ConnectionDB;
+import br.edu.ufersa.oficina.Factories.OrderDAO;
 import br.edu.ufersa.oficina.entity.*;
-
-import java.sql.Connection;
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
