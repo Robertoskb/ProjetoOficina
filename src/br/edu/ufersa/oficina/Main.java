@@ -31,10 +31,10 @@ public class Main {
         for (User u: ud.getAllUsers())
             u.show();
 
-        for (Budget b: bd.getAllBudget())
+        for (Budget b: bd.getAllEntity())
             b.show();
 
-        for (Order o: od.getAllOrder()){
+        for (Order o: od.getAllEntity()){
             o.show();
         }
     }

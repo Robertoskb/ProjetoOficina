@@ -3,6 +3,7 @@ package br.edu.ufersa.oficina.Factories;
 import br.edu.ufersa.oficina.DAO.CarDAO;
 import br.edu.ufersa.oficina.entity.Car;
 import br.edu.ufersa.oficina.entity.Order;
+import br.edu.ufersa.oficina.entity.Treatment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,7 +23,7 @@ public class OrderFactory implements GenericFactory<Order> {
     }
 
     public ArrayList<Order> createArrayEntity(ResultSet rs) throws SQLException {
-        ArrayList<Order> orders = new ArrayList<Order>();
+        ArrayList<Order> orders = new ArrayList<>();
 
         while (rs.next())
             orders.add(createEntity(rs));

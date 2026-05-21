@@ -1,146 +1,15 @@
 package br.edu.ufersa.oficina.DAO;
 
 import br.edu.ufersa.oficina.Factories.OrderFactory;
-import br.edu.ufersa.oficina.Factories.PartsFactory;
-import br.edu.ufersa.oficina.Factories.ServiceFactory;
 import br.edu.ufersa.oficina.connection.ConnectionDB;
 import br.edu.ufersa.oficina.entity.*;
 
 import java.sql.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
-public class OrderDAO extends GenericDAO<Order> {
+
+public class OrderDAO extends TreatmentDAO<Order> {
     public OrderDAO() {
-        super("`Order`", new OrderFactory());
-    }
-
-    public ArrayList<Order> getAllOrder() {
-        ResultSet rs = getAll();
-
-        if (rs == null) return null;
-
-        try {
-            return factory.createArrayEntity(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
-    }
-
-    public Order getOrderById(int id) {
-        ResultSet rs = filterById(id);
-
-        if (rs == null) return null;
-
-        try {
-            if (rs.next()) {
-                ArrayList<Parts> parts = getPartsByOrder(id);
-                ArrayList<Service> services = getServiceByOrder(id);
-
-                Order order = factory.createEntity(rs);
-                order.setParts(parts);
-                order.setServices(services);
-
-                return order;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-        }
-
-        return null;
-
-    }
-
-    public ArrayList<Order> getOrderByCar(Car car) {
-        ResultSet rs = filter("car_id", Integer.toString(car.getId()));
-
-        if (rs == null) return null;
-
-        try {
-            return factory.createArrayEntity(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
-    }
-
-    public ArrayList<Order> getOrderByClient(Client client) {
-        Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
-
-        String sql = " SELECT b.* FROM Order b JOIN Car c ON b.car_id = c.id  WHERE c.client_id = ? ";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setInt(1, client.getId());
-
-            return factory.createArrayEntity(ps.executeQuery());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
-    }
-
-    public ArrayList<Order> getOrderByPeriod(LocalDate start, LocalDate end) {
-        Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
-
-        String sql = "SELECT * FROM Order WHERE date_start BETWEEN ? AND ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            ps.setDate(1, Date.valueOf(start));
-            ps.setDate(2, Date.valueOf(end));
-
-            return factory.createArrayEntity(ps.executeQuery());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
-    }
-
-    private ArrayList<Parts> getPartsByOrder(int id) {
-        Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
-
-        String sql = "SELECT p.* FROM Parts p JOIN Order_Parts op ON p.id = op.part_id WHERE op.order_id = ? ";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-
-            return PartsFactory.createArrayParts(ps.executeQuery());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
-    }
-
-    private ArrayList<Service> getServiceByOrder(int id) {
-        Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
-
-        String sql = "SELECT s.* FROM Service s JOIN Order_Services os ON s.id = os.service_id WHERE os.order_id = ?";
-
-        try (PreparedStatement ps = conn.prepareStatement(sql)) {
-
-            ps.setInt(1, id);
-
-            return ServiceFactory.createArrayServices(ps.executeQuery());
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-
-            return null;
-        }
+        super("`Order`", new OrderFactory(), "order");
     }
 
     public void addOrder(Order order) {
@@ -169,7 +38,7 @@ public class OrderDAO extends GenericDAO<Order> {
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            OrderPartServiceDAO.addComplete(order, conn);
+            tsd.addComplete(order, conn);
 
             conn.commit();
         } catch (SQLException e) {
@@ -207,7 +76,7 @@ public class OrderDAO extends GenericDAO<Order> {
 
             ps.executeUpdate();
 
-            OrderPartServiceDAO.updateComplete(order, conn);
+            tsd.updateComplete(order, conn);
 
             conn.commit();
         } catch (SQLException e) {

@@ -9,36 +9,11 @@ import java.util.ArrayList;
 public class UserDAO extends GenericDAO<User> {
 
     public UserDAO(){
-
         super("User", new UserFactory());
     }
 
-    public User getUserById(int id){
-        try (ResultSet rs = filterById(id)) {
-            if (rs != null && rs.next()) {
-                return factory.createEntity(rs);
-            }
-        }
-
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-
-        }
-        return null;
-    }
-
     public ArrayList<User> getAllUsers(){
-        ResultSet rs = getAll();
-
-        if (rs == null) return null;
-        try {
-            return factory.createArrayEntity(rs);
-        }
-        catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-
+        return getAllEntity();
     }
 
     private void register(String name, String email, String password){
@@ -63,10 +38,6 @@ public class UserDAO extends GenericDAO<User> {
 
     public void addUser(User user){
         register(user.getName(), user.getEmail(), user.getPassword());
-    }
-
-    public void addUser(String name, String email, String password){
-        register(name, email, password);
     }
 
     public void updateUser(User user){

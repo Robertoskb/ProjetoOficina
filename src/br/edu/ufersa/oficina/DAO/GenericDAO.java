@@ -7,12 +7,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-public class GenericDAO<T> {
+public class GenericDAO<E> {
     protected String table;
-    protected GenericFactory<T> factory;
+    protected GenericFactory<E> factory;
 
-    public GenericDAO(String table, GenericFactory<T> factory){
+    public GenericDAO(String table, GenericFactory<E> factory){
         setTable(table);
         setFactory(factory);
     }
@@ -39,6 +40,7 @@ public class GenericDAO<T> {
         }
     }
 
+    @Deprecated
     public ResultSet getALl(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
@@ -59,6 +61,7 @@ public class GenericDAO<T> {
         }
     }
 
+    @Deprecated
     public ResultSet getAll(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
@@ -79,6 +82,27 @@ public class GenericDAO<T> {
         }
     }
 
+    public ArrayList<E> getAllEntity(){
+        Connection conn = ConnectionDB.getConnection();
+        System.out.println(table);
+        if (conn == null) return null;
+
+        String sql = "SELECT * FROM " + this.table;
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            return factory.createArrayEntity(ps.executeQuery());
+
+        }
+
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+
+            return null;
+        }
+    }
+
+    @Deprecated
     public ResultSet filter(String column, String value){
         Connection conn = ConnectionDB.getConnection();
 
@@ -101,9 +125,35 @@ public class GenericDAO<T> {
         }
     }
 
+    public E filterEntity(String column, String value){
+        Connection conn = ConnectionDB.getConnection();
 
+        if (conn == null) return null;
+
+        String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
+
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, value);
+
+            return factory.createEntity(ps.executeQuery());
+
+        }
+
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+
+            return null;
+        }
+    }
+
+    @Deprecated
     public ResultSet filterById(int id) {
         return filter("id", Integer.toString(id));
+    }
+
+    public E filterEntityById(int id) {
+        return filterEntity("id", Integer.toString(id));
     }
 
     public String getTable() {
@@ -114,11 +164,11 @@ public class GenericDAO<T> {
         this.table = table;
     }
 
-    public GenericFactory<T> getFactory() {
+    public GenericFactory<E> getFactory() {
         return factory;
     }
 
-    public void setFactory(GenericFactory<T> factory) {
+    public void setFactory(GenericFactory<E> factory) {
         this.factory = factory;
     }
 }
