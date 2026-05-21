@@ -1,5 +1,3 @@
-package br.edu.ufersa.oficina;
-
 import br.edu.ufersa.oficina.DAO.*;
 import br.edu.ufersa.oficina.DAO.OrderDAO;
 import br.edu.ufersa.oficina.entity.*;
