@@ -22,7 +22,7 @@ public class CarFactory implements GenericFactory<Car> {
         return new Car(id, brand, model, color, plate, year, mileage, client);
     }
 
-    public static ArrayList<Car> createArrayEntity(ResultSet rs) throws SQLException {
+    public ArrayList<Car> createArrayEntity(ResultSet rs) throws SQLException {
         ArrayList<Car> cars = new ArrayList<>();
         while (rs.next())
             cars.add(createEntity(rs));
