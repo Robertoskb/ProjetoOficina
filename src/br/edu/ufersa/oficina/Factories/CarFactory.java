@@ -8,8 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CarFactory {
-    public static Car createCar(ResultSet rs) throws SQLException {
+public class CarFactory implements GenericFactory<Car> {
+    public Car createEntity(ResultSet rs) throws SQLException {
         Client client = new ClientDAO().getClientById(rs.getInt("client_id"));
         int id = rs.getInt("id");
         String brand = rs.getString("brand");
@@ -22,11 +22,10 @@ public class CarFactory {
         return new Car(id, brand, model, color, plate, year, mileage, client);
     }
 
-    public static ArrayList<Car> createArrayCars(ResultSet rs) throws SQLException {
-        ArrayList<Car> cars = new ArrayList<Car>();
-        while (rs.next()) {
-            cars.add(createCar(rs));
-        }
+    public static ArrayList<Car> createArrayEntity(ResultSet rs) throws SQLException {
+        ArrayList<Car> cars = new ArrayList<>();
+        while (rs.next())
+            cars.add(createEntity(rs));
         return cars;
     }
 }
