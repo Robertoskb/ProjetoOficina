@@ -10,53 +10,39 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CarDAO extends GenericDAO {
+public class CarDAO extends GenericDAO<Car> {
 
     public CarDAO() {
-        super("car");
+        super("car", new CarFactory());
     }
 
     public ArrayList<Car> getAllCar() {
-        ResultSet rs = getAll();
-        if (rs == null) return new ArrayList<>();
-        try{
-            return CarFactory.createArrayCars(rs);
-        } catch (SQLException e){
-            System.out.println(e.getMessage());
-            return new ArrayList<>();
-        }
+        return getAllEntity();
     }
     
     public Car getCarById(int id) {
-        try (ResultSet rs = filterById(id)) {
-            if (rs != null && rs.next()) {
-                return CarFactory.createCar(rs);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return filterEntityById(id);
     }
 
     public Car getCarByPlate(String plate) {
-        try (ResultSet rs = filter("plate", plate)) {
-            if (rs != null && rs.next()) {
-                return CarFactory.createCar(rs);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return filterEntity("plate", plate);
     }
 
     public ArrayList<Car> getCarsByClientId(int id) {
-        try (ResultSet rs = filter("client_id", Integer.toString(id))) {
-            if (rs == null) return new ArrayList<>();
-            return CarFactory.createArrayCars(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
+        Connection conn = ConnectionDB.getConnection();
+        if (conn = null) return new ArrayList<>();
+
+        String sql = "SELECT * FROM " + table + " WHERE client_id = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            return factory.createArrayEntity(rs);
+        }catch (SQLException e){
+            System.out.pritLn(e.getMessage());
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+        
     }
 
     public void addCar(Car car) {
