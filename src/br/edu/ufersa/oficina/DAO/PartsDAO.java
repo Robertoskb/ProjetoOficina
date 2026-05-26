@@ -6,33 +6,18 @@ import br.edu.ufersa.oficina.entity.Parts;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PartsDAO extends GenericDAO {
+public class PartsDAO extends GenericDAO<Parts> {
 
     public PartsDAO() {
-        super("parts");
+        super("parts", new PartsFactory());
     }
 
     public Parts getPartById(int id) {
-        try (ResultSet rs = filterById(id)) {
-            if (rs != null && rs.next()) {
-                return PartsFactory.createPart(rs);
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
+        return filterEntityById(id);
     }
 
     public ArrayList<Parts> getAllParts() {
-        ResultSet rs = getALl();
-        if (rs == null) return null;
-
-        try {
-            return PartsFactory.createArrayParts(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
+        return getAllEntity();
     }
 
     private void register(String name, double price, String manufacturer, String model) {
