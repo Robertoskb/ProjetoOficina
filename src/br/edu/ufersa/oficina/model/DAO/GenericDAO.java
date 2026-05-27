@@ -135,8 +135,10 @@ public class GenericDAO<E> {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, value);
-
-            return factory.createEntity(ps.executeQuery());
+            ResultSet rs = ps.executeQuery();
+            if (rs.next())
+                return factory.createEntity(rs);
+            return null;
 
         }
 
