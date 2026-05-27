@@ -40,7 +40,7 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
             ps.setInt(1, id);
 
-            return PartsFactory.createArrayParts(ps.executeQuery());
+            return new PartsFactory().createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -61,7 +61,7 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
             ps.setInt(1, id);
 
-            return ServiceFactory.createArrayServices(ps.executeQuery());
+            return new ServiceFactory().createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -71,7 +71,7 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public T getBudgetById(int id){
+    public T getTreatmentById(int id){
 
         T treatment = filterEntityById(id);
 
@@ -94,7 +94,7 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return filterEntity("car_id", Integer.toString(car.getId()));
     }
 
-    public ArrayList<T> getBudgetByClient(Client client){
+    public ArrayList<T> getTreatmentByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
@@ -114,7 +114,7 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getBudgetByPeriod(LocalDate start, LocalDate end){
+    public ArrayList<T> getTreatmentByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return null;
