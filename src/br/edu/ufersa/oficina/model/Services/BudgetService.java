@@ -61,6 +61,13 @@ public class BudgetService {
         budgetDAO.updateBudget(budget);
     }
 
+    public void delete(int id){
+        if (budgetDAO.getTreatmentById(id) == null)
+            throw new MecNotFoundException("Orçamento não encontrado");
+
+        budgetDAO.delete(id);
+    }
+
     public BudgetDAO getBudgetDAO() {
         return budgetDAO;
     }
