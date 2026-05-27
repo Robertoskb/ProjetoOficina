@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.model.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.PartsFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.Parts;
@@ -22,7 +23,7 @@ public class PartsDAO extends GenericDAO<Parts> {
 
     private void register(String name, double price, String manufacturer, String model) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) return;
+        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "INSERT INTO " + table + " (name, price, manufacturer, model) VALUES (?, ?, ?, ?)";
 
@@ -33,7 +34,7 @@ public class PartsDAO extends GenericDAO<Parts> {
             ps.setString(4, model);
             ps.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -43,7 +44,7 @@ public class PartsDAO extends GenericDAO<Parts> {
 
     public void updatePart(Parts part) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) return;
+        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE id = ?";
 
@@ -55,7 +56,7 @@ public class PartsDAO extends GenericDAO<Parts> {
             ps.setInt(5, part.getId());
             ps.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 }
