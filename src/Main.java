@@ -1,6 +1,6 @@
-import br.edu.ufersa.oficina.DAO.*;
-import br.edu.ufersa.oficina.DAO.OrderDAO;
-import br.edu.ufersa.oficina.entity.*;
+import br.edu.ufersa.oficina.model.DAO.*;
+import br.edu.ufersa.oficina.model.DAO.OrderDAO;
+import br.edu.ufersa.oficina.model.entity.*;
 
 public class Main {
     public static void main(String[] args) {
