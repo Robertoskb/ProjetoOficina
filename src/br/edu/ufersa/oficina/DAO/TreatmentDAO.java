@@ -90,8 +90,24 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
     }
 
-    public T getByCar(Car car){
-        return filterEntity("car_id", Integer.toString(car.getId()));
+    public ArrayList<T> getTreatmentByCar(Car car){
+        Connection conn = ConnectionDB.getConnection();
+
+        if (conn == null) return null;
+
+        String sql = "SELECT * FROM " + table + " WHERE client_id = ? ";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, car.getId());
+
+            return factory.createArrayEntity(ps.executeQuery());
+        }
+
+        catch (SQLException e){
+            System.out.println(e.getMessage());
+
+            return null;
+        }
     }
 
     public ArrayList<T> getTreatmentByClient(Client client){
