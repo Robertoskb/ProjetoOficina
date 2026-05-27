@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class ServiceDAO extends GenericDAO {
     public ServiceDAO() {
-        super("service");
+        super("service", new ServiceFactory());
     }
 
     public ArrayList<Service> getAllService(){

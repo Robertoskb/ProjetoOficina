@@ -1,13 +1,14 @@
 package br.edu.ufersa.oficina.Factories;
 
 import br.edu.ufersa.oficina.entity.Client;
+import br.edu.ufersa.oficina.entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClientFactory {
-    public static Client createClient(ResultSet rs) throws SQLException {
+public class ClientFactory implements GenericFactory<Client> {
+    public Client createClient(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String name = rs.getString("name");
         String address = rs.getNString("address");
@@ -17,7 +18,7 @@ public class ClientFactory {
 
     }
 
-    public static ArrayList<Client> createArrayClients(ResultSet rs) throws SQLException {
+    public ArrayList<Client> createArrayClients(ResultSet rs) throws SQLException {
         ArrayList<Client> clients = new ArrayList<Client>();
 
         while (rs.next())

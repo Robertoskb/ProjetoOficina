@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class ClientDAO extends GenericDAO{
 
     public ClientDAO(){
-        super("client");
+        super("client", new ClientFactory());
     }
 
 
