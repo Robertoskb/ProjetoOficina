@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ClientFactory implements GenericFactory<Client> {
-    public Client createClient(ResultSet rs) throws SQLException {
+    public Client createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String name = rs.getString("name");
         String address = rs.getNString("address");
@@ -17,11 +17,11 @@ public class ClientFactory implements GenericFactory<Client> {
 
     }
 
-    public ArrayList<Client> createArrayClients(ResultSet rs) throws SQLException {
+    public ArrayList<Client> createArrayEntity(ResultSet rs) throws SQLException {
         ArrayList<Client> clients = new ArrayList<Client>();
 
         while (rs.next())
-            clients.add(createClient(rs));
+            clients.add(createEntity(rs));
 
         return clients;
     }

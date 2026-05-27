@@ -9,23 +9,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ServiceDAO extends GenericDAO {
+public class ServiceDAO extends GenericDAO<Service> {
     public ServiceDAO() {
         super("service", new ServiceFactory());
     }
 
-    public ArrayList<Service> getAllService(){
-        ResultSet rs = getALl();
-
-        if (rs == null) return null;
-
-        try {
-            return ServiceFactory.createArrayServices(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
+    public ArrayList<Service> getAllService() { return getAllEntity(); }
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 
@@ -69,26 +58,9 @@ public class ServiceDAO extends GenericDAO {
         this.register(name, price);
     }
 
-    public Service getServiceBy(int id) {
-        try (ResultSet rs = this.filterById(id)) {
-            if (rs != null && rs.next())
-                return ServiceFactory.createService(rs);
+    public Service getServiceById(int id) { return filterEntityById(id); }
 
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return null;
-    }
-
-    public ArrayList<Service> getServiceByName(String name) {
-        try (ResultSet rs = this.filter("name", name)) {
-            if (rs != null && rs.next())
-                return ServiceFactory.createArrayServices(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
-        return null;
+    public Service getServiceByName(String name)  {
+        return filterEntity("name", name);
     }
 }
