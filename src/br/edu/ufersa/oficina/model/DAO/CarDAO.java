@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.model.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.CarFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.Car;
@@ -30,7 +31,7 @@ public class CarDAO extends GenericDAO<Car> {
 
     public ArrayList<Car> getCarsByClientId(int id) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) return new ArrayList<>();
+        if (conn == null) throw new MecExeption("Falha ao conectar ao banco de dados.");
 
         String sql = "SELECT * FROM " + table + " WHERE client_id = ?";
 
@@ -40,14 +41,14 @@ public class CarDAO extends GenericDAO<Car> {
             return factory.createArrayEntity(rs);
         }catch (SQLException e){
             System.out.pritLn(e.getMessage());
-            return new ArrayList<>();
+            throw new MecException(e.getMessage());
         }
         
     }
 
     public void addCar(Car car) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) return;
+        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "INSERT INTO " + table + " (client_id, brand, model, color, plate, `year`, mileage) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
@@ -61,13 +62,13 @@ public class CarDAO extends GenericDAO<Car> {
             ps.setInt(7, car.getMileage());
             ps.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 
     public void updateCar(Car car) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) return;
+        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";
 
@@ -82,7 +83,7 @@ public class CarDAO extends GenericDAO<Car> {
             ps.setInt(8, car.getId());
             ps.execute();
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 }
