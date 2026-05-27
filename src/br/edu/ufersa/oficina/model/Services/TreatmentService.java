@@ -17,6 +17,10 @@ public class TreatmentService<T extends Treatment> {
         setTreatmentDAO(treatmentDAO);
     }
 
+    public ArrayList<T> getAllTreatment(){
+        return treatmentDAO.getAllEntity();
+    }
+
     public T getTreatmentById(int id){
         T treatment = treatmentDAO.getTreatmentById(id);
 
