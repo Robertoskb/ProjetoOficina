@@ -30,7 +30,7 @@ public class CarDAO extends GenericDAO<Car> {
 
     public ArrayList<Car> getCarsByClientId(int id) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn = null) return new ArrayList<>();
+        if (conn == null) return new ArrayList<>();
 
         String sql = "SELECT * FROM " + table + " WHERE client_id = ?";
 
