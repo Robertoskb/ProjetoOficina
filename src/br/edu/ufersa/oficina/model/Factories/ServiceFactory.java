@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceFactory implements GenericFactory<Service> {
-    public Service createService(ResultSet rs) throws SQLException {
+    public Service createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("id");
         String name = rs.getString("name");
         double price = rs.getDouble("price");
@@ -15,11 +15,11 @@ public class ServiceFactory implements GenericFactory<Service> {
         return new Service(id, name, price);
     }
 
-    public ArrayList<Service> createArrayServices(ResultSet rs) throws SQLException {
+    public ArrayList<Service> createArrayEntity(ResultSet rs) throws SQLException {
         ArrayList<Service> services = new ArrayList<Service>();
 
         while (rs.next())
-            services.add(createService(rs));
+            services.add(createEntity(rs));
 
         return services;
     }

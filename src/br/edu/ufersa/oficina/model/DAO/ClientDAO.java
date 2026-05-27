@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class ClientDAO extends GenericDAO{
+public class ClientDAO extends GenericDAO<Client> {
 
     public ClientDAO(){
         super("client", new ClientFactory());
@@ -18,31 +18,11 @@ public class ClientDAO extends GenericDAO{
 
 
 
-    public Client getClientById(int id){
-        try (ResultSet rs = filterById(id)){
-            if (rs != null && rs.next())
-                return ClientFactory.createClient(rs);
-        }
-
-        catch (SQLException e){
-            System.out.println(e.getMessage());
-
-        }
-        return null;
+    public Client getClientById(int id) {
+        return filterEntityById(id);
     }
 
-    public ArrayList<Client> getAllClient(){
-        ResultSet rs = getALl();
-
-        if (rs == null) return null;
-
-        try {
-            return ClientFactory.createArrayClients(rs);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-            return null;
-        }
-    }
+    public ArrayList<Client> getAllClient() { return getAllEntity(); }
 
     private void register(String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
