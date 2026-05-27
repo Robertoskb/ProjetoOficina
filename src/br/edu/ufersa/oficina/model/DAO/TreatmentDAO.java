@@ -11,7 +11,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
+public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     protected String treatmentParts = "_Parts";
     protected String treatmentServices = "_Services";
     protected String base;
@@ -27,6 +27,9 @@ public class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
         setTsd(new TreatmentPartServiceDAO(base, treatmentParts, treatmentServices));
     }
+
+    public abstract void addTreatment(T treatment);
+    public abstract void updateTreatment(T treatment);
 
     private ArrayList<Parts> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();

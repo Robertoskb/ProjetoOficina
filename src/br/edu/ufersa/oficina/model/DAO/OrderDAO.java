@@ -12,7 +12,7 @@ public class OrderDAO extends TreatmentDAO<Order> {
         super("`Order`", new OrderFactory(), "order");
     }
 
-    public void addOrder(Order order) {
+    public void addTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;
@@ -56,7 +56,7 @@ public class OrderDAO extends TreatmentDAO<Order> {
         }
     }
 
-    public void updateOrder(Order order) {
+    public void updateTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;

@@ -12,7 +12,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         super("Budget", new BudgetFactory(), "budget");
     }
 
-    public void addBudget(Budget budget){
+    public void addTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;
@@ -60,7 +60,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         }
     }
 
-    public void updateBudget(Budget budget){
+    public void updateTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
         if (conn == null) return;
