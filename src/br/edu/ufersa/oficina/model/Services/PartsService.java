@@ -1,11 +1,10 @@
 package br.edu.ufersa.oficina.model.Services;
 
-import br.edu.ufersa.oficina.model.DAO.CarDAO;
-import br.edu.ufersa.oficina.modelExceptions.MecException;
-import br.edu.ufersa.oficina.modelExceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Car;
+import br.edu.ufersa.oficina.model.DAO.PartsDAO;
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
+import br.edu.ufersa.oficina.model.entity.Parts;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PartsService {
@@ -18,7 +17,7 @@ public class PartsService {
 
             throw new MecException("Nome inválido");
 
-        if(part.Manufacturer.trim().isEmpty())
+        if(part.getManufacturer().trim().isEmpty())
 
             throw new MecException("Fabricante inválido");
 
@@ -42,10 +41,20 @@ public class PartsService {
 
     }
 
+    public Parts getPartById(int id) {
+        Parts part = dao.getPartById(id);
+
+        if (part == null) {
+            throw new MecNotFoundException("Peça não encontrada");
+        }
+
+        return part;
+    }
+
     public void deletePart(int id){
 
         getPartById(id);
-        dao.deletePart(id);
+        dao.delete(id);
 
     }
 

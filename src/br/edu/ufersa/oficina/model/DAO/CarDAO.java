@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.model.Exceptions.MecException;
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.CarFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.Car;
@@ -40,7 +40,6 @@ public class CarDAO extends GenericDAO<Car> {
             ResultSet rs = ps.executeQuery();
             return factory.createArrayEntity(rs);
         }catch (SQLException e){
-            System.out.pritLn(e.getMessage());
             throw new MecException(e.getMessage());
         }
         

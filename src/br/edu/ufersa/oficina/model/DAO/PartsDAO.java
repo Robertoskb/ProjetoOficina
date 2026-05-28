@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.model.Exceptions.MecException;
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.PartsFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.Parts;
