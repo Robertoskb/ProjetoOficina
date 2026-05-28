@@ -21,9 +21,26 @@ public class PartsDAO extends GenericDAO<Parts> {
         return getAllEntity();
     }
 
+    public Parts getPartByName(String name){
+
+        return filterEntity("name", name);
+
+    }
+
+    public Parts getPartByManufacturer(String manufacturer){
+
+        return filterEntity("manufacturer", manufacturer);
+
+    }
+
+    public Parts getPartByModel(String model){
+
+        return filterEntity("model", model);
+
+    }
+
     private void register(String name, double price, String manufacturer, String model) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "INSERT INTO " + table + " (name, price, manufacturer, model) VALUES (?, ?, ?, ?)";
 
@@ -44,7 +61,6 @@ public class PartsDAO extends GenericDAO<Parts> {
 
     public void updatePart(Parts part) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE id = ?";
 
