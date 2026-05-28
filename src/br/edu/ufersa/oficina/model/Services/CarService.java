@@ -73,6 +73,7 @@ public class CarService {
         Car car = dao.getByPlate(plate);
 
         if(car == null)
+        
             throw new MecNotFoundException("Carro não encontrado");
         
         return car;
@@ -81,24 +82,12 @@ public class CarService {
 
     public ArrayList<Car> getCarsByClientId(int clientId){
         
-        ArrayList<Car> cars = dao.getByClientId(clientId);
-        
-        if(cars.isEmpty())
-        
-            throw new MecNotFoundException("Nenhum carro encontrado para este cliente");
-       
-        return cars;
+        return dao.getCarsByClientId();
 
     }
     public ArrayList<Car> getAllCars(){
 
-        ArrayList<Car> cars = dao.getAll();
-
-        if(cars.isEmpty())
-        
-            throw new MecNotFoundException("Nenhum carro encontrado");
-        
-            return cars;
+        return dao.getAllCars();
 
     }
 
