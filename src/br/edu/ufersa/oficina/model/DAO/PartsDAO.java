@@ -10,32 +10,38 @@ import java.util.ArrayList;
 public class PartsDAO extends GenericDAO<Parts> {
 
     public PartsDAO() {
+
         super("parts", new PartsFactory());
+
     }
 
     public Parts getPartById(int id) {
+
         return filterEntityById(id);
+
     }
 
     public ArrayList<Parts> getAllParts() {
+
         return getAllEntity();
-    }
-
-    public Parts getPartByName(String name){
-
-        return filterEntity("name", name);
 
     }
 
-    public Parts getPartByManufacturer(String manufacturer){
+    public ArrayList<Parts> getPartByName(String name){
 
-        return filterEntity("manufacturer", manufacturer);
+        return filterArrayEntity("name", name);
 
     }
 
-    public Parts getPartByModel(String model){
+    public ArrayList<Parts> getPartByManufacturer(String manufacturer){
 
-        return filterEntity("model", model);
+        return filterArrayEntity("manufacturer", manufacturer);
+
+    }
+
+    public ArrayList<Parts> getPartByModel(String model){
+
+        return filterArrayEntity("model", model);
 
     }
 
