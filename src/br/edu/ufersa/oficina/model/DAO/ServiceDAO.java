@@ -2,6 +2,7 @@ package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.entity.Parts;
 import br.edu.ufersa.oficina.model.entity.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -18,8 +19,6 @@ public class ServiceDAO extends GenericDAO<Service> {
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return;
-
         String sql = "INSERT INTO " + this.table + " (name, proce) VALUES (?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -34,8 +33,6 @@ public class ServiceDAO extends GenericDAO<Service> {
 
     public void update(Service service) {
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return;
 
         String sql = "UPDATE TABLE " + this.table + " SET name = ?, price = ? WHERE id = ?";
 
@@ -60,7 +57,7 @@ public class ServiceDAO extends GenericDAO<Service> {
 
     public Service getServiceById(int id) { return filterEntityById(id); }
 
-    public Service getServiceByName(String name)  {
-        return filterEntity("name", name);
+    public ArrayList<Service> getServiceByName(String name)  {
+        return filterArrayEntity("name", name);
     }
 }

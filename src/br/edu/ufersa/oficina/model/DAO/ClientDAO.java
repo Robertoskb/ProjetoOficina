@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.ClientFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.Client;
@@ -27,8 +28,6 @@ public class ClientDAO extends GenericDAO<Client> {
     private void register(String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return;
-
         String sql = "INSERT INTO " + table + " (name, address, cpf) VALUES (?, ?, ?)";
 
         try {
@@ -39,7 +38,7 @@ public class ClientDAO extends GenericDAO<Client> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -54,8 +53,6 @@ public class ClientDAO extends GenericDAO<Client> {
     public void update(int id, String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return;
-
         String sql = "UPDATE " + table + " SET name = ?, andress = ?, cpf = ? WHERE id ?";
 
         try {
@@ -68,7 +65,7 @@ public class ClientDAO extends GenericDAO<Client> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 
