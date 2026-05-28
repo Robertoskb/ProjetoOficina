@@ -6,6 +6,7 @@ import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
 import br.edu.ufersa.oficina.model.entity.Parts;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PartsService {
     
@@ -58,9 +59,9 @@ public class PartsService {
 
     }
 
-    public Parts getPartsByName(String name){
+    public ArrayList<Parts> getPartsByName(String name){
 
-        Parts part = dao.getPartByName(name);
+        ArrayList<Parts> part = dao.getPartByName(name);
 
         if(part == null){
 
@@ -72,9 +73,9 @@ public class PartsService {
 
     }
 
-    public Parts getPartByManufacturer(String manufacturer){
+    public ArrayList<Parts> getPartByManufacturer(String manufacturer){
 
-        Parts part = dao.getPartByManufacturer(manufacturer);
+        ArrayList<Parts> part = dao.getPartByManufacturer(manufacturer);
 
         if(part == null){
 
@@ -86,9 +87,9 @@ public class PartsService {
 
     }
 
-    public Parts getPartByModel(String model){
+    public ArrayList<Parts> getPartByModel(String model){
 
-        Parts part = dao.getPartByModel(model);
+        ArrayList<Parts> part = dao.getPartByModel(model);
 
         if(part == null){
 
