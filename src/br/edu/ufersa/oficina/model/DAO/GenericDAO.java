@@ -19,11 +19,6 @@ public class GenericDAO<E> {
         setFactory(factory);
     }
 
-    @Deprecated
-    public GenericDAO(String table){
-        setTable(table);
-    }
-
     public void delete(int id){
         Connection conn = ConnectionDB.getConnection();
 
@@ -33,42 +28,6 @@ public class GenericDAO<E> {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setInt(1, id);
             ps.execute();
-        }
-
-        catch (SQLException e){
-            throw new MecException(e.getMessage());
-        }
-    }
-
-    @Deprecated
-    public ResultSet getALl(){
-        Connection conn = ConnectionDB.getConnection();
-        System.out.println(table);
-
-        String sql = "SELECT * FROM " + this.table;
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            return ps.executeQuery();
-
-        }
-
-        catch (SQLException e){
-            throw new MecException(e.getMessage());
-        }
-    }
-
-    @Deprecated
-    public ResultSet getAll(){
-        Connection conn = ConnectionDB.getConnection();
-        System.out.println(table);
-
-        String sql = "SELECT * FROM " + this.table;
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            return ps.executeQuery();
-
         }
 
         catch (SQLException e){
@@ -92,8 +51,7 @@ public class GenericDAO<E> {
         }
     }
 
-    @Deprecated
-    public ResultSet filter(String column, String value){
+    private ResultSet filter(String column, String value){
         Connection conn = ConnectionDB.getConnection();
 
 
@@ -111,28 +69,25 @@ public class GenericDAO<E> {
         }
     }
 
-    public E filterEntity(String column, String value){
-        Connection conn = ConnectionDB.getConnection();
-
-        String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
-
+    public ArrayList<E> filterArrayEntity(String column, String value){
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, value);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                return factory.createEntity(rs);
-            return null;
-        }
+            ResultSet rs = filter(column, value);
+            return factory.createArrayEntity(rs);
 
-        catch (SQLException e){
+        } catch (SQLException e) {
             throw new MecException(e.getMessage());
         }
     }
 
-    @Deprecated
-    public ResultSet filterById(int id) {
-        return filter("id", Integer.toString(id));
+    public E filterEntity(String column, String value){
+        try {
+            ResultSet rs = filter(column, value);
+            if (rs != null)
+                return factory.createEntity(rs);
+            return null;
+        } catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
     }
 
     public E filterEntityById(int id) {
