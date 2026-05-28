@@ -31,7 +31,7 @@ public class CarDAO extends GenericDAO<Car> {
 
     public ArrayList<Car> getCarsByClientId(int id) {
         Connection conn = ConnectionDB.getConnection();
-        if (conn == null) throw new MecExeption("Falha ao conectar ao banco de dados.");
+        if (conn == null) throw new MecException("Falha ao conectar ao banco de dados.");
 
         String sql = "SELECT * FROM " + table + " WHERE client_id = ?";
 
