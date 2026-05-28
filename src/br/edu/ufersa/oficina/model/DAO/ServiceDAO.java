@@ -19,7 +19,7 @@ public class ServiceDAO extends GenericDAO<Service> {
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + this.table + " (name, proce) VALUES (?, ?)";
+        String sql = "INSERT INTO " + this.table + " (name, price) VALUES (?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
