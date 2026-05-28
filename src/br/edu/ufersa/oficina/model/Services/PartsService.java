@@ -51,14 +51,8 @@ public class PartsService {
 
     public ArrayList<Parts> getAllParts(){
 
-        ArrayList<Parts> parts = dao.getAllParts();
-
-        if(parts.isEmpty())
-
-            throw new MecNotFoundException("Nenhuma peça encontrada");
-
-        return parts;
-
+        return dao.getAllParts();
+        
     }
 
     public PartsDAO getDao() {
