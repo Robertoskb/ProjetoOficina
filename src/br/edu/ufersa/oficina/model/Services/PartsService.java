@@ -58,6 +58,48 @@ public class PartsService {
 
     }
 
+    public Parts getPartsByName(String name){
+
+        Parts part = dao.getPartByName(name);
+
+        if(part == null){
+
+            throw new MecNotFoundException("Peça com esse nome não encontrada");
+
+        }
+
+        return part;
+
+    }
+
+    public Parts getPartByManufacturer(String manufacturer){
+
+        Parts part = dao.getPartByManufacturer(manufacturer);
+
+        if(part == null){
+
+            throw new MecNotFoundException("Peça desse fabricante não encontrada");
+
+        }
+
+        return part;
+
+    }
+
+    public Parts getPartByModel(String model){
+
+        Parts part = dao.getPartByModel(model);
+
+        if(part == null){
+
+            throw new MecNotFoundException("Peça desse modelo não encontrada");
+
+        }
+
+        return part;
+
+    }
+
     public ArrayList<Parts> getAllParts(){
 
         return dao.getAllParts();
