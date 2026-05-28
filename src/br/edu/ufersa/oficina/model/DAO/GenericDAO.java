@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.GenericFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 
@@ -35,8 +36,7 @@ public class GenericDAO<E> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -44,7 +44,6 @@ public class GenericDAO<E> {
     public ResultSet getALl(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + this.table;
 
@@ -55,9 +54,7 @@ public class GenericDAO<E> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -65,7 +62,6 @@ public class GenericDAO<E> {
     public ResultSet getAll(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + this.table;
 
@@ -76,29 +72,23 @@ public class GenericDAO<E> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     public ArrayList<E> getAllEntity(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + this.table;
 
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             return factory.createArrayEntity(ps.executeQuery());
-
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -106,7 +96,6 @@ public class GenericDAO<E> {
     public ResultSet filter(String column, String value){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
 
@@ -115,20 +104,15 @@ public class GenericDAO<E> {
             ps.setString(1, value);
 
             return ps.executeQuery();
-
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     public E filterEntity(String column, String value){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
 
@@ -139,13 +123,10 @@ public class GenericDAO<E> {
             if (rs.next())
                 return factory.createEntity(rs);
             return null;
-
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 

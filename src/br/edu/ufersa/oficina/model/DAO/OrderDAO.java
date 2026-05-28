@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.OrderFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.*;
@@ -14,8 +15,6 @@ public class OrderDAO extends TreatmentDAO<Order> {
 
     public void addTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return;
 
         String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish, completed) " +
                 "VALUES (?, ?, ?, ?)";
@@ -44,22 +43,19 @@ public class OrderDAO extends TreatmentDAO<Order> {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                System.out.println(e.getMessage());
+                throw new MecException(e.getMessage());
             } catch (SQLException e1) {
-                System.out.println(e1.getMessage());
+                throw new MecException(e1.getMessage());
             }
         } finally {
             try {
                 conn.setAutoCommit(true);
-            } catch (SQLException ignored) {
-            }
+            } catch (SQLException ignored) {}
         }
     }
 
     public void updateTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return;
 
         String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ?, completed = ? WHERE id = ?";
 
@@ -82,15 +78,14 @@ public class OrderDAO extends TreatmentDAO<Order> {
         } catch (SQLException e) {
             try {
                 conn.rollback();
-                System.out.println(e.getMessage());
+                throw new MecException(e.getMessage());
             } catch (SQLException e1) {
-                System.out.println(e1.getMessage());
+                throw new MecException(e1.getMessage());
             }
         } finally {
             try {
                 conn.setAutoCommit(true);
-            } catch (SQLException ignored) {
-            }
+            } catch (SQLException ignored) {}
         }
     }
 }

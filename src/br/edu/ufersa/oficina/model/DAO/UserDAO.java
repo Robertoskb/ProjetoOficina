@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.UserFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.User;
@@ -19,8 +20,6 @@ public class UserDAO extends GenericDAO<User> {
     private void register(String name, String email, String password){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return;
-
         String sql = "INSERT INTO " + table + " (name, email, password) values (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
@@ -32,7 +31,7 @@ public class UserDAO extends GenericDAO<User> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
     }
 
@@ -42,8 +41,6 @@ public class UserDAO extends GenericDAO<User> {
 
     public void updateUser(User user){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return;
 
         String sql = "UPDATE TABLE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";
 
@@ -59,8 +56,7 @@ public class UserDAO extends GenericDAO<User> {
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
+            throw new MecException(e.getMessage());
         }
     }
 

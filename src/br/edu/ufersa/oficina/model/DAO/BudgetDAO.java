@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.BudgetFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.entity.*;
@@ -45,11 +46,11 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         catch (SQLException e){
             try {
                 conn.rollback();
-                System.out.println(e.getMessage());
+                throw new MecException(e.getMessage());
             }
 
             catch (SQLException e1){
-                System.out.println(e1.getMessage());
+                throw new MecException(e1.getMessage());
             }
         }
 
@@ -62,8 +63,6 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
 
     public void updateTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return;
 
         String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ? WHERE id = ?";
 
@@ -87,11 +86,11 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         catch (SQLException e){
             try {
                 conn.rollback();
-                System.out.println(e.getMessage());
+                throw new MecException(e.getMessage());
             }
 
             catch (SQLException e1){
-                System.out.println(e1.getMessage());
+                throw new MecException(e1.getMessage());
             }
         }
 

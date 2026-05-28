@@ -1,5 +1,7 @@
 package br.edu.ufersa.oficina.model.connection;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
+
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ public class ConnectionDB {
         }
 
         catch (SQLException e) {
-            e.printStackTrace(System.out);
+            throw new MecException(e.getMessage());
         }
 
         return connection;

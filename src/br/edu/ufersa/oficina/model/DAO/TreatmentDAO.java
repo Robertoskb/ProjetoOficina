@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.GenericFactory;
 import br.edu.ufersa.oficina.model.Factories.PartsFactory;
 import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
@@ -34,9 +35,6 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     private ArrayList<Parts> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return null;
-
-
         String sql = "SELECT p.* FROM Parts p JOIN " + treatmentParts + " tp ON p.id = tp.part_id WHERE tp.budget_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
@@ -47,16 +45,12 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     private ArrayList<Service> getServiceByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
 
         String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.id = ts.service_id WHERE ts.budget_id = ?";
 
@@ -68,35 +62,27 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     public T getTreatmentById(int id){
-
         T treatment = filterEntityById(id);
 
         if (treatment != null){
             ArrayList<Parts> parts = getPartsByTreatment(id);
             ArrayList<Service> services = getServiceByTreatment(id);
 
-
             treatment.setParts(parts);
             treatment.setServices(services);
-
-            return treatment;
         }
 
-        return null;
+        return treatment;
 
     }
 
     public ArrayList<T> getTreatmentByCar(Car car){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + table + " WHERE client_id = ? ";
 
@@ -107,16 +93,12 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     public ArrayList<T> getTreatmentByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
 
         String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.id  WHERE c.client_id = ? ";
 
@@ -127,16 +109,12 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
     public ArrayList<T> getTreatmentByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
-
-        if (conn == null) return null;
 
         String sql = "SELECT * FROM " + table + " WHERE date_start BETWEEN ? AND ?";
 
@@ -148,9 +126,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         catch (SQLException e){
-            System.out.println(e.getMessage());
-
-            return null;
+            throw new MecException(e.getMessage());
         }
     }
 
