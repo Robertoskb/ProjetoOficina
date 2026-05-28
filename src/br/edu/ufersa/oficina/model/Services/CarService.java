@@ -49,9 +49,7 @@ public class CarService {
 
     public void updateCar(Car car){
 
-        if(getCarById(car.getId()) == null)
-
-            throw new MecNotFoundException("Carro não encontrado");
+        getCarById(car.getId());
 
         dao.updateCar(car);
 
@@ -73,9 +71,7 @@ public class CarService {
 
     public void deleteCar(int id){
 
-        if(getCarById(id) == null)
-
-            throw new MecNotFoundException("Carro não encontrado");
+        getCarById(id);
 
         dao.delete(id);
 
