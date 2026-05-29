@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class TreatmentService<T extends Treatment> {
-    private TreatmentDAO<T> treatmentDAO;
+    protected TreatmentDAO<T> treatmentDAO;
 
     public TreatmentService(TreatmentDAO<T> treatmentDAO) {
         setTreatmentDAO(treatmentDAO);
