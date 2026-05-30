@@ -11,12 +11,13 @@ public class ClientService {
     private final ClientDAO dao = new ClientDAO();
 
     public void addClient(Client client){
-        String name, address, cpf;
+        String name, address;
+        long cpf;
         name = client.getName();
         address = client.getAddress();
         cpf = client.getCPF();
 
-        if (!name.trim().isEmpty() && !address.trim().isEmpty() && !cpf.trim().isEmpty()){
+        if (!name.trim().isEmpty() && !address.trim().isEmpty() && (cpf == 0)){
             dao.addClient(client);
         }
         else {
@@ -35,10 +36,6 @@ public class ClientService {
 
     public ArrayList<Client> getAllClients(){
         ArrayList<Client> clients = dao.getAllClient();
-
-        if (clients == null)
-            throw new MecNotFoundException("Nenhum cliente encontrado");
-
         return clients;
     }
 

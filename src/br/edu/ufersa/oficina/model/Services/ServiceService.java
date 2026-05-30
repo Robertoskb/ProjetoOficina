@@ -11,11 +11,12 @@ public class ServiceService {
     private final ServiceDAO dao = new ServiceDAO();
 
     public void addService(Service service){
-        String name, price;
+        String name;
+        double price;
         name = service.getName();
         price = service.getPrice();
 
-        if (!name.trim().isEmpty() && !price.trim().isEmpty()){
+        if (!name.trim().isEmpty() && (price == 0)){
             dao.addService(service);
         }
         else {
@@ -32,12 +33,13 @@ public class ServiceService {
         return service;
     }
 
+    public ArrayList<Service> getServiceByName(String name)  {
+        ArrayList<Service> services = dao.filterArrayEntity("name", name);
+        return services;
+    }
+
     public ArrayList<Service> getAllServices(){
         ArrayList<Service> services = dao.getAllService();
-
-        if (services == null)
-            throw new MecNotFoundException("Nenhum serviço encontrado");
-
         return services;
     }
 
