@@ -17,7 +17,7 @@ public class ClientService {
         address = client.getAddress();
         cpf = client.getCPF();
 
-        if (!name.trim().isEmpty() && !address.trim().isEmpty() && (cpf == 0)){
+        if (!name.trim().isEmpty() && !address.trim().isEmpty() && (cpf > 0)){
             dao.addClient(client);
         }
         else {

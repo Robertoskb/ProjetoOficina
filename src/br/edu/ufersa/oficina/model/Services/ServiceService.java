@@ -16,7 +16,7 @@ public class ServiceService {
         name = service.getName();
         price = service.getPrice();
 
-        if (!name.trim().isEmpty() && (price == 0)){
+        if (!name.trim().isEmpty() && (price > 0)){
             dao.addService(service);
         }
         else {
