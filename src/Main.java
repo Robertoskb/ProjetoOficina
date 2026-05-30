@@ -1,38 +1,39 @@
 import br.edu.ufersa.oficina.model.DAO.*;
 import br.edu.ufersa.oficina.model.DAO.OrderDAO;
+import br.edu.ufersa.oficina.model.Services.*;
 import br.edu.ufersa.oficina.model.entity.*;
 
 public class Main {
     public static void main(String[] args) {
-        CarDAO cd = new CarDAO();
-        PartsDAO pd = new PartsDAO();
+        CarService cs = new CarService();
+        PartsService ps = new PartsService();
 
-        for (Car c: cd.getAllCar())
+       for (Car c: cs.getAllCars())
             c.show();
 
-        for (Parts p: pd.getAllParts())
+        for (Parts p: ps.getAllParts())
             p.show();
 
-        ClientDAO cld = new ClientDAO();
-        ServiceDAO sd = new ServiceDAO();
+        ClientService csv = new ClientService();
+        ServiceService ss = new ServiceService();
 
-        for (Client c: cld.getAllClient())
+        for (Client c: csv.getAllClients())
             c.show();
 
-        for (Service s: sd.getAllService())
+        for (Service s: ss.getAllServices())
             s.show();
 
-        UserDAO ud = new UserDAO();
-        BudgetDAO bd = new BudgetDAO();
-        OrderDAO od = new OrderDAO();
+        UserService us = new UserService();
+        BudgetService bs = new BudgetService();
+        OrderService os = new OrderService();
 
-        for (User u: ud.getAllUsers())
+        for (User u: us.getAllUsers())
             u.show();
 
-        for (Budget b: bd.getAllEntity())
+        for (Budget b: bs.getAllTreatment())
             b.show();
 
-        for (Order o: od.getAllEntity()){
+        for (Order o: os.getAllTreatment()){
             o.show();
         }
     }
