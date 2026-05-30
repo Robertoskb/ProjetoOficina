@@ -16,8 +16,6 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
     public void addTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        if (conn == null) return;
-
         String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish) " +
                             "VALUES (?, ?, ?, ?)";
 
