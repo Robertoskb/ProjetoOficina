@@ -82,7 +82,7 @@ public class GenericDAO<E> {
     public E filterEntity(String column, String value){
         try {
             ResultSet rs = filter(column, value);
-            if (rs != null)
+            if (rs.next())
                 return factory.createEntity(rs);
             return null;
         } catch (SQLException e) {
