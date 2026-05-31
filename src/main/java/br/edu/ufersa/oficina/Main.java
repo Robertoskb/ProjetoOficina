@@ -1,5 +1,5 @@
-import br.edu.ufersa.oficina.model.DAO.*;
-import br.edu.ufersa.oficina.model.DAO.OrderDAO;
+package br.edu.ufersa.oficina;
+
 import br.edu.ufersa.oficina.model.Services.*;
 import br.edu.ufersa.oficina.model.entity.*;
 
