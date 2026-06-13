@@ -27,14 +27,19 @@ public class Main {
         BudgetService bs = new BudgetService();
         OrderService os = new OrderService();
 
-        for (User u: us.getAllUsers())
-            u.show();
-
-        for (Budget b: bs.getAllTreatment())
-            b.show();
-
+        for (Budget b: bs.getAllTreatment()){
+            b = bs.getTreatmentById(b.getId());
+            for (Parts p: b.getParts())
+                p.show();
+            for (Service s: b.getServices())
+                s.show();
+        }
         for (Order o: os.getAllTreatment()){
-            o.show();
+            o = os.getTreatmentById(o.getId());
+            for (Parts p: o.getParts())
+                p.show();
+            for (Service s: o.getServices())
+                s.show();
         }
     }
 }

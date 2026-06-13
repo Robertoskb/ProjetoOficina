@@ -11,7 +11,7 @@ public class PartsDAO extends GenericDAO<Parts> {
 
     public PartsDAO() {
 
-        super("parts", new PartsFactory());
+        super("Parts", new PartsFactory());
 
     }
 
@@ -29,7 +29,7 @@ public class PartsDAO extends GenericDAO<Parts> {
 
     public ArrayList<Parts> getPartByName(String name){
 
-        return filterArrayEntity("name", name);
+        return filterArrayEntity("part_name", name);
 
     }
 

@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class GenericDAO<E> {
     protected String table;
@@ -24,8 +25,7 @@ public class GenericDAO<E> {
 
         String sql = "DELETE FROM " + this.table + " WHERE id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, id);
             ps.execute();
         }
@@ -41,27 +41,8 @@ public class GenericDAO<E> {
 
         String sql = "SELECT * FROM " + this.table;
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            return factory.createArrayEntity(ps.executeQuery());
-        }
-
-        catch (SQLException e){
-            throw new MecException(e.getMessage());
-        }
-    }
-
-    private ResultSet filter(String column, String value){
-        Connection conn = ConnectionDB.getConnection();
-
-
-        String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
-
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, value);
-
-            return ps.executeQuery();
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            return factory.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -70,9 +51,15 @@ public class GenericDAO<E> {
     }
 
     public ArrayList<E> filterArrayEntity(String column, String value){
-        try {
-            ResultSet rs = filter(column, value);
-            return factory.createArrayEntity(rs);
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, value);
+            try (ResultSet rs = ps.executeQuery()) {
+                return factory.createArrayEntity(rs);
+            }
 
         } catch (SQLException e) {
             throw new MecException(e.getMessage());
@@ -80,18 +67,26 @@ public class GenericDAO<E> {
     }
 
     public E filterEntity(String column, String value){
-        try {
-            ResultSet rs = filter(column, value);
-            if (rs.next())
-                return factory.createEntity(rs);
-            return null;
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT * FROM " + this.table + " WHERE " + column + " = ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, value);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next())
+                    return factory.createEntity(rs);
+                return null;
+            }
+
         } catch (SQLException e) {
             throw new MecException(e.getMessage());
         }
     }
 
     public E filterEntityById(int id) {
-        return filterEntity("id", Integer.toString(id));
+        String prefix = table.toLowerCase().replace('`', '\0');
+        return filterEntity(prefix + "_id", Integer.toString(id));
     }
 
     public String getTable() {

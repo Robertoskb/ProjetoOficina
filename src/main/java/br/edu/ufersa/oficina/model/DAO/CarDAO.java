@@ -15,20 +15,41 @@ public class CarDAO extends GenericDAO<Car> {
 
     public CarDAO() {
 
-        super("car", new CarFactory());
+        super("Car", new CarFactory());
 
     }
 
     public ArrayList<Car> getAllCar() {
+        Connection conn = ConnectionDB.getConnection();
 
-        return getAllEntity();
+        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id";
 
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            return factory.createArrayEntity(rs);
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
     }
     
     public Car getCarById(int id) {
+        Connection conn = ConnectionDB.getConnection();
 
-        return filterEntityById(id);
+        String sql = "SELECT FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id where c.car_id = ?";
 
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next())
+                    return factory.createEntity(rs);
+                return null;
+            }
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
     }
 
     public Car getCarByPlate(String plate) {

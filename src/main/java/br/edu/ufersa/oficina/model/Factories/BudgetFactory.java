@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class BudgetFactory implements GenericFactory<Budget> {
     public Budget createEntity(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        Car car = new CarDAO().getCarById(rs.getInt("car_id"));
-        double price = rs.getDouble("price");
-        LocalDate date_start = rs.getDate("date_start").toLocalDate();
-        LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
+        int id = rs.getInt("budget_id");
+        Car car = new CarFactory().createEntity(rs);
+        double price = rs.getDouble("budget_price");
+        LocalDate date_start = rs.getDate("budget_date_start").toLocalDate();
+        LocalDate date_finish = rs.getDate("budget_date_finish").toLocalDate();
 
         return new Budget(id, null, null, car, price, date_start, date_finish);
     }

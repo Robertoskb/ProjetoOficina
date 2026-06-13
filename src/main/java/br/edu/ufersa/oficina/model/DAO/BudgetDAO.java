@@ -10,13 +10,13 @@ import java.sql.*;
 
 public class BudgetDAO extends TreatmentDAO<Budget>{
     public BudgetDAO(){
-        super("Budget", new BudgetFactory(), "budget");
+        super("budget", new BudgetFactory(), "budget");
     }
 
     public void addTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish) " +
+        String sql = "INSERT INTO " + table + " (car_id, budget_price, budget_date_start, budget_date_finish) " +
                             "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
@@ -36,7 +36,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            BudgetPartServiceDAO.addComplete(budget, conn);
+            tsd.addComplete(budget, conn);
 
             conn.commit();
         }
@@ -62,7 +62,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
     public void updateTreatment(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, budget_price = ?, budget_date_start = ?, budget_date_finish = ? WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             conn.setAutoCommit(false);
@@ -76,7 +76,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
 
             ps.executeUpdate();
 
-            BudgetPartServiceDAO.updateComplete(budget, conn);
+            tsd.updateComplete(budget, conn);
 
             conn.commit();
         }

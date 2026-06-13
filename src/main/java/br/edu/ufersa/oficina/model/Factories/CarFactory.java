@@ -10,8 +10,8 @@ import java.util.ArrayList;
 
 public class CarFactory implements GenericFactory<Car> {
     public Car createEntity(ResultSet rs) throws SQLException {
-        Client client = new ClientDAO().getClientById(rs.getInt("client_id"));
-        int id = rs.getInt("id");
+        Client client = new ClientFactory().createEntity(rs);
+        int id = rs.getInt("car_id");
         String brand = rs.getString("brand");
         String model = rs.getString("model");
         String color = rs.getString("color");

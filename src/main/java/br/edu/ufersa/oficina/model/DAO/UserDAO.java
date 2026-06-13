@@ -20,7 +20,7 @@ public class UserDAO extends GenericDAO<User> {
     private void register(String name, String email, String password){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (name, email, password) values (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (name, email, password) values (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
@@ -42,15 +42,14 @@ public class UserDAO extends GenericDAO<User> {
     public void updateUser(User user){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE TABLE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
 
-            ps.setInt(5, user.getId());
+            ps.setInt(4, user.getId());
 
             ps.execute();
         }

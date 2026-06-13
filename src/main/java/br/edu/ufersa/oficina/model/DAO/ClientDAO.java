@@ -14,10 +14,8 @@ import java.util.ArrayList;
 public class ClientDAO extends GenericDAO<Client> {
 
     public ClientDAO(){
-        super("client", new ClientFactory());
+        super("Client", new ClientFactory());
     }
-
-
 
     public Client getClientById(int id) {
         return filterEntityById(id);
@@ -30,11 +28,12 @@ public class ClientDAO extends GenericDAO<Client> {
 
         String sql = "INSERT INTO " + table + " (name, address, cpf) VALUES (?, ?, ?)";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
             ps.setString(2, address);
             ps.setLong(3, cpf);
+
+            ps.execute();
         }
 
         catch (SQLException e){
@@ -53,15 +52,16 @@ public class ClientDAO extends GenericDAO<Client> {
     public void update(int id, String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET name = ?, andress = ?, cpf = ? WHERE id ?";
+        String sql = "UPDATE " + table + " SET client_name = ?, address = ?, cpf = ? WHERE id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
             ps.setString(2, address);
             ps.setLong(3, cpf);
 
             ps.setInt(4, id);
+
+            ps.execute();
         }
 
         catch (SQLException e){

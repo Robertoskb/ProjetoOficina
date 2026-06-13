@@ -11,11 +11,11 @@ import java.util.ArrayList;
 
 public class OrderFactory implements GenericFactory<Order> {
     public Order createEntity(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        Car car = new CarDAO().getCarById(rs.getInt("car_id"));
-        double price = rs.getDouble("price");
-        LocalDate date_start = rs.getDate("date_start").toLocalDate();
-        LocalDate date_finish = rs.getDate("date_finish").toLocalDate();
+        int id = rs.getInt("order_id");
+        Car car = new CarFactory().createEntity(rs);
+        double price = rs.getDouble("order_price");
+        LocalDate date_start = rs.getDate("order_date_start").toLocalDate();
+        LocalDate date_finish = rs.getDate("order_date_finish").toLocalDate();
         boolean completed = rs.getBoolean("completed");
 
         return new Order(id, null, null, car, price, date_start, date_finish, completed);

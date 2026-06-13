@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class ClientFactory implements GenericFactory<Client> {
     public Client createEntity(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
+        int id = rs.getInt("client_id");
+        String name = rs.getString("client_name");
         String address = rs.getNString("address");
         long cpf = rs.getLong("cpf");
 

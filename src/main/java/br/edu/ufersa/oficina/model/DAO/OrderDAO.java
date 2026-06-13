@@ -1,11 +1,16 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Factories.OrderFactory;
 import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.*;
-
-import java.sql.*;
+import br.edu.ufersa.oficina.model.entity.Order;
 
 
 public class OrderDAO extends TreatmentDAO<Order> {
@@ -13,11 +18,12 @@ public class OrderDAO extends TreatmentDAO<Order> {
         super("`Order`", new OrderFactory(), "order");
     }
 
+    @Override
     public void addTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish, completed) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (car_id, order_price, order_date_start, order_date_finish, completed) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             conn.setAutoCommit(false);
@@ -54,10 +60,11 @@ public class OrderDAO extends TreatmentDAO<Order> {
         }
     }
 
+    @Override
     public void updateTreatment(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ?, completed = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, order_price = ?, order_date_start = ?, order_date_finish = ?, completed = ? WHERE id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);

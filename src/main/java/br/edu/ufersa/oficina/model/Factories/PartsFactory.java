@@ -8,9 +8,9 @@ import java.util.ArrayList;
 
 public class PartsFactory implements GenericFactory<Parts> {
     public Parts createEntity(ResultSet rs) throws SQLException {
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        double price = rs.getDouble("price");
+        int id = rs.getInt("part_id");
+        String name = rs.getString("part_name");
+        double price = rs.getDouble("part_price");
         String manufacturer = rs.getString("manufacturer");
         String model = rs.getString("model");
 
