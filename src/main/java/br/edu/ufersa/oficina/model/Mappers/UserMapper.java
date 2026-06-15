@@ -1,12 +1,12 @@
-package br.edu.ufersa.oficina.model.Factories;
+package br.edu.ufersa.oficina.model.Mappers;
 
-import br.edu.ufersa.oficina.model.entity.User;
+import br.edu.ufersa.oficina.model.Entity.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class UserFactory implements GenericFactory<User> {
+public class UserMapper implements GenericMapper<User> {
     public User createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("user_id");
         String name = rs.getString("user_name");

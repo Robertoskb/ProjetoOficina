@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.OrderFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Order;
+import br.edu.ufersa.oficina.model.Mappers.OrderMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Order;
 
 
 public class OrderDAO extends TreatmentDAO<Order> {
     public OrderDAO() {
-        super("`Order`", new OrderFactory(), "order");
+        super("`Order`", new OrderMapper(), "order");
     }
 
     @Override

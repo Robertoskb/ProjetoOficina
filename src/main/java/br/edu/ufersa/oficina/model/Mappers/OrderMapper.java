@@ -1,18 +1,17 @@
-package br.edu.ufersa.oficina.model.Factories;
+package br.edu.ufersa.oficina.model.Mappers;
 
-import br.edu.ufersa.oficina.model.DAO.CarDAO;
-import br.edu.ufersa.oficina.model.entity.Car;
-import br.edu.ufersa.oficina.model.entity.Order;
+import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Order;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class OrderFactory implements GenericFactory<Order> {
+public class OrderMapper implements GenericMapper<Order> {
     public Order createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("order_id");
-        Car car = new CarFactory().createEntity(rs);
+        Car car = new CarMapper().createEntity(rs);
         double price = rs.getDouble("order_price");
         LocalDate date_start = rs.getDate("order_date_start").toLocalDate();
         LocalDate date_finish = rs.getDate("order_date_finish").toLocalDate();

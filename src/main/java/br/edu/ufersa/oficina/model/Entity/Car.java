@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.model.entity;
+package br.edu.ufersa.oficina.model.Entity;
 
 public class Car {
     private int id;

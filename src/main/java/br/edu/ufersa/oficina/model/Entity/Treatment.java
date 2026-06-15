@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.model.entity;
+package br.edu.ufersa.oficina.model.Entity;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -6,14 +6,14 @@ import java.util.ArrayList;
 
 public class Treatment {
     private int id;
-    private ArrayList<Parts> parts;
+    private ArrayList<Part> parts;
     private ArrayList<Service> services;
     private Car car;
     private double price;
     private LocalDate date_start;
     private LocalDate date_finish;
 
-    public Treatment(int id, ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price){
+    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -22,7 +22,7 @@ public class Treatment {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price){
+    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setParts(parts);
         setServices(services);
         setCar(car);
@@ -30,7 +30,7 @@ public class Treatment {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(int id, ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -41,7 +41,7 @@ public class Treatment {
 
     }
 
-    public Treatment(ArrayList<Parts> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setParts(parts);
         setServices(services);
         setCar(car);
@@ -64,11 +64,11 @@ public class Treatment {
         this.id = id;
     }
 
-    public ArrayList<Parts> getParts() {
+    public ArrayList<Part> getParts() {
         return parts;
     }
 
-    public void setParts(ArrayList<Parts> parts) {
+    public void setParts(ArrayList<Part> parts) {
         this.parts = parts;
     }
 

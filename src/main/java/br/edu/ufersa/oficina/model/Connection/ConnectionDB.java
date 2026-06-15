@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.model.connection;
+package br.edu.ufersa.oficina.model.Connection;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 

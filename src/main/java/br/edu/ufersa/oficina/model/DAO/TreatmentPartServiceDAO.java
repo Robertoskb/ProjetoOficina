@@ -4,9 +4,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import br.edu.ufersa.oficina.model.entity.Parts;
-import br.edu.ufersa.oficina.model.entity.Service;
-import br.edu.ufersa.oficina.model.entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.Part;
+import br.edu.ufersa.oficina.model.Entity.Service;
+import br.edu.ufersa.oficina.model.Entity.Treatment;
 
 public class TreatmentPartServiceDAO{
     private String treatmentParts;
@@ -23,7 +23,7 @@ public class TreatmentPartServiceDAO{
         String sql = "INSERT INTO " + treatmentParts + " (" + base + "_id, part_id) " + "VALUES (?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
-            for (Parts part: treatment.getParts()){
+            for (Part part: treatment.getParts()){
                 ps.setInt(1, treatment.getId());
                 ps.setInt(2, part.getId());
                 ps.addBatch();
@@ -65,7 +65,7 @@ public class TreatmentPartServiceDAO{
         }
 
         try (PreparedStatement psInsert = conn.prepareStatement(insertRelation)) {
-            for (Parts part : treatment.getParts()) {
+            for (Part part : treatment.getParts()) {
                 psInsert.setInt(1, treatment.getId());
                 psInsert.setInt(2, part.getId());
                 psInsert.addBatch();

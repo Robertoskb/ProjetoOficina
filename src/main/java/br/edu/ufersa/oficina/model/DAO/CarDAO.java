@@ -1,9 +1,9 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.CarFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Car;
+import br.edu.ufersa.oficina.model.Mappers.CarMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Car;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,11 +15,11 @@ public class CarDAO extends GenericDAO<Car> {
 
     public CarDAO() {
 
-        super("Car", new CarFactory());
+        super("Car", new CarMapper());
 
     }
 
-    public ArrayList<Car> getAllCar() {
+    public ArrayList<Car> getAllCars() {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id";

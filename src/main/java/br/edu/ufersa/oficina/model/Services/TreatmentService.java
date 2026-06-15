@@ -3,9 +3,9 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.TreatmentDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Treatment;
-import br.edu.ufersa.oficina.model.entity.Car;
-import br.edu.ufersa.oficina.model.entity.Client;
+import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Client;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,8 +17,8 @@ public class TreatmentService<T extends Treatment> {
         setTreatmentDAO(treatmentDAO);
     }
 
-    public ArrayList<T> getAllTreatment(){
-        return treatmentDAO.getAllEntity();
+    public ArrayList<T> getAllTreatments(){
+        return treatmentDAO.getAllEntities();
     }
 
     public T getTreatmentById(int id){
@@ -31,18 +31,18 @@ public class TreatmentService<T extends Treatment> {
     }
 
     public ArrayList<T> getTreatmentByClient(Client client){
-        return treatmentDAO.getTreatmentByClient(client);
+        return treatmentDAO.getTreatmentsByClient(client);
     }
 
     public ArrayList<T> getTreatmentByCar(Car car){
-        return treatmentDAO.getTreatmentByCar(car);
+        return treatmentDAO.getTreatmentsByCar(car);
     }
 
     public ArrayList<T> getTreatmentByPeriod(LocalDate start, LocalDate end){
         if (start.isAfter(end))
             throw new MecException("Período inválido");
 
-        return treatmentDAO.getTreatmentByPeriod(start, end);
+        return treatmentDAO.getTreatmentsByPeriod(start, end);
     }
 
     public void addTreatment(T treatment) {

@@ -1,22 +1,19 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Parts;
-import br.edu.ufersa.oficina.model.entity.Service;
+import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ServiceDAO extends GenericDAO<Service> {
     public ServiceDAO() {
-        super("Service", new ServiceFactory());
+        super("Service", new ServiceMapper());
     }
 
-    public ArrayList<Service> getAllService() { return getAllEntity(); }
+    public ArrayList<Service> getAllServices() { return getAllEntities(); }
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 

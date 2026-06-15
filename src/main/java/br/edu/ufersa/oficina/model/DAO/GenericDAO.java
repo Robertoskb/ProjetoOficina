@@ -1,21 +1,20 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.GenericFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class GenericDAO<E> {
     protected String table;
-    protected GenericFactory<E> factory;
+    protected GenericMapper<E> factory;
 
-    public GenericDAO(String table, GenericFactory<E> factory){
+    public GenericDAO(String table, GenericMapper<E> factory){
         setTable(table);
         setFactory(factory);
     }
@@ -35,7 +34,7 @@ public class GenericDAO<E> {
         }
     }
 
-    public ArrayList<E> getAllEntity(){
+    public ArrayList<E> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
         System.out.println(table);
 
@@ -97,11 +96,11 @@ public class GenericDAO<E> {
         this.table = table;
     }
 
-    public GenericFactory<E> getFactory() {
+    public GenericMapper<E> getFactory() {
         return factory;
     }
 
-    public void setFactory(GenericFactory<E> factory) {
+    public void setFactory(GenericMapper<E> factory) {
         this.factory = factory;
     }
 }

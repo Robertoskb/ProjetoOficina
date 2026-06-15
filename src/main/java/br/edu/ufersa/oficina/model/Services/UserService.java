@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.UserDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.User;
+import br.edu.ufersa.oficina.model.Entity.User;
 
 import java.util.ArrayList;
 

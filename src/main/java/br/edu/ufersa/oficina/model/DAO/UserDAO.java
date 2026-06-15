@@ -1,20 +1,20 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.UserFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.User;
+import br.edu.ufersa.oficina.model.Mappers.UserMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.User;
 import java.sql.*;
 import java.util.ArrayList;
 
 public class UserDAO extends GenericDAO<User> {
 
     public UserDAO(){
-        super("User", new UserFactory());
+        super("User", new UserMapper());
     }
 
     public ArrayList<User> getAllUsers(){
-        return getAllEntity();
+        return getAllEntities();
     }
 
     private void register(String name, String email, String password){

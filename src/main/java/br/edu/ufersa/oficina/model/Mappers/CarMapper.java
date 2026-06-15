@@ -1,16 +1,15 @@
-package br.edu.ufersa.oficina.model.Factories;
+package br.edu.ufersa.oficina.model.Mappers;
 
-import br.edu.ufersa.oficina.model.DAO.ClientDAO;
-import br.edu.ufersa.oficina.model.entity.Car;
-import br.edu.ufersa.oficina.model.entity.Client;
+import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Client;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class CarFactory implements GenericFactory<Car> {
+public class CarMapper implements GenericMapper<Car> {
     public Car createEntity(ResultSet rs) throws SQLException {
-        Client client = new ClientFactory().createEntity(rs);
+        Client client = new ClientMapper().createEntity(rs);
         int id = rs.getInt("car_id");
         String brand = rs.getString("brand");
         String model = rs.getString("model");

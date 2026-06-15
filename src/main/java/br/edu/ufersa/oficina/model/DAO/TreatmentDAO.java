@@ -1,12 +1,12 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.GenericFactory;
-import br.edu.ufersa.oficina.model.Factories.PartsFactory;
-import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Treatment;
-import br.edu.ufersa.oficina.model.entity.*;
+import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
+import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -18,7 +18,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     protected String base;
     protected TreatmentPartServiceDAO tsd;
 
-    public TreatmentDAO(String table, GenericFactory<T> factory, String base){
+    public TreatmentDAO(String table, GenericMapper<T> factory, String base){
         super(table, factory);
         setBase(base);
 
@@ -33,7 +33,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     public abstract void updateTreatment(T treatment);
 
     @Override
-    public ArrayList<T> getAllEntity(){
+    public ArrayList<T> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t INNER JOIN car ca ON t.car_id = ca.car_id INNER JOIN client cl ON ca.client_id = cl.client_id";
@@ -53,17 +53,17 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return treatments;
     }
 
-    private ArrayList<Parts> getPartsByTreatment(int id){
+    private ArrayList<Part> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT p.* FROM Parts p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
 
-        ArrayList<Parts> parts;
+        ArrayList<Part> parts;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 
             ps.setInt(1, id);
 
-            parts = new PartsFactory().createArrayEntity(ps.executeQuery());
+            parts = new PartsMapper().createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -73,7 +73,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return parts;
     }
 
-    private ArrayList<Service> getServiceByTreatment(int id){
+    private ArrayList<Service> getServicesByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.service_id = ts.service_id WHERE " + base + "_id = ?";
@@ -83,7 +83,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
             ps.setInt(1, id);
 
-            services = new ServiceFactory().createArrayEntity(ps.executeQuery());
+            services = new ServiceMapper().createArrayEntity(ps.executeQuery());
         }
 
         catch (SQLException e){
@@ -114,8 +114,8 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
 
         if (treatment != null){
-            ArrayList<Parts> parts = getPartsByTreatment(id);
-            ArrayList<Service> services = getServiceByTreatment(id);
+            ArrayList<Part> parts = getPartsByTreatment(id);
+            ArrayList<Service> services = getServicesByTreatment(id);
 
             treatment.setParts(parts);
             treatment.setServices(services);
@@ -125,7 +125,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
     }
 
-    public ArrayList<T> getTreatmentByCar(Car car){
+    public ArrayList<T> getTreatmentsByCar(Car car){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT * FROM " + table + " WHERE car_id = ? ";
@@ -141,7 +141,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentByClient(Client client){
+    public ArrayList<T> getTreatmentsByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.id  WHERE c.client_id = ? ";
@@ -157,7 +157,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentByPeriod(LocalDate start, LocalDate end){
+    public ArrayList<T> getTreatmentsByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT * FROM " + table + " WHERE " + base + "_date_start BETWEEN ? AND ?";

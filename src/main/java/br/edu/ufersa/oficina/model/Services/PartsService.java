@@ -1,18 +1,17 @@
 package br.edu.ufersa.oficina.model.Services;
 
-import br.edu.ufersa.oficina.model.DAO.PartsDAO;
+import br.edu.ufersa.oficina.model.DAO.PartDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Parts;
+import br.edu.ufersa.oficina.model.Entity.Part;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class PartsService {
     
-    private final PartsDAO dao = new PartsDAO();
+    private final PartDAO dao = new PartDAO();
 
-    public void addPart(Parts part) {
+    public void addPart(Part part) {
         
         if(part.getName().trim().isEmpty())
 
@@ -35,15 +34,15 @@ public class PartsService {
 
     }
 
-    public void updatePart(Parts part){
+    public void updatePart(Part part){
 
         getPartById(part.getId());
         dao.updatePart(part);
 
     }
 
-    public Parts getPartById(int id) {
-        Parts part = dao.getPartById(id);
+    public Part getPartById(int id) {
+        Part part = dao.getPartById(id);
 
         if (part == null) {
             throw new MecNotFoundException("Peça não encontrada");
@@ -59,9 +58,9 @@ public class PartsService {
 
     }
 
-    public ArrayList<Parts> getPartsByName(String name){
+    public ArrayList<Part> getPartsByName(String name){
 
-        ArrayList<Parts> part = dao.getPartByName(name);
+        ArrayList<Part> part = dao.getPartsByName(name);
 
         if(part == null){
 
@@ -73,9 +72,9 @@ public class PartsService {
 
     }
 
-    public ArrayList<Parts> getPartByManufacturer(String manufacturer){
+    public ArrayList<Part> getPartsByManufacturer(String manufacturer){
 
-        ArrayList<Parts> part = dao.getPartByManufacturer(manufacturer);
+        ArrayList<Part> part = dao.getPartsByManufacturer(manufacturer);
 
         if(part == null){
 
@@ -87,9 +86,9 @@ public class PartsService {
 
     }
 
-    public ArrayList<Parts> getPartByModel(String model){
+    public ArrayList<Part> getPartsByModel(String model){
 
-        ArrayList<Parts> part = dao.getPartByModel(model);
+        ArrayList<Part> part = dao.getPartsByModel(model);
 
         if(part == null){
 
@@ -101,13 +100,13 @@ public class PartsService {
 
     }
 
-    public ArrayList<Parts> getAllParts(){
+    public ArrayList<Part> getAllParts(){
 
         return dao.getAllParts();
         
     }
 
-    public PartsDAO getDao() {
+    public PartDAO getDao() {
 
         return dao;
         

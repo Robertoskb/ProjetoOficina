@@ -1,18 +1,17 @@
-package br.edu.ufersa.oficina.model.Factories;
+package br.edu.ufersa.oficina.model.Mappers;
 
-import br.edu.ufersa.oficina.model.DAO.CarDAO;
-import br.edu.ufersa.oficina.model.entity.Budget;
-import br.edu.ufersa.oficina.model.entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Budget;
+import br.edu.ufersa.oficina.model.Entity.Car;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class BudgetFactory implements GenericFactory<Budget> {
+public class BudgetMapper implements GenericMapper<Budget> {
     public Budget createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("budget_id");
-        Car car = new CarFactory().createEntity(rs);
+        Car car = new CarMapper().createEntity(rs);
         double price = rs.getDouble("budget_price");
         LocalDate date_start = rs.getDate("budget_date_start").toLocalDate();
         LocalDate date_finish = rs.getDate("budget_date_finish").toLocalDate();

@@ -1,16 +1,16 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.BudgetFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.*;
+import br.edu.ufersa.oficina.model.Mappers.BudgetMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.sql.*;
 
 
 public class BudgetDAO extends TreatmentDAO<Budget>{
     public BudgetDAO(){
-        super("budget", new BudgetFactory(), "budget");
+        super("budget", new BudgetMapper(), "budget");
     }
 
     public void addTreatment(Budget budget){

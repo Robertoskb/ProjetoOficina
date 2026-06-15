@@ -1,27 +1,26 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.ClientFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Client;
+import br.edu.ufersa.oficina.model.Mappers.ClientMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Client;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class ClientDAO extends GenericDAO<Client> {
 
     public ClientDAO(){
-        super("Client", new ClientFactory());
+        super("Client", new ClientMapper());
     }
 
     public Client getClientById(int id) {
         return filterEntityById(id);
     }
 
-    public ArrayList<Client> getAllClient() { return getAllEntity(); }
+    public ArrayList<Client> getAllClients() { return getAllEntities(); }
 
     private void register(String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();

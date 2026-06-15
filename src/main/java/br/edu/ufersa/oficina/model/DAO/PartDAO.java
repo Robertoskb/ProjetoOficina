@@ -1,45 +1,45 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.PartsFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Parts;
+import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Part;
 import java.sql.*;
 import java.util.ArrayList;
 
-public class PartsDAO extends GenericDAO<Parts> {
+public class PartDAO extends GenericDAO<Part> {
 
-    public PartsDAO() {
+    public PartDAO() {
 
-        super("Parts", new PartsFactory());
+        super("Parts", new PartsMapper());
 
     }
 
-    public Parts getPartById(int id) {
+    public Part getPartById(int id) {
 
         return filterEntityById(id);
 
     }
 
-    public ArrayList<Parts> getAllParts() {
+    public ArrayList<Part> getAllParts() {
 
-        return getAllEntity();
+        return getAllEntities();
 
     }
 
-    public ArrayList<Parts> getPartByName(String name){
+    public ArrayList<Part> getPartsByName(String name){
 
         return filterArrayEntity("part_name", name);
 
     }
 
-    public ArrayList<Parts> getPartByManufacturer(String manufacturer){
+    public ArrayList<Part> getPartsByManufacturer(String manufacturer){
 
         return filterArrayEntity("manufacturer", manufacturer);
 
     }
 
-    public ArrayList<Parts> getPartByModel(String model){
+    public ArrayList<Part> getPartsByModel(String model){
 
         return filterArrayEntity("model", model);
 
@@ -61,11 +61,11 @@ public class PartsDAO extends GenericDAO<Parts> {
         }
     }
 
-    public void addPart(Parts part) {
+    public void addPart(Part part) {
         register(part.getName(), part.getPrice(), part.getManufacturer(), part.getModel());
     }
 
-    public void updatePart(Parts part) {
+    public void updatePart(Part part) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE id = ?";
