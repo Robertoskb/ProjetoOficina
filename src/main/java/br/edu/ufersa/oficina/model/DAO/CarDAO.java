@@ -25,7 +25,7 @@ public class CarDAO extends GenericDAO<Car> {
         String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id";
 
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
-            return factory.createArrayEntity(rs);
+            return mapper.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -42,7 +42,7 @@ public class CarDAO extends GenericDAO<Car> {
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()){
                 if (rs.next())
-                    return factory.createEntity(rs);
+                    return mapper.createEntity(rs);
                 return null;
             }
         }
