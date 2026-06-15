@@ -13,10 +13,13 @@ import java.util.ArrayList;
 public abstract class GenericDAO<E> {
     protected String table;
     protected GenericMapper<E> factory;
+    protected String prefix;
 
     public GenericDAO(String table, GenericMapper<E> factory){
         setTable(table);
         setFactory(factory);
+        setPrefix(table.toLowerCase().replace("`", ""));
+
     }
 
     public abstract void insert(E entity);
@@ -25,7 +28,7 @@ public abstract class GenericDAO<E> {
     public void delete(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "DELETE FROM " + this.table + " WHERE id = ?";
+        String sql = "DELETE FROM " + this.table + " WHERE " + prefix + "_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, id);
@@ -87,7 +90,6 @@ public abstract class GenericDAO<E> {
     }
 
     public E filterEntityById(int id) {
-        String prefix = table.toLowerCase().replace('`', '\0');
         return filterEntity(prefix + "_id", Integer.toString(id));
     }
 
@@ -105,5 +107,13 @@ public abstract class GenericDAO<E> {
 
     public void setFactory(GenericMapper<E> factory) {
         this.factory = factory;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public void setPrefix(String prefix) {
+        this.prefix = prefix;
     }
 }

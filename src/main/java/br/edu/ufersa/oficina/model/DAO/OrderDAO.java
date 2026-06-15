@@ -64,7 +64,7 @@ public class OrderDAO extends TreatmentDAO<Order> {
     public void update(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, order_price = ?, order_date_start = ?, order_date_finish = ?, completed = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, order_price = ?, order_date_start = ?, order_date_finish = ?, completed = ? WHERE order_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);

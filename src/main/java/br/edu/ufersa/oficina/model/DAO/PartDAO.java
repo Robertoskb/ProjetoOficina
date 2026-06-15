@@ -71,7 +71,7 @@ public class PartDAO extends GenericDAO<Part> {
     public void update(Part part) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE part_id = ?";
+        String sql = "UPDATE " + table + " SET part_name = ?, part_price = ?, manufacturer = ?, model = ? WHERE part_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, part.getName());

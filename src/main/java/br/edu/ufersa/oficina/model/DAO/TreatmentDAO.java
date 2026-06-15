@@ -39,11 +39,8 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t INNER JOIN car ca ON t.car_id = ca.car_id INNER JOIN client cl ON ca.client_id = cl.client_id";
 
         ArrayList<T> treatments;
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
-            ResultSet rs = ps.executeQuery();
-
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
             treatments = factory.createArrayEntity(rs);
-
         }
 
         catch (SQLException e) {
@@ -62,8 +59,9 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 
             ps.setInt(1, id);
-
-            parts = new PartsMapper().createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                parts = new PartsMapper().createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -83,7 +81,9 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
             ps.setInt(1, id);
 
-            services = new ServiceMapper().createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                services = new ServiceMapper().createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -133,7 +133,9 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, car.getId());
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -144,12 +146,14 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     public ArrayList<T> getTreatmentsByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.id  WHERE c.client_id = ? ";
+        String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.car_id  WHERE c.client_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -166,7 +170,9 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){

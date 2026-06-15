@@ -62,7 +62,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
     public void update(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, budget_price = ?, budget_date_start = ?, budget_date_finish = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, budget_price = ?, budget_date_start = ?, budget_date_finish = ? WHERE budget_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             conn.setAutoCommit(false);

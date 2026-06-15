@@ -86,7 +86,7 @@ public class CarDAO extends GenericDAO<Car> {
     public void update(Car car) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE car_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, car.getClient().getId());

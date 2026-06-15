@@ -45,7 +45,7 @@ public class UserDAO extends GenericDAO<User> {
     public void update(User user){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET name = ?, email = ?, password = ? WHERE user_id = ?";
+        String sql = "UPDATE " + table + " SET user_name = ?, email = ?, password = ? WHERE user_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, user.getName());
