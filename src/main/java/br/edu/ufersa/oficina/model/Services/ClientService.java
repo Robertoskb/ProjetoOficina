@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.ClientDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Client;
+import br.edu.ufersa.oficina.model.Entity.Client;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,7 @@ public class ClientService {
         cpf = client.getCPF();
 
         if (!name.trim().isEmpty() && !address.trim().isEmpty() && (cpf > 0)){
-            dao.addClient(client);
+            dao.insert(client);
         }
         else {
             throw new MecException("Campos vazios");
@@ -35,7 +35,7 @@ public class ClientService {
     }
 
     public ArrayList<Client> getAllClients(){
-        ArrayList<Client> clients = dao.getAllClient();
+        ArrayList<Client> clients = dao.getAllClients();
         return clients;
     }
 

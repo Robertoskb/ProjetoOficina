@@ -1,12 +1,12 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.model.entity.Treatment;
-import br.edu.ufersa.oficina.model.entity.Parts;
-import br.edu.ufersa.oficina.model.entity.Service;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import br.edu.ufersa.oficina.model.Entity.Part;
+import br.edu.ufersa.oficina.model.Entity.Service;
+import br.edu.ufersa.oficina.model.Entity.Treatment;
 
 public class TreatmentPartServiceDAO{
     private String treatmentParts;
@@ -22,32 +22,30 @@ public class TreatmentPartServiceDAO{
     public void addPart(Treatment treatment, Connection conn) throws SQLException {
         String sql = "INSERT INTO " + treatmentParts + " (" + base + "_id, part_id) " + "VALUES (?, ?)";
 
-        PreparedStatement ps = conn.prepareStatement(sql);
-
-        for (Parts part: treatment.getParts()){
-            ps.setInt(1, treatment.getId());
-            ps.setInt(2, part.getId());
-            ps.addBatch();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Part part: treatment.getParts()){
+                ps.setInt(1, treatment.getId());
+                ps.setInt(2, part.getId());
+                ps.addBatch();
+            }
+            
+            ps.executeBatch();
         }
-
-        ps.executeBatch();
-        ps.close();
 
     }
 
     public void addService(Treatment treatment, Connection conn) throws SQLException {
         String sql = "INSERT INTO " + treatmentServices + " (" + base + "_id, service_id) " + "VALUES (?, ?)";
 
-        PreparedStatement ps = conn.prepareStatement(sql);
-
-        for (Service service: treatment.getServices()){
-            ps.setInt(1, treatment.getId());
-            ps.setInt(2, service.getId());
-            ps.addBatch();
+        try (PreparedStatement ps = conn.prepareStatement(sql)) {
+            for (Service service: treatment.getServices()){
+                ps.setInt(1, treatment.getId());
+                ps.setInt(2, service.getId());
+                ps.addBatch();
+            }
+            
+            ps.executeBatch();
         }
-
-        ps.executeBatch();
-        ps.close();
 
     }
 
@@ -61,22 +59,20 @@ public class TreatmentPartServiceDAO{
 
         String insertRelation = "INSERT INTO " + treatmentParts + " (" + base + "_id, part_id) VALUES (?, ?)";
 
-        PreparedStatement psDelete = conn.prepareStatement(deleteRelations);
-        psDelete.setInt(1, treatment.getId());
-        psDelete.executeUpdate();
-
-        psDelete.close();
-
-        PreparedStatement psInsert = conn.prepareStatement(insertRelation);
-
-        for (Parts part : treatment.getParts()) {
-            psInsert.setInt(1, treatment.getId());
-            psInsert.setInt(2, part.getId());
-            psInsert.addBatch();
+        try (PreparedStatement psDelete = conn.prepareStatement(deleteRelations)) {
+            psDelete.setInt(1, treatment.getId());
+            psDelete.executeUpdate();
         }
 
-        psInsert.executeBatch();
-        psInsert.close();
+        try (PreparedStatement psInsert = conn.prepareStatement(insertRelation)) {
+            for (Part part : treatment.getParts()) {
+                psInsert.setInt(1, treatment.getId());
+                psInsert.setInt(2, part.getId());
+                psInsert.addBatch();
+            }
+            
+            psInsert.executeBatch();
+        }
 
 
     }
@@ -84,23 +80,22 @@ public class TreatmentPartServiceDAO{
     public void updateService(Treatment treatment, Connection conn) throws SQLException{
         String deleteRelations = "DELETE FROM " + treatmentServices + " WHERE " + base +"_id = ?";
 
-        String insertRelation = "INSERT INTO" + treatmentServices + " (" + base + "_id, service_id) VALUES (?, ?)";
+        String insertRelation = "INSERT INTO " + treatmentServices + " (" + base + "_id, service_id) VALUES (?, ?)";
 
-        PreparedStatement psDelete = conn.prepareStatement(deleteRelations);
-        psDelete.setInt(1, treatment.getId());
-        psDelete.executeUpdate();
-        psDelete.close();
-
-        PreparedStatement psInsert = conn.prepareStatement(insertRelation);
-
-        for (Service service : treatment.getServices()) {
-            psInsert.setInt(1, treatment.getId());
-            psInsert.setInt(2, service.getId());
-            psInsert.addBatch();
+        try (PreparedStatement psDelete = conn.prepareStatement(deleteRelations)) {
+            psDelete.setInt(1, treatment.getId());
+            psDelete.executeUpdate();
         }
 
-        psInsert.executeBatch();
-        psInsert.close();
+        try (PreparedStatement psInsert = conn.prepareStatement(insertRelation)) {
+            for (Service service : treatment.getServices()) {
+                psInsert.setInt(1, treatment.getId());
+                psInsert.setInt(2, service.getId());
+                psInsert.addBatch();
+            }
+            
+            psInsert.executeBatch();
+        }
     }
 
     public void updateComplete(Treatment treatment, Connection conn) throws SQLException{

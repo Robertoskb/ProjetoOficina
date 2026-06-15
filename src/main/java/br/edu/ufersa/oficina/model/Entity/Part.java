@@ -1,13 +1,13 @@
-package br.edu.ufersa.oficina.model.entity;
+package br.edu.ufersa.oficina.model.Entity;
 
-public class Parts {
+public class Part {
     private int id;
     private String name;
     private double price;
     private String manufacturer;
     private String model;
 
-    public Parts(int id, String name, double price, String manufacturer, String model) {
+    public Part(int id, String name, double price, String manufacturer, String model) {
         setId(id);
         setName(name);
         setPrice(price);
@@ -15,7 +15,7 @@ public class Parts {
         setModel(model);
     }
 
-    public Parts(String name, double price, String manufacturer, String model) {
+    public Part(String name, double price, String manufacturer, String model) {
         setName(name);
         setPrice(price);
         setManufacturer(manufacturer);

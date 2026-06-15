@@ -1,7 +1,7 @@
 package br.edu.ufersa.oficina.model.Services;
 
 import br.edu.ufersa.oficina.model.DAO.OrderDAO;
-import br.edu.ufersa.oficina.model.entity.Order;
+import br.edu.ufersa.oficina.model.Entity.Order;
 
 public class OrderService extends TreatmentService<Order>{
     public OrderService(){

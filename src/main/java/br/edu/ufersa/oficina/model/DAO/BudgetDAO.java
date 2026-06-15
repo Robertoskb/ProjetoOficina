@@ -1,22 +1,22 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.BudgetFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.*;
+import br.edu.ufersa.oficina.model.Mappers.BudgetMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.sql.*;
 
 
 public class BudgetDAO extends TreatmentDAO<Budget>{
     public BudgetDAO(){
-        super("Budget", new BudgetFactory(), "budget");
+        super("budget", new BudgetMapper(), "budget");
     }
 
-    public void addTreatment(Budget budget){
+    public void insert(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish) " +
+        String sql = "INSERT INTO " + table + " (car_id, budget_price, budget_date_start, budget_date_finish) " +
                             "VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
@@ -36,7 +36,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
                     throw new SQLException("Falha ao carregar o ID do Orçamento");
             }
 
-            BudgetPartServiceDAO.addComplete(budget, conn);
+            tsd.addComplete(budget, conn);
 
             conn.commit();
         }
@@ -59,10 +59,10 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         }
     }
 
-    public void updateTreatment(Budget budget){
+    public void update(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, budget_price = ?, budget_date_start = ?, budget_date_finish = ? WHERE budget_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             conn.setAutoCommit(false);
@@ -76,7 +76,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
 
             ps.executeUpdate();
 
-            BudgetPartServiceDAO.updateComplete(budget, conn);
+            tsd.updateComplete(budget, conn);
 
             conn.commit();
         }

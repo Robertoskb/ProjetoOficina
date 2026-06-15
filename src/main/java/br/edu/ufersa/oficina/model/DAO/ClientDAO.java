@@ -1,40 +1,38 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.ClientFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Client;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Client;
+import br.edu.ufersa.oficina.model.Mappers.ClientMapper;
 
 public class ClientDAO extends GenericDAO<Client> {
 
     public ClientDAO(){
-        super("client", new ClientFactory());
+        super("Client", new ClientMapper());
     }
-
-
 
     public Client getClientById(int id) {
         return filterEntityById(id);
     }
 
-    public ArrayList<Client> getAllClient() { return getAllEntity(); }
+    public ArrayList<Client> getAllClients() { return getAllEntities(); }
 
     private void register(String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (name, address, cpf) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (client_name, address, cpf) VALUES (?, ?, ?)";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
             ps.setString(2, address);
             ps.setLong(3, cpf);
+
+            ps.execute();
         }
 
         catch (SQLException e){
@@ -42,26 +40,23 @@ public class ClientDAO extends GenericDAO<Client> {
         }
     }
 
-    public void addClient(Client client){
+    public void insert(Client client){
         register(client.getName(), client.getAddress(), client.getCPF());
     }
 
-    public void addClient(String name, String address, long cpf){
-        register(name, address, cpf);
-    }
-
-    public void update(int id, String name, String address, long cpf){
+    public void update(Client client){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET name = ?, andress = ?, cpf = ? WHERE id ?";
+        String sql = "UPDATE " + table + " SET client_name = ?, address = ?, cpf = ? WHERE client_id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, address);
-            ps.setLong(3, cpf);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, client.getName());
+            ps.setString(2, client.getAddress());
+            ps.setLong(3, client.getCPF());
 
-            ps.setInt(4, id);
+            ps.setInt(4, client.getId());
+
+            ps.execute();
         }
 
         catch (SQLException e){

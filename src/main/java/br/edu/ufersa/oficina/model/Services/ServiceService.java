@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.ServiceDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Service;
+import br.edu.ufersa.oficina.model.Entity.Service;
 
 import java.util.ArrayList;
 
@@ -17,7 +17,7 @@ public class ServiceService {
         price = service.getPrice();
 
         if (!name.trim().isEmpty() && (price > 0)){
-            dao.addService(service);
+            dao.insert(service);
         }
         else {
             throw new MecException("Campos vazios");
@@ -39,7 +39,7 @@ public class ServiceService {
     }
 
     public ArrayList<Service> getAllServices(){
-        ArrayList<Service> services = dao.getAllService();
+        ArrayList<Service> services = dao.getAllServices();
         return services;
     }
 

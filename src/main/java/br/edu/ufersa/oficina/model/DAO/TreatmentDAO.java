@@ -1,12 +1,12 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.GenericFactory;
-import br.edu.ufersa.oficina.model.Factories.PartsFactory;
-import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Treatment;
-import br.edu.ufersa.oficina.model.entity.*;
+import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
+import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -18,60 +18,104 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     protected String base;
     protected TreatmentPartServiceDAO tsd;
 
-    public TreatmentDAO(String table, GenericFactory<T> factory, String base){
+    public TreatmentDAO(String table, GenericMapper<T> factory, String base){
         super(table, factory);
         setBase(base);
 
-        base = base.substring(0, 1).toUpperCase() + base.substring(1); // base to Base
-        setTreatmentParts(base + treatmentParts);
-        setTreatmentServices(base + treatmentServices);
+        String base_temp = base.substring(0, 1).toUpperCase() + base.substring(1); // base to Base
+        setTreatmentParts(base_temp + treatmentParts);
+        setTreatmentServices(base_temp + treatmentServices);
 
         setTsd(new TreatmentPartServiceDAO(base, treatmentParts, treatmentServices));
     }
 
-    public abstract void addTreatment(T treatment);
-    public abstract void updateTreatment(T treatment);
+    public abstract void insert(T treatment);
+    public abstract void update(T treatment);
 
-    private ArrayList<Parts> getPartsByTreatment(int id){
+    @Override
+    public ArrayList<T> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT p.* FROM Parts p JOIN " + treatmentParts + " tp ON p.id = tp.part_id WHERE tp.budget_id = ? ";
+        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t INNER JOIN car ca ON t.car_id = ca.car_id INNER JOIN client cl ON ca.client_id = cl.client_id";
 
-        try (PreparedStatement ps = conn.prepareStatement(sql)){
-
-            ps.setInt(1, id);
-
-            return new PartsFactory().createArrayEntity(ps.executeQuery());
+        ArrayList<T> treatments;
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            treatments = factory.createArrayEntity(rs);
         }
 
-        catch (SQLException e){
+        catch (SQLException e) {
             throw new MecException(e.getMessage());
         }
+
+        return treatments;
     }
 
-    private ArrayList<Service> getServiceByTreatment(int id){
+    private ArrayList<Part> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.id = ts.service_id WHERE ts.budget_id = ?";
+        String sql = "SELECT p.* FROM Parts p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
 
+        ArrayList<Part> parts;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
 
             ps.setInt(1, id);
-
-            return new ServiceFactory().createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                parts = new PartsMapper().createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
             throw new MecException(e.getMessage());
         }
+
+        return parts;
+    }
+
+    private ArrayList<Service> getServicesByTreatment(int id){
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.service_id = ts.service_id WHERE " + base + "_id = ?";
+
+        ArrayList<Service> services;
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+
+            ps.setInt(1, id);
+
+            try (ResultSet rs = ps.executeQuery()){
+                services = new ServiceMapper().createArrayEntity(rs);
+            }
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
+
+        return services;
     }
 
     public T getTreatmentById(int id){
-        T treatment = filterEntityById(id);
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t INNER JOIN car ca ON t.car_id = ca.car_id INNER JOIN client cl ON ca.client_id = cl.client_id where " + base + "_id = ?";
+
+        T treatment;
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next())
+                    treatment = factory.createEntity(rs);
+                else
+                    treatment = null;
+            }
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
 
         if (treatment != null){
-            ArrayList<Parts> parts = getPartsByTreatment(id);
-            ArrayList<Service> services = getServiceByTreatment(id);
+            ArrayList<Part> parts = getPartsByTreatment(id);
+            ArrayList<Service> services = getServicesByTreatment(id);
 
             treatment.setParts(parts);
             treatment.setServices(services);
@@ -81,15 +125,17 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
     }
 
-    public ArrayList<T> getTreatmentByCar(Car car){
+    public ArrayList<T> getTreatmentsByCar(Car car){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT * FROM " + table + " WHERE client_id = ? ";
+        String sql = "SELECT * FROM " + table + " WHERE car_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, car.getId());
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -97,15 +143,17 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentByClient(Client client){
+    public ArrayList<T> getTreatmentsByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.id  WHERE c.client_id = ? ";
+        String sql = " SELECT t.* FROM " + table + " t JOIN Car c ON t.car_id = c.car_id  WHERE c.client_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, client.getId());
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){
@@ -113,16 +161,18 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentByPeriod(LocalDate start, LocalDate end){
+    public ArrayList<T> getTreatmentsByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT * FROM " + table + " WHERE date_start BETWEEN ? AND ?";
+        String sql = "SELECT * FROM " + table + " WHERE " + base + "_date_start BETWEEN ? AND ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setDate(1, Date.valueOf(start));
             ps.setDate(2, Date.valueOf(end));
 
-            return factory.createArrayEntity(ps.executeQuery());
+            try (ResultSet rs = ps.executeQuery()){
+                return factory.createArrayEntity(rs);
+            }
         }
 
         catch (SQLException e){

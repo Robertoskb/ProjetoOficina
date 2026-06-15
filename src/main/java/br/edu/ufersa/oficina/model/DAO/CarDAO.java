@@ -1,34 +1,55 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.CarFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Car;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Mappers.CarMapper;
+
 public class CarDAO extends GenericDAO<Car> {
 
     public CarDAO() {
 
-        super("car", new CarFactory());
+        super("Car", new CarMapper());
 
     }
 
-    public ArrayList<Car> getAllCar() {
+    public ArrayList<Car> getAllCars() {
+        Connection conn = ConnectionDB.getConnection();
 
-        return getAllEntity();
+        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id";
 
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            return factory.createArrayEntity(rs);
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
     }
     
     public Car getCarById(int id) {
+        Connection conn = ConnectionDB.getConnection();
 
-        return filterEntityById(id);
+        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id where ca.car_id = ?";
 
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setInt(1, id);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next())
+                    return factory.createEntity(rs);
+                return null;
+            }
+        }
+
+        catch (SQLException e){
+            throw new MecException(e.getMessage());
+        }
     }
 
     public Car getCarByPlate(String plate) {
@@ -43,7 +64,7 @@ public class CarDAO extends GenericDAO<Car> {
 
     }
 
-    public void addCar(Car car) {
+    public void insert(Car car) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "INSERT INTO " + table + " (client_id, brand, model, color, plate, `year`, mileage) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -62,10 +83,10 @@ public class CarDAO extends GenericDAO<Car> {
         }
     }
 
-    public void updateCar(Car car) {
+    public void update(Car car) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE car_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, car.getClient().getId());

@@ -1,23 +1,29 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.OrderFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.*;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-import java.sql.*;
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Mappers.OrderMapper;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Order;
 
 
 public class OrderDAO extends TreatmentDAO<Order> {
     public OrderDAO() {
-        super("`Order`", new OrderFactory(), "order");
+        super("`Order`", new OrderMapper(), "order");
     }
 
-    public void addTreatment(Order order) {
+    @Override
+    public void insert(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (car_id, price, date_start, date_finish, completed) " +
-                "VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (car_id, order_price, order_date_start, order_date_finish, completed) " +
+                "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);) {
             conn.setAutoCommit(false);
@@ -54,10 +60,11 @@ public class OrderDAO extends TreatmentDAO<Order> {
         }
     }
 
-    public void updateTreatment(Order order) {
+    @Override
+    public void update(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "Update " + table + " SET car_id = ?, price = ?, date_start = ?, date_finish = ?, completed = ? WHERE id = ?";
+        String sql = "Update " + table + " SET car_id = ?, order_price = ?, order_date_start = ?, order_date_finish = ?, completed = ? WHERE order_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             conn.setAutoCommit(false);

@@ -1,7 +1,7 @@
 package br.edu.ufersa.oficina;
 
 import br.edu.ufersa.oficina.model.Services.*;
-import br.edu.ufersa.oficina.model.entity.*;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class Main {
        for (Car c: cs.getAllCars())
             c.show();
 
-        for (Parts p: ps.getAllParts())
+        for (Part p: ps.getAllParts())
             p.show();
 
         ClientService csv = new ClientService();
@@ -27,14 +27,19 @@ public class Main {
         BudgetService bs = new BudgetService();
         OrderService os = new OrderService();
 
-        for (User u: us.getAllUsers())
-            u.show();
-
-        for (Budget b: bs.getAllTreatment())
-            b.show();
-
-        for (Order o: os.getAllTreatment()){
-            o.show();
+        for (Budget b: bs.getAllTreatments()){
+            b = bs.getTreatmentById(b.getId());
+            for (Part p: b.getParts())
+                p.show();
+            for (Service s: b.getServices())
+                s.show();
+        }
+        for (Order o: os.getAllTreatments()){
+            o = os.getTreatmentById(o.getId());
+            for (Part p: o.getParts())
+                p.show();
+            for (Service s: o.getServices())
+                s.show();
         }
     }
 }

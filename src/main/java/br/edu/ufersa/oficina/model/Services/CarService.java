@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.CarDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Car;
 
 import java.util.ArrayList;
 
@@ -44,14 +44,14 @@ public class CarService {
 
             throw new MecException("Carro já cadastrado");
 
-        dao.addCar(car);
+        dao.insert(car);
     }
 
     public void updateCar(Car car){
 
         getCarById(car.getId());
 
-        dao.updateCar(car);
+        dao.update(car);
 
     }
 
@@ -96,7 +96,7 @@ public class CarService {
     }
     public ArrayList<Car> getAllCars(){
 
-        return dao.getAllCar();
+        return dao.getAllCars();
 
     }
 

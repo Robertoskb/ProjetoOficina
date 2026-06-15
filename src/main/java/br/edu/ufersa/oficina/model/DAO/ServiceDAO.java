@@ -1,32 +1,31 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.model.Factories.ServiceFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.Parts;
-import br.edu.ufersa.oficina.model.entity.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Service;
+import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
 
 public class ServiceDAO extends GenericDAO<Service> {
     public ServiceDAO() {
-        super("service", new ServiceFactory());
+        super("Service", new ServiceMapper());
     }
 
-    public ArrayList<Service> getAllService() { return getAllEntity(); }
+    public ArrayList<Service> getAllServices() { return getAllEntities(); }
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + this.table + " (name, price) VALUES (?, ?)";
+        String sql = "INSERT INTO " + this.table + " (service_name, service_price) VALUES (?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
             ps.setDouble(2, price);
             ps.execute();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
 
     }
@@ -34,7 +33,7 @@ public class ServiceDAO extends GenericDAO<Service> {
     public void update(Service service) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE TABLE " + this.table + " SET name = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE " + this.table + " SET service_name = ?, service_price = ? WHERE service_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, service.getName());
@@ -42,22 +41,22 @@ public class ServiceDAO extends GenericDAO<Service> {
             ps.setInt(3, service.getId());
             ps.execute();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            throw new MecException(e.getMessage());
         }
 
     }
 
-    public void addService(Service service) {
+    public void insert(Service service) {
         this.register(service.getName(), service.getPrice());
     }
 
-    public void addService(String name, float price) {
+    public void insert(String name, float price) {
         this.register(name, price);
     }
 
     public Service getServiceById(int id) { return filterEntityById(id); }
 
     public ArrayList<Service> getServiceByName(String name)  {
-        return filterArrayEntity("name", name);
+        return filterArrayEntity("service_name", name);
     }
 }

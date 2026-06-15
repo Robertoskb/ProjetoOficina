@@ -1,26 +1,29 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Factories.UserFactory;
-import br.edu.ufersa.oficina.model.connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.entity.User;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.User;
+import br.edu.ufersa.oficina.model.Mappers.UserMapper;
 
 public class UserDAO extends GenericDAO<User> {
 
     public UserDAO(){
-        super("User", new UserFactory());
+        super("User", new UserMapper());
     }
 
     public ArrayList<User> getAllUsers(){
-        return getAllEntity();
+        return getAllEntities();
     }
 
     private void register(String name, String email, String password){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (name, email, password) values (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (user_name, email, password) values (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
@@ -35,22 +38,21 @@ public class UserDAO extends GenericDAO<User> {
         }
     }
 
-    public void addUser(User user){
+    public void insert(User user){
         register(user.getName(), user.getEmail(), user.getPassword());
     }
 
-    public void updateUser(User user){
+    public void update(User user){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE TABLE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET user_name = ?, email = ?, password = ? WHERE user_id = ?";
 
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
             ps.setString(3, user.getPassword());
 
-            ps.setInt(5, user.getId());
+            ps.setInt(4, user.getId());
 
             ps.execute();
         }
