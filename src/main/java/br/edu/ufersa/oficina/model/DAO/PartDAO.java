@@ -1,11 +1,14 @@
 package br.edu.ufersa.oficina.model.DAO;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.Entity.Part;
-import java.sql.*;
-import java.util.ArrayList;
+import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
 
 public class PartDAO extends GenericDAO<Part> {
 
@@ -48,7 +51,7 @@ public class PartDAO extends GenericDAO<Part> {
     private void register(String name, double price, String manufacturer, String model) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (name, price, manufacturer, model) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (part_name, part_price, manufacturer, model) VALUES (?, ?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
@@ -68,7 +71,7 @@ public class PartDAO extends GenericDAO<Part> {
     public void update(Part part) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE part_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, part.getName());

@@ -1,12 +1,13 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
-import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.Entity.Service;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Service;
+import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
 
 public class ServiceDAO extends GenericDAO<Service> {
     public ServiceDAO() {
@@ -17,7 +18,7 @@ public class ServiceDAO extends GenericDAO<Service> {
     private void register(String name, double price) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + this.table + " (name, price) VALUES (?, ?)";
+        String sql = "INSERT INTO " + this.table + " (service_name, service_price) VALUES (?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, name);
@@ -32,7 +33,7 @@ public class ServiceDAO extends GenericDAO<Service> {
     public void update(Service service) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + this.table + " SET name = ?, price = ? WHERE id = ?";
+        String sql = "UPDATE " + this.table + " SET service_name = ?, service_price = ? WHERE service_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, service.getName());

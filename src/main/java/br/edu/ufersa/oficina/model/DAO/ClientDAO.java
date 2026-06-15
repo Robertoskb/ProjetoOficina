@@ -1,14 +1,14 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Mappers.ClientMapper;
-import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.Entity.Client;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Client;
+import br.edu.ufersa.oficina.model.Mappers.ClientMapper;
 
 public class ClientDAO extends GenericDAO<Client> {
 
@@ -25,7 +25,7 @@ public class ClientDAO extends GenericDAO<Client> {
     private void register(String name, String address, long cpf){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "INSERT INTO " + table + " (name, address, cpf) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO " + table + " (client_name, address, cpf) VALUES (?, ?, ?)";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, name);
@@ -47,7 +47,7 @@ public class ClientDAO extends GenericDAO<Client> {
     public void update(Client client){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "UPDATE " + table + " SET client_name = ?, address = ?, cpf = ? WHERE id = ?";
+        String sql = "UPDATE " + table + " SET client_name = ?, address = ?, cpf = ? WHERE client_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, client.getName());

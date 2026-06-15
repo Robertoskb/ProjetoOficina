@@ -1,15 +1,15 @@
 package br.edu.ufersa.oficina.model.DAO;
 
-import br.edu.ufersa.oficina.Exceptions.MecException;
-import br.edu.ufersa.oficina.model.Mappers.CarMapper;
-import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.Entity.Car;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
+import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Mappers.CarMapper;
 
 public class CarDAO extends GenericDAO<Car> {
 
@@ -36,7 +36,7 @@ public class CarDAO extends GenericDAO<Car> {
     public Car getCarById(int id) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id where c.car_id = ?";
+        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id where ca.car_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, id);
