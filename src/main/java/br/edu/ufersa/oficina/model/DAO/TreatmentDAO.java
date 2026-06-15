@@ -40,7 +40,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
         ArrayList<T> treatments;
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
-            treatments = factory.createArrayEntity(rs);
+            treatments = mapper.createArrayEntity(rs);
         }
 
         catch (SQLException e) {
@@ -103,7 +103,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next())
-                    treatment = factory.createEntity(rs);
+                    treatment = mapper.createEntity(rs);
                 else
                     treatment = null;
             }
@@ -134,7 +134,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             ps.setInt(1, car.getId());
 
             try (ResultSet rs = ps.executeQuery()){
-                return factory.createArrayEntity(rs);
+                return mapper.createArrayEntity(rs);
             }
         }
 
@@ -152,7 +152,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             ps.setInt(1, client.getId());
 
             try (ResultSet rs = ps.executeQuery()){
-                return factory.createArrayEntity(rs);
+                return mapper.createArrayEntity(rs);
             }
         }
 
@@ -171,7 +171,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             ps.setDate(2, Date.valueOf(end));
 
             try (ResultSet rs = ps.executeQuery()){
-                return factory.createArrayEntity(rs);
+                return mapper.createArrayEntity(rs);
             }
         }
 
