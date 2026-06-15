@@ -45,11 +45,11 @@ public class ServiceDAO extends GenericDAO<Service> {
 
     }
 
-    public void addService(Service service) {
+    public void insert(Service service) {
         this.register(service.getName(), service.getPrice());
     }
 
-    public void addService(String name, float price) {
+    public void insert(String name, float price) {
         this.register(name, price);
     }
 

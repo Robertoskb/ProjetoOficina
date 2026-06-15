@@ -10,7 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class GenericDAO<E> {
+public abstract class GenericDAO<E> {
     protected String table;
     protected GenericMapper<E> factory;
 
@@ -18,6 +18,9 @@ public class GenericDAO<E> {
         setTable(table);
         setFactory(factory);
     }
+
+    public abstract void insert(E entity);
+    public abstract void update(E entity);
 
     public void delete(int id){
         Connection conn = ConnectionDB.getConnection();

@@ -53,7 +53,7 @@ public class TreatmentService<T extends Treatment> {
             throw new MecException("Atendimento vazio de serviços e peças");
 
 
-        treatmentDAO.addTreatment(treatment);
+        treatmentDAO.insert(treatment);
     }
 
     public void updateTreatment(T treatment){
@@ -66,7 +66,7 @@ public class TreatmentService<T extends Treatment> {
         if (treatment.getServices().isEmpty() && treatment.getParts().isEmpty())
             throw new MecException("Atendimento vazio de serviços e peças");
 
-        treatmentDAO.updateTreatment(treatment);
+        treatmentDAO.update(treatment);
     }
 
     public void delete(int id){

@@ -35,11 +35,11 @@ public class UserDAO extends GenericDAO<User> {
         }
     }
 
-    public void addUser(User user){
+    public void insert(User user){
         register(user.getName(), user.getEmail(), user.getPassword());
     }
 
-    public void updateUser(User user){
+    public void update(User user){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "UPDATE " + table + " SET name = ?, email = ?, password = ? WHERE id = ?";

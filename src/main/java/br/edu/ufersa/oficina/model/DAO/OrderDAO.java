@@ -19,7 +19,7 @@ public class OrderDAO extends TreatmentDAO<Order> {
     }
 
     @Override
-    public void addTreatment(Order order) {
+    public void insert(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "INSERT INTO " + table + " (car_id, order_price, order_date_start, order_date_finish, completed) " +
@@ -61,7 +61,7 @@ public class OrderDAO extends TreatmentDAO<Order> {
     }
 
     @Override
-    public void updateTreatment(Order order) {
+    public void update(Order order) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "Update " + table + " SET car_id = ?, order_price = ?, order_date_start = ?, order_date_finish = ?, completed = ? WHERE id = ?";

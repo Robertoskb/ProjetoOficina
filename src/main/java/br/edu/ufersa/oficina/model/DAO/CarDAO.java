@@ -64,7 +64,7 @@ public class CarDAO extends GenericDAO<Car> {
 
     }
 
-    public void addCar(Car car) {
+    public void insert(Car car) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "INSERT INTO " + table + " (client_id, brand, model, color, plate, `year`, mileage) VALUES (?, ?, ?, ?, ?, ?, ?)";
@@ -83,7 +83,7 @@ public class CarDAO extends GenericDAO<Car> {
         }
     }
 
-    public void updateCar(Car car) {
+    public void update(Car car) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "UPDATE " + table + " SET client_id = ?, brand = ?, model = ?, color = ?, plate = ?, `year` = ?, mileage = ? WHERE id = ?";

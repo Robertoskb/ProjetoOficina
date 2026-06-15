@@ -23,7 +23,7 @@ public class UserService {
             if (password.length() < 8)
                 throw new MecException("Senha curta");
 
-            dao.addUser(user);
+            dao.insert(user);
         }
         else {
             throw new MecException("Campos vazios");

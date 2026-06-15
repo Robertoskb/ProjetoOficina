@@ -61,11 +61,11 @@ public class PartDAO extends GenericDAO<Part> {
         }
     }
 
-    public void addPart(Part part) {
+    public void insert(Part part) {
         register(part.getName(), part.getPrice(), part.getManufacturer(), part.getModel());
     }
 
-    public void updatePart(Part part) {
+    public void update(Part part) {
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "UPDATE " + table + " SET name = ?, price = ?, manufacturer = ?, model = ? WHERE id = ?";

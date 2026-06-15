@@ -44,14 +44,14 @@ public class CarService {
 
             throw new MecException("Carro já cadastrado");
 
-        dao.addCar(car);
+        dao.insert(car);
     }
 
     public void updateCar(Car car){
 
         getCarById(car.getId());
 
-        dao.updateCar(car);
+        dao.update(car);
 
     }
 

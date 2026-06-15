@@ -17,7 +17,7 @@ public class ServiceService {
         price = service.getPrice();
 
         if (!name.trim().isEmpty() && (price > 0)){
-            dao.addService(service);
+            dao.insert(service);
         }
         else {
             throw new MecException("Campos vazios");

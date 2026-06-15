@@ -29,8 +29,8 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         setTsd(new TreatmentPartServiceDAO(base, treatmentParts, treatmentServices));
     }
 
-    public abstract void addTreatment(T treatment);
-    public abstract void updateTreatment(T treatment);
+    public abstract void insert(T treatment);
+    public abstract void update(T treatment);
 
     @Override
     public ArrayList<T> getAllEntities(){

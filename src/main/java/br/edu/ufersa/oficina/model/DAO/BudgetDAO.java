@@ -13,7 +13,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         super("budget", new BudgetMapper(), "budget");
     }
 
-    public void addTreatment(Budget budget){
+    public void insert(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "INSERT INTO " + table + " (car_id, budget_price, budget_date_start, budget_date_finish) " +
@@ -59,7 +59,7 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
         }
     }
 
-    public void updateTreatment(Budget budget){
+    public void update(Budget budget){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "Update " + table + " SET car_id = ?, budget_price = ?, budget_date_start = ?, budget_date_finish = ? WHERE id = ?";

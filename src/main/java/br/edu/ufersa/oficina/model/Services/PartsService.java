@@ -30,14 +30,14 @@ public class PartsService {
             throw new MecException("Preço inválido");
 
 
-        dao.addPart(part);
+        dao.insert(part);
 
     }
 
     public void updatePart(Part part){
 
         getPartById(part.getId());
-        dao.updatePart(part);
+        dao.update(part);
 
     }
 
