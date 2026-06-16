@@ -6,10 +6,17 @@ import javafx.scene.Parent;
 import java.io.IOException;
 
 public class ScreenLoader {
-    public Parent load(String fxml) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxml));
+    private final ControllerFactory factory;
 
-        loader.setControllerFactory(new ControllerFactory()::create);
+    public ScreenLoader(ScreenManager screenManager){
+        this.factory = new ControllerFactory(screenManager);
+    }
+
+    public Parent load(String fxml) throws IOException {
+        String basePath = "/br/edu/ufersa/oficina/view/";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
+
+        loader.setControllerFactory(factory::create);
 
         return loader.load();
     }

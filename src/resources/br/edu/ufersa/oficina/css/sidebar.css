@@ -1,0 +1,48 @@
+/* Sidebar */
+.sidebar {
+    -fx-background-color: #0D1117;
+    -fx-padding: 0;
+}
+
+/* Botões do menu */
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+
+    -fx-pref-height: 50px;
+    -fx-pref-width: 126px;
+
+    -fx-border-color: #2A2F36;
+    -fx-border-width: 0 0 1 0;
+
+    -fx-cursor: hand;
+
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+}
+
+/* Hover */
+.sidebar-button:hover {
+    -fx-background-color: #1F2937;
+    -fx-border-color: #3B82F6;
+}
+
+/* Botão pressionado */
+.sidebar-button:pressed {
+    -fx-background-color: #1F29D9;
+}
+
+/* Item selecionado */
+.sidebar-button:selected,
+.sidebar-button.active {
+    -fx-background-color: #1F2937;
+    -fx-border-color: #3B82F6;
+}
+
+/* Texto central */
+.center-title {
+    -fx-fill: white;
+}

@@ -6,5 +6,6 @@ module projetooficina{
     opens br.edu.ufersa.oficina.controller to javafx.fxml, javafx.graphics;
     exports br.edu.ufersa.oficina.controller;
     exports br.edu.ufersa.oficina.model.Services;
+    exports br.edu.ufersa.oficina.ui;
     exports br.edu.ufersa.oficina;
 }
