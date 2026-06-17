@@ -63,27 +63,27 @@ public class MainController extends BaseController{
 
     @FXML
     private void loadCar() throws IOException{
-        loadShow("car.fxml", btnCar);
+        loadShow("Car.fxml", btnCar);
     }
 
     @FXML
     private void loadService() throws IOException{
-        loadShow("service.fxml", btnService);
+        loadShow("Service.fxml", btnService);
     }
 
     @FXML
     private void loadPart() throws IOException{
-        loadShow("part.fxml", btnPart);
+        loadShow("Part.fxml", btnPart);
     }
 
     @FXML
     private void loadBudget() throws IOException{
-        loadShow("budget.fxml", btnBudget);
+        loadShow("Budget.fxml", btnBudget);
     }
 
     @FXML
     private void loadOrder() throws IOException{
-        loadShow("order.fxml", btnOrder);
+        loadShow("Order.fxml", btnOrder);
     }
 
     public void setCurrentButton(Button bnt){
