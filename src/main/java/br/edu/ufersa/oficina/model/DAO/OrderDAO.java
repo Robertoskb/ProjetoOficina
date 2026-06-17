@@ -30,8 +30,17 @@ public class OrderDAO extends TreatmentDAO<Order> {
 
             ps.setInt(1, order.getCar().getId());
             ps.setDouble(2, order.getPrice());
-            ps.setDate(3, Date.valueOf(order.getDate_start()));
-            ps.setDate(4, Date.valueOf(order.getDate_finish()));
+
+            Date start = null, finish = null;
+            if (order.getDate_start() != null)
+                start = Date.valueOf(order.getDate_start());
+
+            if (order.getDate_finish() != null)
+                finish = Date.valueOf(order.getDate_finish());
+
+            ps.setDate(3, start);
+            ps.setDate(4, finish);
+
             ps.setBoolean(5, order.isCompleted());
 
             ps.executeUpdate();
@@ -71,8 +80,16 @@ public class OrderDAO extends TreatmentDAO<Order> {
 
             ps.setInt(1, order.getCar().getId());
             ps.setDouble(2, order.getPrice());
-            ps.setDate(3, Date.valueOf(order.getDate_start()));
-            ps.setDate(4, Date.valueOf(order.getDate_finish()));
+
+            Date start = null, finish = null;
+            if (order.getDate_start() != null)
+                start = Date.valueOf(order.getDate_start());
+
+            if (order.getDate_finish() != null)
+                finish = Date.valueOf(order.getDate_finish());
+
+            ps.setDate(3, start);
+            ps.setDate(4, finish);
             ps.setBoolean(5, order.isCompleted());
 
             ps.setInt(6, order.getId());

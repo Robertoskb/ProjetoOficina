@@ -10,6 +10,10 @@ public class OrderService extends TreatmentService<Order>{
 
     @Override
     public void finish(int id) {
-        
+        Order order = getTreatmentById(id);
+
+        order.finish();
+
+        update(order);
     }
 }

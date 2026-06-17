@@ -3,6 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.DAO.BudgetDAO;
 import br.edu.ufersa.oficina.model.Entity.Budget;
+import br.edu.ufersa.oficina.model.Entity.Order;
 
 public class BudgetService extends TreatmentService<Budget> {
     public BudgetService(){
@@ -20,7 +21,13 @@ public class BudgetService extends TreatmentService<Budget> {
 
     @Override
     public void finish(int id) {
+        Budget budget = getTreatmentById(id);
 
+        Order order = budget.createOrder();
+
+        update(budget);
+
+        new OrderService().insert(order);
     }
 
 

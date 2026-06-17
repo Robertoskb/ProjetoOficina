@@ -24,8 +24,16 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
 
             ps.setInt(1, budget.getCar().getId());
             ps.setDouble(2, budget.getPrice());
-            ps.setDate(3, Date.valueOf(budget.getDate_start()));
-            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+
+            Date start = null, finish = null;
+            if (budget.getDate_start() != null)
+                start = Date.valueOf(budget.getDate_start());
+
+            if (budget.getDate_finish() != null)
+                finish = Date.valueOf(budget.getDate_finish());
+
+            ps.setDate(3, start);
+            ps.setDate(4, finish);
 
             ps.executeUpdate();
 
@@ -69,8 +77,16 @@ public class BudgetDAO extends TreatmentDAO<Budget>{
 
             ps.setInt(1, budget.getCar().getId());
             ps.setDouble(2, budget.getPrice());
-            ps.setDate(3, Date.valueOf(budget.getDate_start()));
-            ps.setDate(4, Date.valueOf(budget.getDate_finish()));
+
+            Date start = null, finish = null;
+            if (budget.getDate_start() != null)
+                start = Date.valueOf(budget.getDate_start());
+
+            if (budget.getDate_finish() != null)
+                finish = Date.valueOf(budget.getDate_finish());
+
+            ps.setDate(3, start);
+            ps.setDate(4, finish);
 
             ps.setInt(5, budget.getId());
 
