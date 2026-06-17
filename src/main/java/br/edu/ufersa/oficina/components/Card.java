@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -16,8 +17,8 @@ public class Card extends AnchorPane {
     protected GenericService<?> service;
     protected int entityId;
 
-    @FXML private Text lblTitle;
-    @FXML private Text lblDescription;
+    @FXML private Label lblTitle;
+    @FXML private Label lblDescription;
 
     public void setService(GenericService<?> service) {
         this.service = service;

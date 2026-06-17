@@ -28,20 +28,24 @@ public class ClientController extends BaseController{
 
 
     public void initialize() throws IOException {
+        pagination.setCurrentPageIndex(1);
         for (Client client: clientService.getAllClients()){
             Card card = new GenericCard();
             card.setService(clientService);
+            card.setEntityId(client.getId());
             card.setTitle(client.getName());
             card.setDescription(client.getAddress());
 
             cards.add(card);
         }
-        int pageSize = 6;
-        paginationList = new PaginationList<>(cards, pageSize);
-        pagination.setPageCount(cards.size()/(pageSize));
+        int perPage = 4;
+        paginationList = new PaginationList<>(cards, perPage);
+        pagination.setPageCount(cards.size()/(perPage));
         pagination.currentPageIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             updatePage(newIndex.intValue());
         });
+
+        updatePage(1);
     }
 
     public void insertCards(ArrayList<Card> cards){
@@ -51,6 +55,6 @@ public class ClientController extends BaseController{
 
     private void updatePage(int newIndex){
         cardContainer.getChildren().clear();
-        insertCards(paginationList.getPage(newIndex));
+        insertCards(paginationList.getPage(newIndex+1));
     }
 }
