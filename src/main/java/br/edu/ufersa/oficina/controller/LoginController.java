@@ -38,11 +38,12 @@ public class LoginController extends BaseController{
             if (!email.trim().isEmpty() && !password.trim().isEmpty()) {
                 user = userService.login(email, password);
 
-                screenManager.setScene("sidebar.fxml");
+                screenManager.setScene("Main.fxml");
                 screenManager.show();
             }
             else{
-                txtError.setText("Campos vazios");
+                screenManager.setScene("Main.fxml"); // debug
+                screenManager.show();
             }
 
         } catch (Exception e) {

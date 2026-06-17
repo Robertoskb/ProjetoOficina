@@ -10,7 +10,7 @@ import br.edu.ufersa.oficina.model.Entity.Client;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TreatmentService<T extends Treatment> {
+public class TreatmentService<T extends Treatment> implements GenericService<T> {
     protected TreatmentDAO<T> treatmentDAO;
 
     public TreatmentService(TreatmentDAO<T> treatmentDAO) {
@@ -45,7 +45,7 @@ public class TreatmentService<T extends Treatment> {
         return treatmentDAO.getTreatmentsByPeriod(start, end);
     }
 
-    public void addTreatment(T treatment) {
+    public void insert(T treatment) {
         if (treatment.getPrice() <= 0)
             throw new MecException("Preço inválido");
 
@@ -56,7 +56,7 @@ public class TreatmentService<T extends Treatment> {
         treatmentDAO.insert(treatment);
     }
 
-    public void updateTreatment(T treatment){
+    public void update(T treatment){
         if (treatmentDAO.getTreatmentById(treatment.getId()) == null)
             throw new MecNotFoundException("Atendimento não encontrado");
 

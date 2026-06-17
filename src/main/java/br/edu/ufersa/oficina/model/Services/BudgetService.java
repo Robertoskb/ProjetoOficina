@@ -15,6 +15,6 @@ public class BudgetService extends TreatmentService<Budget> {
         if (treatmentDAO.getTreatmentById(id) == null)
             throw new MecException("Atendimento não encontrado");
 
-        new OrderService().addTreatment(budget.createOrder());
+        new OrderService().insert(budget.createOrder());
     }
 }

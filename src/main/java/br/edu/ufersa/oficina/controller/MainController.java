@@ -44,7 +44,6 @@ public class MainController extends BaseController{
         }
         setCurrentButton(btn);
         screenManager.show();
-
     }
 
     public void initialize() throws IOException {
@@ -59,7 +58,7 @@ public class MainController extends BaseController{
 
     @FXML
     private void loadClient() throws IOException{
-        loadShow("client.fxml", btnClient);
+        loadShow("Client.fxml", btnClient);
     }
 
     @FXML
