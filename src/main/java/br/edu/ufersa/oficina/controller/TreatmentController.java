@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.Card;
-import br.edu.ufersa.oficina.components.TreatmentCard;
+import br.edu.ufersa.oficina.components.CardTreatment;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Treatment;
 import br.edu.ufersa.oficina.model.Services.TreatmentService;
@@ -19,7 +18,7 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
         for (T treatment: service.getAllTreatments()){
             if (treatment.getDate_finish() != null)
                 continue;
-            TreatmentCard card = new TreatmentCard();
+            CardTreatment card = new CardTreatment();
             card.setService(service);
             card.setEntityId(treatment.getId());
 

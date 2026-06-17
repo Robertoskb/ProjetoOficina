@@ -1,7 +1,7 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.AddCard;
-import br.edu.ufersa.oficina.components.Card;
+import br.edu.ufersa.oficina.components.CardAdd;
+import br.edu.ufersa.oficina.components.CardService;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.Observer;
@@ -13,13 +13,13 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class PaginatorController<E, S extends GenericService<E>> extends BaseController implements Observer {
+public abstract class PaginatorController<S extends GenericService<?>> extends BaseController implements Observer {
     @FXML protected VBox cardContainer;
     @FXML protected Pagination pagination;
 
-    protected PaginationList<Card> paginationList;
+    protected PaginationList<CardService<S>> paginationList;
     protected final S service;
-    protected final ArrayList<Card> cards = new ArrayList<>();
+    protected final ArrayList<CardService<S>> cards = new ArrayList<>();
     protected final int perPage = 4;
 
     public abstract void generateCards() throws IOException;
@@ -27,7 +27,7 @@ public abstract class PaginatorController<E, S extends GenericService<E>> extend
     public void initialize() throws IOException {
         pagination.setCurrentPageIndex(0);
 
-        cards.add(new AddCard());
+        cards.add(new CardAdd<S>());
         generateCards();
 
         paginationList = new PaginationList<>(cards, perPage);
@@ -48,8 +48,8 @@ public abstract class PaginatorController<E, S extends GenericService<E>> extend
         return service;
     }
 
-    public void insertCards(ArrayList<Card> cards){
-        for (Card card: cards)
+    public void insertCards(ArrayList<CardService<S>> cards){
+        for (CardService<S> card: cards)
             cardContainer.getChildren().add(card);
     }
 

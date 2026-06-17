@@ -1,14 +1,14 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.Card;
-import br.edu.ufersa.oficina.components.EntityCard;
+import br.edu.ufersa.oficina.components.CardService;
 import br.edu.ufersa.oficina.model.Entity.Client;
+import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.model.Services.ClientService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import java.io.IOException;
 
 
-public class ClientController extends PaginatorController<Client, ClientService> {
+public class ClientController extends PaginatorController<ClientService> {
     public ClientController(ScreenManager screenManager){
         super(screenManager, new ClientService());
     }
@@ -16,7 +16,7 @@ public class ClientController extends PaginatorController<Client, ClientService>
     @Override
     public void generateCards() throws IOException {
         for (Client client: service.getAllClients()){
-            Card card = new EntityCard();
+            CardService<ClientService> card = new CardService<>();
             card.setService(service);
             card.setEntityId(client.getId());
             card.setTitle(client.getName());

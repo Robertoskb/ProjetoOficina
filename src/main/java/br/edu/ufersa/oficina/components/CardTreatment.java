@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.components;
 
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.Entity.Treatment;
 import br.edu.ufersa.oficina.model.Services.TreatmentService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,10 +10,10 @@ import javafx.scene.control.ButtonType;
 import java.io.IOException;
 import java.util.Optional;
 
-public class TreatmentCard<T extends Treatment, S extends TreatmentService<T>> extends Card<S> {
+public class CardTreatment<S extends TreatmentService<?>> extends CardService<S> {
     @FXML private Button btnCheck;
 
-    public TreatmentCard() throws IOException {
+    public CardTreatment() throws IOException {
         super("treatmentCard.fxml");
     }
 

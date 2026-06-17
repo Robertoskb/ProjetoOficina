@@ -1,14 +1,15 @@
 package br.edu.ufersa.oficina.components;
 
+import br.edu.ufersa.oficina.model.Services.GenericService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class AddCard extends Card{
+public class CardAdd<S extends GenericService<?>> extends CardService<S> {
     @FXML private Button btnAdd;
 
-    public AddCard() throws IOException{
+    public CardAdd() throws IOException{
         super("addCard.fxml");
     }
 }
