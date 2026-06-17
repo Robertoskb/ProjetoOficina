@@ -11,6 +11,6 @@
             <Insets left="15.0" right="15.0" />
          </padding>
       </VBox>
-      <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="200.0" prefWidth="200.0" />
+      <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0" />
    </children>
 </VBox>

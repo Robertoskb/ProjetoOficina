@@ -1,6 +1,9 @@
 package br.edu.ufersa.oficina.components;
 
+import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
 import br.edu.ufersa.oficina.model.Services.GenericService;
+import br.edu.ufersa.oficina.utils.Observer;
+import br.edu.ufersa.oficina.utils.Subject;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
@@ -11,17 +14,24 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
-public class Card extends AnchorPane {
+public class Card extends AnchorPane implements Subject {
     protected GenericService<?> service;
     protected int entityId;
+
+    protected ArrayList<Observer> observers = new ArrayList<>();
 
     @FXML private Label lblTitle;
     @FXML private Label lblDescription;
 
     public void setService(GenericService<?> service) {
         this.service = service;
+    }
+
+    public int getEntityId() {
+        return entityId;
     }
 
     public void setEntityId(int entityId) {
@@ -57,13 +67,30 @@ public class Card extends AnchorPane {
 
     }
     public void delete(){
-        Pane parent = (Pane) this.getParent();
-
-        if (parent != null && confirm()){
-            parent.getChildren().remove(this);
+        if (confirm()){
 
             if (service != null)
-                service.delete(entityId);
+                try {
+                    service.delete(entityId);
+                    notifyObservers(entityId);
+                }
+                catch (MecNotFoundException ignore){}
         }
+    }
+
+    @Override
+    public void registerObserver(Observer observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyObservers(int id){
+        for (Observer observer: observers)
+            observer.update(id);
     }
 }

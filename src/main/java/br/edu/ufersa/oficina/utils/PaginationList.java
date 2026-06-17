@@ -13,7 +13,7 @@ public class PaginationList<T> {
 
     public ArrayList<T> getPage(int page){
         int fromIndex = (page - 1) * pageSize;
-        int toIndex = Math.min(fromIndex + pageSize, arrayList.size()-1);
+        int toIndex = Math.min(fromIndex + pageSize, arrayList.size());
 
         if (fromIndex > arrayList.size())
             return new ArrayList<>();

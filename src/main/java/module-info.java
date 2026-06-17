@@ -11,5 +11,6 @@ module projetooficina{
     exports br.edu.ufersa.oficina.model.DAO;
     exports br.edu.ufersa.oficina.model.Services;
     exports br.edu.ufersa.oficina.ui;
+    exports br.edu.ufersa.oficina.utils;
     exports br.edu.ufersa.oficina;
 }
