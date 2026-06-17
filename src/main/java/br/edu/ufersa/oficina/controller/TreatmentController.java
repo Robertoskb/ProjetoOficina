@@ -8,7 +8,7 @@ import br.edu.ufersa.oficina.ui.ScreenManager;
 
 import java.io.IOException;
 
-public class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<T, S>{
+public class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S>{
     public TreatmentController(ScreenManager screenManager, S service){
         super(screenManager, service);
     }
@@ -18,7 +18,7 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
         for (T treatment: service.getAllTreatments()){
             if (treatment.getDate_finish() != null)
                 continue;
-            CardTreatment card = new CardTreatment();
+            CardTreatment<S> card = new CardTreatment<>();
             card.setService(service);
             card.setEntityId(treatment.getId());
 
