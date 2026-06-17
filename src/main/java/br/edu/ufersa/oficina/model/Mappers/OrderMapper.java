@@ -3,6 +3,7 @@ package br.edu.ufersa.oficina.model.Mappers;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Order;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -13,11 +14,17 @@ public class OrderMapper implements GenericMapper<Order> {
         int id = rs.getInt("order_id");
         Car car = new CarMapper().createEntity(rs);
         double price = rs.getDouble("order_price");
-        LocalDate date_start = rs.getDate("order_date_start").toLocalDate();
-        LocalDate date_finish = rs.getDate("order_date_finish").toLocalDate();
+        Date date_start = rs.getDate("order_date_start");
+        Date date_finish = rs.getDate("order_date_finish");
         boolean completed = rs.getBoolean("completed");
 
-        return new Order(id, null, null, car, price, date_start, date_finish, completed);
+        LocalDate start = null, finish = null;
+        if (date_start != null)
+            start = date_start.toLocalDate();
+        if (date_finish != null)
+            finish = date_finish.toLocalDate();
+
+        return new Order(id, null, null, car, price, start, finish, completed);
     }
 
     public ArrayList<Order> createArrayEntity(ResultSet rs) throws SQLException {

@@ -10,15 +10,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class Card extends AnchorPane implements Subject {
-    protected GenericService<?> service;
+public class Card<S extends GenericService<?>> extends AnchorPane implements Subject {
+    protected S service;
     protected int entityId;
 
     protected ArrayList<Observer> observers = new ArrayList<>();
@@ -26,7 +24,17 @@ public class Card extends AnchorPane implements Subject {
     @FXML private Label lblTitle;
     @FXML private Label lblDescription;
 
-    public void setService(GenericService<?> service) {
+    public Card(String fxml) throws IOException {
+        String basePath = "/br/edu/ufersa/oficina/view/components/";
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
+
+        loader.setRoot(this);
+        loader.setController(this);
+
+        loader.load();
+    }
+
+    public void setService(S service) {
         this.service = service;
     }
 
@@ -46,17 +54,7 @@ public class Card extends AnchorPane implements Subject {
         lblDescription.setText(description);
     }
 
-    public Card(String fxml) throws IOException {
-        String basePath = "/br/edu/ufersa/oficina/view/components/";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
-
-        loader.setRoot(this);
-        loader.setController(this);
-
-        loader.load();
-    }
-
-    private boolean confirm() {
+    private boolean confirmDelete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Remoção");
         alert.setHeaderText("Deseja realmente excluir este item?");
@@ -64,10 +62,9 @@ public class Card extends AnchorPane implements Subject {
         Optional<ButtonType> dialog = alert.showAndWait();
 
         return dialog.isPresent() && dialog.get() == ButtonType.OK;
-
     }
     public void delete(){
-        if (confirm()){
+        if (confirmDelete()){
 
             if (service != null)
                 try {

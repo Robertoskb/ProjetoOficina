@@ -26,4 +26,9 @@ public class Budget extends Treatment{
 
         return order;
     }
+
+    @Override
+    public void finish(){
+        createOrder();
+    }
 }

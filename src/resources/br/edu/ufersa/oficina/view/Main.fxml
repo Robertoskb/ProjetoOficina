@@ -6,68 +6,26 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="root"
-            maxHeight="-Infinity"
-            maxWidth="-Infinity"
-            minHeight="-Infinity"
-            minWidth="-Infinity"
-            prefHeight="400.0"
-            prefWidth="600.0"
-            style="-fx-background-color: #14242B;"
-            stylesheets="@../css/sidebar.css"
-            xmlns="http://javafx.com/javafx/26"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="br.edu.ufersa.oficina.controller.MainController">
+<BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #14242B;" stylesheets="@../css/sidebar.css" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.oficina.controller.MainController">
 
    <left>
-      <VBox prefHeight="400.0"
-            prefWidth="126.0"
-            styleClass="sidebar"
-            BorderPane.alignment="CENTER">
+      <VBox prefHeight="400.0" prefWidth="159.0" styleClass="sidebar" BorderPane.alignment="CENTER">
 
          <children>
 
-            <Button fx:id="btnHome"
-                    mnemonicParsing="false"
-                    onAction="#loadHome"
-                    text="Início"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnHome" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadHome" styleClass="sidebar-button" text="Início" />
 
-            <Button fx:id="btnClient"
-                    mnemonicParsing="false"
-                    onAction="#loadClient"
-                    text="Clientes"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnClient" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadClient" styleClass="sidebar-button" text="Clientes" />
 
-            <Button fx:id="btnCar"
-                    mnemonicParsing="false"
-                    onAction="#loadCar"
-                    text="Carros"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnCar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadCar" styleClass="sidebar-button" text="Carros" />
 
-            <Button fx:id="btnService"
-                    mnemonicParsing="false"
-                    onAction="#loadService"
-                    text="Serviços"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnService" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadService" styleClass="sidebar-button" text="Serviços" />
 
-            <Button fx:id="btnPart"
-                    mnemonicParsing="false"
-                    onAction="#loadPart"
-                    text="Peças"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnPart" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadPart" styleClass="sidebar-button" text="Peças" />
 
-            <Button fx:id="btnBudget"
-                    mnemonicParsing="false"
-                    onAction="#loadBudget"
-                    text="Orçamentos"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnBudget" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadBudget" styleClass="sidebar-button" text="Orçamentos" />
 
-            <Button fx:id="btnOrder"
-                    mnemonicParsing="false"
-                    onAction="#loadOrder"
-                    text="Ordens de Serviço"
-                    styleClass="sidebar-button"/>
+            <Button fx:id="btnOrder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadOrder" styleClass="sidebar-button" text="Ordens de Serviço" />
 
          </children>
 
@@ -75,15 +33,10 @@
    </left>
 
    <center>
-      <Text fx:id="txtCenter"
-            text="Text"
-            styleClass="center-title"
-            strokeType="OUTSIDE"
-            strokeWidth="0.0"
-            BorderPane.alignment="CENTER">
+      <Text fx:id="txtCenter" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="center-title" text="Text" BorderPane.alignment="CENTER">
 
          <font>
-            <Font size="47.0"/>
+            <Font size="47.0" />
          </font>
 
       </Text>

@@ -26,6 +26,7 @@ public class Order extends Treatment{
         setCompleted(completed);
     }
 
+    @Override
     public void finish(){
         setCompleted(true);
         setDate_finish(LocalDate.now());

@@ -7,4 +7,9 @@ public class OrderService extends TreatmentService<Order>{
     public OrderService(){
         super(new OrderDAO());
     }
+
+    @Override
+    public void finish(int id) {
+        
+    }
 }

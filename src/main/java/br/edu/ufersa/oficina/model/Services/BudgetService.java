@@ -17,4 +17,11 @@ public class BudgetService extends TreatmentService<Budget> {
 
         new OrderService().insert(budget.createOrder());
     }
+
+    @Override
+    public void finish(int id) {
+
+    }
+
+
 }

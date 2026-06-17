@@ -10,7 +10,7 @@ import br.edu.ufersa.oficina.model.Entity.Client;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class TreatmentService<T extends Treatment> implements GenericService<T> {
+public abstract class TreatmentService<T extends Treatment> implements GenericService<T> {
     protected TreatmentDAO<T> treatmentDAO;
 
     public TreatmentService(TreatmentDAO<T> treatmentDAO) {
@@ -75,6 +75,8 @@ public class TreatmentService<T extends Treatment> implements GenericService<T> 
 
         treatmentDAO.delete(id);
     }
+
+    public abstract void finish(int id);
 
     public TreatmentDAO<T> getTreatmentDAO() {
         return treatmentDAO;

@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
+import br.edu.ufersa.oficina.components.AddCard;
 import br.edu.ufersa.oficina.components.Card;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
@@ -26,6 +27,7 @@ public abstract class PaginatorController<E, S extends GenericService<E>> extend
     public void initialize() throws IOException {
         pagination.setCurrentPageIndex(0);
 
+        cards.add(new AddCard());
         generateCards();
 
         paginationList = new PaginationList<>(cards, perPage);
@@ -51,9 +53,11 @@ public abstract class PaginatorController<E, S extends GenericService<E>> extend
             cardContainer.getChildren().add(card);
     }
 
-    public void updatePage(int newIndex){
+    public void updatePage(int newIndex) {
         cardContainer.getChildren().clear();
+
         insertCards(paginationList.getPage(newIndex+1));
+
         pagination.setPageCount((cards.size()/(perPage)) + (cards.size()%perPage != 0 ? 1 : 0));
     }
 

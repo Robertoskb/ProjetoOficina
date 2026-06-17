@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class Treatment {
+public abstract class Treatment {
     private int id;
     private ArrayList<Part> parts;
     private ArrayList<Service> services;
@@ -50,6 +50,8 @@ public class Treatment {
         setDate_finish(date_finish);
 
     }
+
+    public abstract void finish();
 
     public void show(){
         System.out.println("(" + id + ", " + car.getId() + ", " + price + ", " + date_start.toString() + ")");

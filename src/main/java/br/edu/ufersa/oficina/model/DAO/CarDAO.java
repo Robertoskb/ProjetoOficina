@@ -22,7 +22,7 @@ public class CarDAO extends GenericDAO<Car> {
     public ArrayList<Car> getAllCars() {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id";
+        String sql = "SELECT * FROM " + table + " ca LEFT JOIN Client cl ON ca.client_id = cl.client_id";
 
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
             return mapper.createArrayEntity(rs);
@@ -36,7 +36,7 @@ public class CarDAO extends GenericDAO<Car> {
     public Car getCarById(int id) {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT * FROM " + table + " ca INNER JOIN Client cl ON ca.client_id = cl.client_id where ca.car_id = ?";
+        String sql = "SELECT * FROM " + table + " ca LEFT JOIN Client cl ON ca.client_id = cl.client_id where ca.car_id = ?";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, id);
