@@ -9,4 +9,9 @@ public class UserForm extends Form<User, UserService>{
     public UserForm(ScreenManager screenManager) {
         super(screenManager);
     }
+
+    @Override
+    public void fill(User user) {
+
+    }
 }

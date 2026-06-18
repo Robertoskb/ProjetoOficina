@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardService;
+import br.edu.ufersa.oficina.components.CardSubject;
 import br.edu.ufersa.oficina.model.Entity.Client;
 import br.edu.ufersa.oficina.model.Services.ClientService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
@@ -15,8 +15,7 @@ public class ClientController extends PaginatorController<ClientService> {
     @Override
     public void generateCards() throws IOException {
         for (Client client: service.getAllClients()){
-            CardService<ClientService> card = new CardService<>();
-            card.setService(service);
+            CardSubject card = new CardSubject();
             card.setCardId(client.getId());
             card.setTitle(client.getName());
             card.setDescription(client.getAddress());

@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardService;
+import br.edu.ufersa.oficina.components.CardSubject;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
@@ -15,8 +15,7 @@ public class CarController extends PaginatorController<CarService>{
     @Override
     public void generateCards() throws IOException {
         for (Car car: service.getAllCars()){
-            CardService<CarService> card = new CardService<>();
-            card.setService(service);
+            CardSubject card = new CardSubject();
             card.setCardId(car.getId());
             card.setTitle(car.getModel());
             card.setDescription(car.getPlate());

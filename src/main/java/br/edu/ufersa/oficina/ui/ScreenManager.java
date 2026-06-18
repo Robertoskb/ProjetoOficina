@@ -11,7 +11,7 @@ public class ScreenManager {
     private final Stage stage;
     private final ScreenLoader screenLoader;
     private User user;
-
+    
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
         screenLoader = new ScreenLoader(this);

@@ -6,10 +6,11 @@ import br.edu.ufersa.oficina.model.Entity.Client;
 import br.edu.ufersa.oficina.model.Entity.Treatment;
 import br.edu.ufersa.oficina.model.Services.TreatmentService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
+import br.edu.ufersa.oficina.utils.TreatmentObserver;
 
 import java.io.IOException;
 
-public class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S>{
+public class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S> implements TreatmentObserver {
     public TreatmentController(ScreenManager screenManager, S service){
         super(screenManager, service);
     }
@@ -19,8 +20,7 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
         for (T treatment: service.getAllTreatments()){
             if (treatment.getDate_finish() != null)
                 continue;
-            CardTreatment<S> card = new CardTreatment<>();
-            card.setService(service);
+            CardTreatment card = new CardTreatment();
             card.setCardId(treatment.getId());
 
             Car car = treatment.getCar();
@@ -35,6 +35,19 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
             card.registerObserver(this);
 
             cards.add(card);
+        }
+    }
+
+    @Override
+    public void finish(int id) {
+        try {
+            service.finish(id);
+            cards.removeIf(card -> card.getCardId() == id);
+            updatePage(pagination.getCurrentPageIndex());
+        }
+
+        catch (Exception e){
+            alert(e.getMessage());
         }
     }
 }

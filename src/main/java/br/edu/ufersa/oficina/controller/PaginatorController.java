@@ -23,6 +23,11 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     protected final ArrayList<CardGeneric> cards = new ArrayList<>();
     protected final int perPage = 4;
 
+    public PaginatorController(ScreenManager screenManager, S service){
+        super(screenManager);
+        this.service = service;
+    }
+
     public abstract void generateCards() throws IOException;
 
     public void initialize() throws IOException {
@@ -46,11 +51,6 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         updatePage(0);
     }
 
-    public PaginatorController(ScreenManager screenManager, S service){
-        super(screenManager);
-        this.service = service;
-    }
-
     public GenericService<?> getService() {
         return service;
     }
@@ -69,8 +69,20 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     }
 
     @Override
+    public void edit(int id){
+
+    }
+
+    @Override
     public void delete(int id){
-        cards.removeIf(card -> card.getCardId() == id);
-        updatePage(pagination.getCurrentPageIndex());
+        try {
+            service.delete(id);
+            cards.removeIf(card -> card.getCardId() == id);
+            updatePage(pagination.getCurrentPageIndex());
+        }
+
+        catch (Exception e){
+            alert(e.getMessage());
+        }
     }
 }

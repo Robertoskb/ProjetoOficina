@@ -1,7 +1,5 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.utils.Observer;
 import br.edu.ufersa.oficina.utils.Subject;
 import javafx.scene.control.Alert;
@@ -11,23 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class CardService<S extends GenericService<?>> extends Card implements Subject {
-    protected S service;
+public class CardSubject extends Card implements Subject {
 
     protected ArrayList<Observer> observers = new ArrayList<>();
 
-    public CardService() throws IOException {
+    public CardSubject() throws IOException {
         super("entityCard.fxml");
     }
 
-    public CardService(String fxml) throws IOException {
+    public CardSubject(String fxml) throws IOException {
         super(fxml);
     }
-
-    public void setService(S service) {
-        this.service = service;
-    }
-
 
     private boolean confirmDelete() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -40,15 +32,7 @@ public class CardService<S extends GenericService<?>> extends Card implements Su
     }
     public void delete(){
         if (confirmDelete()){
-
-            if (service != null)
-                try {
-                    service.delete(cardId);
-                    notifyObservers(cardId);
-                }
-                catch (MecNotFoundException e){
-                    System.out.println(e.getMessage());
-                }
+            notifyDelete(cardId);
         }
     }
 
@@ -63,8 +47,14 @@ public class CardService<S extends GenericService<?>> extends Card implements Su
     }
 
     @Override
-    public void notifyObservers(int id){
+    public void notifyDelete(int id){
         for (Observer observer: observers)
             observer.delete(id);
+    }
+
+    @Override
+    public void notifyEdit(int id) {
+        for (Observer observer: observers)
+            observer.edit(id);
     }
 }

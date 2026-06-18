@@ -1,17 +1,21 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.Services.TreatmentService;
+import br.edu.ufersa.oficina.utils.Observer;
+import br.edu.ufersa.oficina.utils.TreatmentObserver;
+import br.edu.ufersa.oficina.utils.TreatmentSubject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Optional;
 
-public class CardTreatment<S extends TreatmentService<?>> extends CardService<S> {
+public class CardTreatment extends CardSubject implements TreatmentSubject {
     @FXML private Button btnCheck;
+
+    private final ArrayList<TreatmentObserver> observers = new ArrayList<>();
 
     public CardTreatment() throws IOException {
         super("treatmentCard.fxml");
@@ -29,14 +33,22 @@ public class CardTreatment<S extends TreatmentService<?>> extends CardService<S>
 
     public void finish(){
         if (confirmFinish())
-            if (service != null) {
-                try {
-                    service.finish(cardId);
-                    notifyObservers(cardId);
-                }
-
-                catch (MecNotFoundException ignore){}
-            }
+            notifyFinish(cardId);
     }
 
+    @Override
+    public void registerObserver(TreatmentObserver observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(TreatmentObserver observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyFinish(int id) {
+        for (TreatmentObserver observer: observers)
+            observer.finish(id);
+    }
 }
