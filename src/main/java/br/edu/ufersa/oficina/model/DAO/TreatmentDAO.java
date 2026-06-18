@@ -36,7 +36,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     public ArrayList<T> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id";
+        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id ORDER BY 1 DESC";
 
         ArrayList<T> treatments;
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){

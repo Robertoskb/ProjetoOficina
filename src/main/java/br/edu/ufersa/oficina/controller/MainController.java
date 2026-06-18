@@ -5,6 +5,8 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -19,6 +21,9 @@ public class MainController extends BaseController{
     @FXML private Button btnPart;
     @FXML private Button btnBudget;
     @FXML private Button btnOrder;
+    @FXML private Button btnUser;
+
+    @FXML private VBox btnContainer;
 
     @FXML private Text txtCenter;
 
@@ -49,6 +54,9 @@ public class MainController extends BaseController{
     public void initialize() throws IOException {
         setCenter("menu.fxml");
         setCurrentButton(btnHome);
+        if (!screenManager.getUser().isAdmin()){
+            btnContainer.getChildren().remove(btnUser);
+        }
     }
 
     @FXML
@@ -84,6 +92,18 @@ public class MainController extends BaseController{
     @FXML
     private void loadOrder() throws IOException{
         loadShow("Order.fxml", btnOrder);
+    }
+
+    @FXML
+    private void loadUser() throws IOException{
+        loadShow("User.fxml", btnUser);
+    }
+
+    @FXML
+    private void logout() throws IOException{
+        screenManager.setUser(null);
+        screenManager.setScene("login.fxml");
+        screenManager.show();
     }
 
     public void setCurrentButton(Button bnt){

@@ -7,10 +7,10 @@ import br.edu.ufersa.oficina.model.Entity.User;
 
 import java.util.ArrayList;
 
-public class UserService {
+public class UserService implements GenericService<User> {
     private final UserDAO dao = new UserDAO();
 
-    public void addUser(User user){
+    public void insert(User user){
         String name, email, password;
         name = user.getName();
         email = user.getEmail();
@@ -30,6 +30,34 @@ public class UserService {
         }
     }
 
+    public void update(User user){
+        getUserById(user.getId());
+
+        String name, email, password;
+        name = user.getName();
+        email = user.getEmail();
+        password = user.getPassword();
+
+        if (!name.trim().isEmpty() && !email.trim().isEmpty() && !password.trim().isEmpty()){
+            if (!email.contains("@"))
+                throw new MecException("Email inválido");
+
+            if (password.length() < 8)
+                throw new MecException("Senha curta");
+
+            dao.update(user);
+        }
+        else {
+            throw new MecException("Campos vazios");
+        }
+    }
+
+    public void delete(int id){
+        getUserById(id);
+
+        dao.delete(id);
+    }
+
     public User getUserById(int id){
         User user = dao.filterEntityById(id);
 
@@ -40,12 +68,7 @@ public class UserService {
     }
 
     public ArrayList<User> getAllUsers(){
-        ArrayList<User> users = dao.getAllUsers();
-
-        if (users == null)
-            throw new MecNotFoundException("Nenhum usuário encontrado");
-
-        return users;
+        return dao.getAllUsers();
     }
 
     public User login(String email, String password){

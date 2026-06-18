@@ -10,13 +10,13 @@
 
 <fx:root prefHeight="80" prefWidth="500" stylesheets="@../../css/card.css" type="AnchorPane" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
-    <HBox alignment="CENTER_LEFT" spacing="10" styleClass="base-card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <HBox fx:id="hbContainer" alignment="CENTER_LEFT" spacing="10" styleClass="base-card" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 
         <padding>
             <Insets bottom="10" left="15" right="15" top="10" />
         </padding>
 
-        <VBox spacing="3">
+        <VBox fx:id="vbContainer" spacing="3">
             <Label fx:id="lblTitle" text="R$ 500" />
             <Label fx:id="lblDescription" text="John Doe." />
         </VBox>

@@ -42,9 +42,8 @@ public abstract class GenericDAO<E> {
 
     public ArrayList<E> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
-        System.out.println(table);
 
-        String sql = "SELECT * FROM " + this.table;
+        String sql = "SELECT * FROM " + this.table + " ORDER BY 1 DESC";
 
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
             return mapper.createArrayEntity(rs);

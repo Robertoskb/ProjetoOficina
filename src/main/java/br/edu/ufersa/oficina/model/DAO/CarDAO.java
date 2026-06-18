@@ -22,7 +22,7 @@ public class CarDAO extends GenericDAO<Car> {
     public ArrayList<Car> getAllCars() {
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT * FROM " + table + " ca LEFT JOIN Client cl ON ca.client_id = cl.client_id";
+        String sql = "SELECT * FROM " + table + " ca LEFT JOIN Client cl ON ca.client_id = cl.client_id ORDER BY 1 DESC";
 
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
             return mapper.createArrayEntity(rs);

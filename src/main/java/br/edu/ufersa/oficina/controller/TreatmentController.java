@@ -24,10 +24,16 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
 
             Car car = treatment.getCar();
 
-            String first = car != null ? car.getModel() : "Carro";
-            String last = car != null && car.getClient() != null? car.getClient().getName() : "Desconhecido";
+            String first = "Carro";
+            String last = "Desconhecido";
 
-            card.setTitle(first + " de " + last);
+            if (car != null) {
+                first = car.getModel();
+                if (car.getClient() != null)
+                    last = car.getClient().getName();
+            }
+
+            card.setTitle(first + " de " + last + " id: " + treatment.getId());
             card.setDescription("R$ " + treatment.getPrice());
             card.registerObserver(this);
 

@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.ui;
 
+import br.edu.ufersa.oficina.model.Entity.User;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,6 +10,7 @@ import java.io.IOException;
 public class ScreenManager {
     private final Stage stage;
     private final ScreenLoader screenLoader;
+    private User user;
 
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
@@ -23,6 +25,9 @@ public class ScreenManager {
         stage.setScene(scene);
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public void show(){
         stage.show();
@@ -30,6 +35,10 @@ public class ScreenManager {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     public ScreenLoader getScreenLoader() {
