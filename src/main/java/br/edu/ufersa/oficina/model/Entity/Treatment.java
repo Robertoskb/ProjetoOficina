@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public abstract class Treatment {
-    private int id;
+public abstract class Treatment extends Entity {
     private ArrayList<Part> parts;
     private ArrayList<Service> services;
     private Car car;
@@ -55,15 +54,6 @@ public abstract class Treatment {
 
     public void show(){
         System.out.println("(" + id + ", " + car.getId() + ", " + price + ", " + date_start.toString() + ")");
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public ArrayList<Part> getParts() {

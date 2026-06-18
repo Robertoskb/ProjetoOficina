@@ -17,7 +17,7 @@ public class ServiceController extends PaginatorController<ServiceService>{
         for (Service entityService: service.getAllServices()){
             CardService<ServiceService> card = new CardService<>();
             card.setService(service);
-            card.setEntityId(entityService.getId());
+            card.setCardId(entityService.getId());
             card.setTitle(entityService.getName());
             card.setDescription("R$ " + entityService.getPrice());
             card.registerObserver(this);

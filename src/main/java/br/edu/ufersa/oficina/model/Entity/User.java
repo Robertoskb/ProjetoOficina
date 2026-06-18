@@ -1,8 +1,7 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class User {
+public class User extends Entity{
 
-    private int id;
     private String name;
     private String email;
     private String password;
@@ -26,14 +25,6 @@ public class User {
 
     public void show(){
         System.out.println("(" + this.name + ", " + this.email + ")");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

@@ -70,8 +70,7 @@ public abstract class TreatmentService<T extends Treatment> implements GenericSe
     }
 
     public void delete(int id){
-        if (treatmentDAO.getTreatmentById(id) == null)
-            throw new MecNotFoundException("Atendimento não encontrado");
+        getTreatmentById(id);
 
         treatmentDAO.delete(id);
     }

@@ -17,10 +17,6 @@ public class CardTreatment<S extends TreatmentService<?>> extends CardService<S>
         super("treatmentCard.fxml");
     }
 
-    public void setBtnCheckText(String text){
-        btnCheck.setText(text);
-    }
-
     private boolean confirmFinish() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmar Finalização");
@@ -35,8 +31,8 @@ public class CardTreatment<S extends TreatmentService<?>> extends CardService<S>
         if (confirmFinish())
             if (service != null) {
                 try {
-                    service.finish(entityId);
-                    notifyObservers(entityId);
+                    service.finish(cardId);
+                    notifyObservers(cardId);
                 }
 
                 catch (MecNotFoundException ignore){}

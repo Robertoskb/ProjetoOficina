@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class Car {
-    private int id;
+public class Car extends Entity{
     private String brand;
     private String model;
     private String color;
@@ -33,14 +32,6 @@ public class Car {
 
     public void show() {
         System.out.println("(" + this.plate + ", " + this.brand + " " + this.model + ", Dono: " + this.client.getName() + ")");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrand() {

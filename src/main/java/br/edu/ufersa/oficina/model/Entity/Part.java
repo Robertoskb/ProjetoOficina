@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class Part {
-    private int id;
+public class Part extends Entity{
     private String name;
     private double price;
     private String manufacturer;
@@ -24,14 +23,6 @@ public class Part {
 
     public void show() {
         System.out.println("(" + this.name + ", R$ " + this.price + ", " + this.manufacturer + ")");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

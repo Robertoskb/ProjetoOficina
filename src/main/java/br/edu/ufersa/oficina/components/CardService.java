@@ -4,12 +4,8 @@ import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.utils.Observer;
 import br.edu.ufersa.oficina.utils.Subject;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -17,7 +13,6 @@ import java.util.Optional;
 
 public class CardService<S extends GenericService<?>> extends Card implements Subject {
     protected S service;
-    protected int entityId;
 
     protected ArrayList<Observer> observers = new ArrayList<>();
 
@@ -31,14 +26,6 @@ public class CardService<S extends GenericService<?>> extends Card implements Su
 
     public void setService(S service) {
         this.service = service;
-    }
-
-    public int getEntityId() {
-        return entityId;
-    }
-
-    public void setEntityId(int entityId) {
-        this.entityId = entityId;
     }
 
 
@@ -56,10 +43,12 @@ public class CardService<S extends GenericService<?>> extends Card implements Su
 
             if (service != null)
                 try {
-                    service.delete(entityId);
-                    notifyObservers(entityId);
+                    service.delete(cardId);
+                    notifyObservers(cardId);
                 }
-                catch (MecNotFoundException ignore){}
+                catch (MecNotFoundException e){
+                    System.out.println(e.getMessage());
+                }
         }
     }
 
@@ -76,6 +65,6 @@ public class CardService<S extends GenericService<?>> extends Card implements Su
     @Override
     public void notifyObservers(int id){
         for (Observer observer: observers)
-            observer.update(id);
+            observer.delete(id);
     }
 }

@@ -17,7 +17,7 @@ public class PartController extends PaginatorController<PartsService>{
         for (Part part: service.getAllParts()){
             CardService<PartsService> card = new CardService<>();
             card.setService(service);
-            card.setEntityId(part.getId());
+            card.setCardId(part.getId());
             card.setTitle(part.getName());
             card.setDescription("R$ " + part.getPrice());
             card.registerObserver(this);

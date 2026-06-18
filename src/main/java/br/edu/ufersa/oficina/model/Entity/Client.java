@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class Client {
-    private int id;
+public class Client extends Entity{
     private String name;
     private String address;
     private long CPF;
@@ -14,12 +13,10 @@ public class Client {
         setName(name); setAddress(address); setCPF(CPF);
     }
 
-    public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
     public void setAddress(String address) { this.address = address; }
     public void setCPF (long CPF) { this.CPF = CPF; }
 
-    public int getId() { return id; }
     public String getName() { return name; }
     public String getAddress() { return address; }
     public long getCPF () { return CPF; }

@@ -1,7 +1,8 @@
 package br.edu.ufersa.oficina.controller;
 
+import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.components.CardAdd;
-import br.edu.ufersa.oficina.components.CardService;
+import br.edu.ufersa.oficina.components.CardGeneric;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.Observer;
@@ -17,9 +18,9 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     @FXML protected VBox cardContainer;
     @FXML protected Pagination pagination;
 
-    protected PaginationList<CardService<S>> paginationList;
+    protected PaginationList<CardGeneric> paginationList;
     protected final S service;
-    protected final ArrayList<CardService<S>> cards = new ArrayList<>();
+    protected final ArrayList<CardGeneric> cards = new ArrayList<>();
     protected final int perPage = 4;
 
     public abstract void generateCards() throws IOException;
@@ -27,8 +28,14 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     public void initialize() throws IOException {
         pagination.setCurrentPageIndex(0);
 
-        cards.add(new CardAdd<S>());
-        generateCards();
+        try {
+            generateCards();
+            cards.add(0, new CardAdd());
+        }
+
+        catch (MecException e){
+            alert(e.getMessage());
+        }
 
         paginationList = new PaginationList<>(cards, perPage);
         pagination.setPageCount((cards.size()/(perPage)) + (cards.size()%perPage != 0 ? 1 : 0));
@@ -48,8 +55,8 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         return service;
     }
 
-    public void insertCards(ArrayList<CardService<S>> cards){
-        for (CardService<S> card: cards)
+    public void insertCards(ArrayList<CardGeneric> cards){
+        for (CardGeneric card: cards)
             cardContainer.getChildren().add(card);
     }
 
@@ -62,8 +69,8 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     }
 
     @Override
-    public void update(int id){
-        cards.removeIf(card -> card.getEntityId() == id);
+    public void delete(int id){
+        cards.removeIf(card -> card.getCardId() == id);
         updatePage(pagination.getCurrentPageIndex());
     }
 }

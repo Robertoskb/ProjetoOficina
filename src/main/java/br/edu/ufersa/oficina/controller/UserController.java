@@ -16,7 +16,8 @@ public class UserController extends PaginatorController<UserService>{
     public void generateCards() throws IOException {
         for (User user: service.getAllUsers()){
             CardService<UserService> card = new CardService<>();
-            card.setEntityId(user.getId());
+            card.setService(service);
+            card.setCardId(user.getId());
 
             String name = user.getName();
             name += user.isAdmin() ? " 👑" : "";
@@ -26,6 +27,8 @@ public class UserController extends PaginatorController<UserService>{
 
             if (user.getId() == screenManager.getUser().getId())
                 card.removeButton(card.getBtnDelete());
+
+            card.registerObserver(this);
 
             cards.add(card);
 

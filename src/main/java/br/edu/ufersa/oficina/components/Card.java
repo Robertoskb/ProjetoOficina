@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class Card extends AnchorPane {
+public abstract class Card extends CardGeneric {
     @FXML private Label lblTitle;
     @FXML private Label lblDescription;
 
@@ -20,15 +20,12 @@ public class Card extends AnchorPane {
     @FXML private VBox vbContainer;
     @FXML private HBox hbContainer;
 
+
     public Card(String fxml) throws IOException {
-        String basePath = "/br/edu/ufersa/oficina/view/components/";
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
-
-        loader.setRoot(this);
-        loader.setController(this);
-
-        loader.load();
+        super(fxml);
     }
+
+    public void delete() {}
 
     public void removeButton(Button btn){
         hbContainer.getChildren().remove(btn);
@@ -49,4 +46,6 @@ public class Card extends AnchorPane {
     public Button getBtnEdit() {
         return btnEdit;
     }
+
+
 }

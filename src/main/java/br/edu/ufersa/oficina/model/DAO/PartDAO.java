@@ -14,7 +14,7 @@ public class PartDAO extends GenericDAO<Part> {
 
     public PartDAO() {
 
-        super("Parts", new PartsMapper());
+        super("Part", new PartsMapper());
 
     }
 

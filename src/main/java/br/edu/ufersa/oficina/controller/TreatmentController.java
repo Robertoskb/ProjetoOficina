@@ -2,6 +2,7 @@ package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.components.CardTreatment;
 import br.edu.ufersa.oficina.model.Entity.Car;
+import br.edu.ufersa.oficina.model.Entity.Client;
 import br.edu.ufersa.oficina.model.Entity.Treatment;
 import br.edu.ufersa.oficina.model.Services.TreatmentService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
@@ -20,20 +21,16 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
                 continue;
             CardTreatment<S> card = new CardTreatment<>();
             card.setService(service);
-            card.setEntityId(treatment.getId());
+            card.setCardId(treatment.getId());
 
             Car car = treatment.getCar();
+            Client client = car.getClient();
 
-            String first = "Carro";
-            String last = "Desconhecido";
+            String first = car.getModel() != null ? car.getModel(): "<Carro Removido>";
+            String last = client.getName()!= null ? client.getName() : "<Cliente Removido>";
 
-            if (car != null) {
-                first = car.getModel();
-                if (car.getClient() != null)
-                    last = car.getClient().getName();
-            }
 
-            card.setTitle(first + " de " + last + " id: " + treatment.getId());
+            card.setTitle(first + " de " + last);
             card.setDescription("R$ " + treatment.getPrice());
             card.registerObserver(this);
 

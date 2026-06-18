@@ -17,7 +17,7 @@ public class CarController extends PaginatorController<CarService>{
         for (Car car: service.getAllCars()){
             CardService<CarService> card = new CardService<>();
             card.setService(service);
-            card.setEntityId(car.getId());
+            card.setCardId(car.getId());
             card.setTitle(car.getModel());
             card.setDescription(car.getPlate());
             card.registerObserver(this);

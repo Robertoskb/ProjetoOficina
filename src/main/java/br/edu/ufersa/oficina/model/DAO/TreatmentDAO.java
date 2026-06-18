@@ -53,7 +53,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     private ArrayList<Part> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT p.* FROM Parts p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
+        String sql = "SELECT p.* FROM Part p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
 
         ArrayList<Part> parts;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
