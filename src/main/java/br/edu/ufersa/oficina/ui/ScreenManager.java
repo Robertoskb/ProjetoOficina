@@ -3,6 +3,7 @@ package br.edu.ufersa.oficina.ui;
 import br.edu.ufersa.oficina.model.Entity.User;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -11,6 +12,7 @@ public class ScreenManager {
     private final Stage stage;
     private final ScreenLoader screenLoader;
     private User user;
+    private BorderPane root;
     
     public ScreenManager(Stage primaryStage){
         stage = primaryStage;
@@ -23,6 +25,10 @@ public class ScreenManager {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+    }
+
+    public void setCenter(Parent view){
+        root.setCenter(view);
     }
 
     public void setUser(User user) {
@@ -43,5 +49,13 @@ public class ScreenManager {
 
     public ScreenLoader getScreenLoader() {
         return screenLoader;
+    }
+
+    public BorderPane getRoot() {
+        return root;
+    }
+
+    public void setRoot(BorderPane root) {
+        this.root = root;
     }
 }

@@ -24,4 +24,14 @@ public class CarController extends PaginatorController<CarService>{
             cards.add(card);
         }
     }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void edit(int id) {
+
+    }
 }

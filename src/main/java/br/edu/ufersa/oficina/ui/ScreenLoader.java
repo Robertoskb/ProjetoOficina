@@ -14,10 +14,15 @@ public class ScreenLoader {
         this.factory = new ControllerFactory(screenManager);
     }
 
-    public Parent load(String fxml) throws IOException {
+    public FXMLLoader loader(String fxml){
         String basePath = "/br/edu/ufersa/oficina/view/";
         Logger.getLogger(FXMLLoader.class.getName()).setLevel(Level.OFF);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
+
+        return new FXMLLoader(getClass().getResource(basePath + fxml));
+    }
+
+    public Parent load(String fxml) throws IOException {
+        FXMLLoader loader = loader(fxml);
 
         loader.setControllerFactory(factory::create);
 

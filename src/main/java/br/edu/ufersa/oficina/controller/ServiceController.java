@@ -24,4 +24,14 @@ public class ServiceController extends PaginatorController<ServiceService>{
             cards.add(card);
         }
     }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void edit(int id) {
+
+    }
 }

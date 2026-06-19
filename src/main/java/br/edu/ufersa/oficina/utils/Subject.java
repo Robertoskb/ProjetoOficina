@@ -5,6 +5,7 @@ public interface Subject {
 
     public void removeObserver(Observer observer);
 
+    public void notifyAdd();
     public void notifyDelete(int id);
     public void notifyEdit(int id);
 

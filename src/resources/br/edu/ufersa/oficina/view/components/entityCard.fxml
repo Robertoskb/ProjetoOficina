@@ -23,7 +23,7 @@
 
         <Region HBox.hgrow="ALWAYS" />
 
-        <Button fx:id="btnEdit" text="✎" />
+        <Button fx:id="btnEdit" onAction="#edit" text="✎" />
         <Button fx:id="btnDelete" onAction="#delete" text="🗑" />
 
     </HBox>

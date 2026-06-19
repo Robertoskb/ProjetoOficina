@@ -1,11 +1,11 @@
 package br.edu.ufersa.oficina.controller;
 
+import br.edu.ufersa.oficina.controller.form.Form;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -28,6 +28,9 @@ public class MainController extends BaseController{
     @FXML private Text txtCenter;
 
     private Button currentButton = null;
+
+    private Form<?, ?> childForm;
+    private PaginatorController<?> childPagination;
 
     public MainController(ScreenManager screenManager){
         super(screenManager);
@@ -57,6 +60,8 @@ public class MainController extends BaseController{
         if (!screenManager.getUser().isAdmin()){
             btnContainer.getChildren().remove(btnUser);
         }
+
+        screenManager.setRoot(root);
     }
 
     @FXML

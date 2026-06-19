@@ -7,6 +7,7 @@ public class User extends Entity{
     private String password;
     private boolean admin;
 
+    public User(){}
 
     public User(int id, String name, String email, String password, boolean admin){
         setId(id);

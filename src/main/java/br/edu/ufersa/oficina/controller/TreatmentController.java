@@ -1,16 +1,20 @@
 package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.components.CardTreatment;
+import br.edu.ufersa.oficina.controller.form.TreatmentForm;
+import br.edu.ufersa.oficina.controller.form.UserForm;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Client;
 import br.edu.ufersa.oficina.model.Entity.Treatment;
 import br.edu.ufersa.oficina.model.Services.TreatmentService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.TreatmentObserver;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S> implements TreatmentObserver {
+public abstract class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S> implements TreatmentObserver {
     public TreatmentController(ScreenManager screenManager, S service){
         super(screenManager, service);
     }
@@ -39,6 +43,15 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
     }
 
     @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void edit(int id) {
+    }
+
+    @Override
     public void finish(int id) {
         try {
             service.finish(id);
@@ -50,4 +63,5 @@ public class TreatmentController<T extends Treatment, S extends TreatmentService
             alert(e.getMessage());
         }
     }
+
 }

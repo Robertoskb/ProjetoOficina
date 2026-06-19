@@ -24,4 +24,14 @@ public class PartController extends PaginatorController<PartsService>{
             cards.add(card);
         }
     }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void edit(int id) {
+
+    }
 }

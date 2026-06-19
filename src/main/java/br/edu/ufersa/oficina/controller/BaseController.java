@@ -1,10 +1,13 @@
 package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.ui.ScreenManager;
+import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.layout.BorderPane;
 
 public abstract class BaseController {
     protected final ScreenManager screenManager;
+    protected BaseController parentController;
 
     public BaseController(ScreenManager screenManager){
         this.screenManager = screenManager;
@@ -16,5 +19,9 @@ public abstract class BaseController {
         alert.setHeaderText(message);
 
         alert.showAndWait();
+    }
+
+    public void setParentController(BaseController controller){
+        this.parentController = controller;
     }
 }

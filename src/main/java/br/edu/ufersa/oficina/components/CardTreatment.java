@@ -51,4 +51,10 @@ public class CardTreatment extends CardSubject implements TreatmentSubject {
         for (TreatmentObserver observer: observers)
             observer.finish(id);
     }
+
+    @Override
+    public void notifyAdd() {
+        for (TreatmentObserver observer: observers)
+            observer.add();
+    }
 }

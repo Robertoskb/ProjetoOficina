@@ -23,6 +23,8 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     protected final ArrayList<CardGeneric> cards = new ArrayList<>();
     protected final int perPage = 4;
 
+
+
     public PaginatorController(ScreenManager screenManager, S service){
         super(screenManager);
         this.service = service;
@@ -35,7 +37,10 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
 
         try {
             generateCards();
-            cards.add(0, new CardAdd());
+            CardAdd cardAdd = new CardAdd();
+            cardAdd.registerObserver(this);
+
+            cards.add(0, cardAdd);
         }
 
         catch (MecException e){
@@ -66,11 +71,6 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         insertCards(paginationList.getPage(newIndex+1));
 
         pagination.setPageCount((cards.size()/(perPage)) + (cards.size()%perPage != 0 ? 1 : 0));
-    }
-
-    @Override
-    public void edit(int id){
-
     }
 
     @Override

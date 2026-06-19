@@ -24,4 +24,14 @@ public class ClientController extends PaginatorController<ClientService> {
             cards.add(card);
         }
     }
+
+    @Override
+    public void add() {
+
+    }
+
+    @Override
+    public void edit(int id) {
+
+    }
 }

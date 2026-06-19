@@ -30,6 +30,11 @@ public class CardSubject extends Card implements Subject {
 
         return dialog.isPresent() && dialog.get() == ButtonType.OK;
     }
+
+    public void edit(){
+        notifyEdit(cardId);
+    }
+
     public void delete(){
         if (confirmDelete()){
             notifyDelete(cardId);
@@ -44,6 +49,11 @@ public class CardSubject extends Card implements Subject {
     @Override
     public void removeObserver(Observer observer){
         observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAdd() {
+
     }
 
     @Override
