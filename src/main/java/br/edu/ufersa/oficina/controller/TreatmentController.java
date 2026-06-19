@@ -51,15 +51,6 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     }
 
     @Override
-    public void add() {
-
-    }
-
-    @Override
-    public void edit(int id) {
-    }
-
-    @Override
     public void finish(int id) {
         try {
             service.finish(id);
