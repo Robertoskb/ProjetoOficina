@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class Order extends Treatment{
     private boolean completed;
 
+    public Order(){}
+
     public Order(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         super(id, parts, services, car, price);
         completed = false;
@@ -29,7 +31,13 @@ public class Order extends Treatment{
     @Override
     public void finish(){
         setCompleted(true);
-        setDate_finish(LocalDate.now());
+        if (getDate_finish() == null)
+            setDate_finish(LocalDate.now());
+    }
+
+    @Override
+    public boolean isFinish() {
+        return getDate_finish() != null && completed;
     }
 
     public boolean isCompleted() {

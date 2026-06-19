@@ -23,8 +23,6 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     protected final ArrayList<CardGeneric> cards = new ArrayList<>();
     protected final int perPage = 4;
 
-
-
     public PaginatorController(ScreenManager screenManager, S service){
         super(screenManager);
         this.service = service;

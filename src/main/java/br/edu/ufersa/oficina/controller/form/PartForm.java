@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public class PartForm extends Form<Part, PartsService> {
     public PartForm(ScreenManager screenManager, Part entity, PartsService service) {
-        super(screenManager, entity, service);
+        super(screenManager, entity, service, "");
     }
 
     public PartForm(ScreenManager screenManager, PartsService service) {
-        super(screenManager, service);
+        super(screenManager, service, "");
     }
 
     @Override
@@ -25,8 +25,4 @@ public class PartForm extends Form<Part, PartsService> {
 
     }
 
-    @Override
-    public void save() throws IOException {
-
-    }
 }

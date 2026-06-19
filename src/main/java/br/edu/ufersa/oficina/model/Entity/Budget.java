@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Budget extends Treatment{
+    public Budget(){}
+
     public Budget(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         super(id, parts, services, car, price);
     }
@@ -31,4 +33,11 @@ public class Budget extends Treatment{
     public void finish(){
         createOrder();
     }
+
+    @Override
+    public boolean isFinish() {
+        return getDate_finish() != null;
+    }
+
+
 }

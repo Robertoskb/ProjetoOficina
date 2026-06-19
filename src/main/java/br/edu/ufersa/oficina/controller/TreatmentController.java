@@ -1,5 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
+import br.edu.ufersa.oficina.components.CardGeneric;
 import br.edu.ufersa.oficina.components.CardTreatment;
 import br.edu.ufersa.oficina.controller.form.TreatmentForm;
 import br.edu.ufersa.oficina.controller.form.UserForm;
@@ -13,8 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public abstract class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S> implements TreatmentObserver {
+    protected ArrayList<CardTreatment> cards = new ArrayList<>();
+
     public TreatmentController(ScreenManager screenManager, S service){
         super(screenManager, service);
     }
@@ -22,9 +26,11 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     @Override
     public void generateCards() throws IOException {
         for (T treatment: service.getAllTreatments()){
-            if (treatment.getDate_finish() != null)
-                continue;
             CardTreatment card = new CardTreatment();
+
+            if (treatment.isFinish())
+                card.removeButton(card.getBtnCheck());
+
             card.setCardId(treatment.getId());
 
             Car car = treatment.getCar();
@@ -38,6 +44,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
             card.setDescription("R$ " + treatment.getPrice());
             card.registerObserver(this);
 
+            super.cards.add(card);
             cards.add(card);
         }
     }
@@ -55,7 +62,9 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     public void finish(int id) {
         try {
             service.finish(id);
-            cards.removeIf(card -> card.getCardId() == id);
+            for (CardTreatment card: cards)
+                if (card.getCardId() == id)
+                    card.removeButton(card.getBtnCheck());
             updatePage(pagination.getCurrentPageIndex());
         }
 

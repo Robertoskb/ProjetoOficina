@@ -12,22 +12,28 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class UserForm extends Form<User, UserService>{
-    @FXML private TextField nameField;
+public class UserForm extends Form<User, UserService> {
+    @FXML
+    private TextField nameField;
 
-    @FXML private TextField emailField;
+    @FXML
+    private TextField emailField;
 
-    @FXML private PasswordField passwordField;
+    @FXML
+    private PasswordField passwordField;
 
-    @FXML private CheckBox adminCheckBox;
+    @FXML
+    private CheckBox adminCheckBox;
 
-    @FXML private Button saveButton;
+    @FXML
+    private Button saveButton;
+
     public UserForm(ScreenManager screenManager, User user, UserService service) {
-        super(screenManager, user, service);
+        super(screenManager, user, service, "User.fxml");
     }
 
     public UserForm(ScreenManager screenManager, UserService service) {
-        super(screenManager, service);
+        super(screenManager, service, "User.fxml");
     }
 
     @Override
@@ -40,20 +46,13 @@ public class UserForm extends Form<User, UserService>{
 
     @Override
     public void setEntityValues() {
+        if (entity == null)
+            entity = new User();
+
         entity.setName(nameField.getText());
         entity.setEmail(emailField.getText());
         entity.setPassword(passwordField.getText());
         entity.setAdmin(adminCheckBox.isSelected());
     }
-
-    public void save() throws IOException {
-        setEntityValues();
-        if (isSaved()){
-            leave("User.fxml");
-        }
-    }
-
-    public void cancel(){
-        leave("User.fxml");
-    }
 }
+

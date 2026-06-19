@@ -57,4 +57,14 @@ public class CardTreatment extends CardSubject implements TreatmentSubject {
         for (TreatmentObserver observer: observers)
             observer.add();
     }
+
+    @Override
+    public void notifyEdit(int id){
+        for (TreatmentObserver observer: observers)
+            observer.edit(id);
+    }
+
+    public Button getBtnCheck(){
+        return btnCheck;
+    }
 }

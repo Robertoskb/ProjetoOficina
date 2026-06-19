@@ -12,6 +12,8 @@ public abstract class Treatment extends Entity {
     private LocalDate date_start;
     private LocalDate date_finish;
 
+    public Treatment(){}
+
     public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setId(id);
         setParts(parts);
@@ -51,6 +53,7 @@ public abstract class Treatment extends Entity {
     }
 
     public abstract void finish();
+    public abstract boolean isFinish();
 
     public void show(){
         System.out.println("(" + id + ", " + car.getId() + ", " + price + ", " + date_start.toString() + ")");

@@ -4,6 +4,7 @@ import br.edu.ufersa.oficina.controller.BaseController;
 import br.edu.ufersa.oficina.model.Entity.Entity;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
+import javafx.fxml.FXML;
 import javafx.scene.Parent;
 
 import java.io.IOException;
@@ -11,26 +12,41 @@ import java.io.IOException;
 public abstract class Form<E extends Entity, S extends GenericService<E>> extends BaseController {
     protected S service;
     protected E entity;
+    protected String lastFxml;
 
-    public Form(ScreenManager screenManager, E entity, S service) {
+    public Form(ScreenManager screenManager, E entity, S service, String lastFxml) {
         super(screenManager);
         setEntity(entity);
         setService(service);
+        setLastFxml(lastFxml);
     }
 
-    public Form(ScreenManager screenManager, S service){
+    public Form(ScreenManager screenManager, S service, String lastFxml){
         super(screenManager);
         setService(service);
+        setLastFxml(lastFxml);
     }
 
     public void initialize(){
-        if (entity.isValid())
+        if (entity != null && entity.isValid())
             fill();
     }
 
     public abstract void fill();
     public abstract void setEntityValues();
-    public abstract void save() throws IOException;
+
+    @FXML public void save() throws IOException {
+        setEntityValues();
+        if (isSaved()){
+            leave(lastFxml);
+        }
+    }
+
+
+    @FXML public void cancel(){
+        leave(lastFxml);
+    }
+
 
     public boolean isSaved() throws IOException {
         boolean saved;
@@ -79,6 +95,8 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
         }
     }
 
+
+
     public S getService() {
         return service;
     }
@@ -93,5 +111,13 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
 
     public void setEntity(E entity) {
         this.entity = entity;
+    }
+
+    public String getLastFxml() {
+        return lastFxml;
+    }
+
+    public void setLastFxml(String lastFxml) {
+        this.lastFxml = lastFxml;
     }
 }

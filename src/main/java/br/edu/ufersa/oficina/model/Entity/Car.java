@@ -89,4 +89,9 @@ public class Car extends Entity{
     public void setClient(Client client) {
         this.client = client;
     }
+
+    @Override
+    public String toString(){
+        return plate;
+    }
 }

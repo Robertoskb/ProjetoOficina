@@ -8,7 +8,7 @@ import java.io.IOException;
 
 public class CarForm extends Form<Car, CarService> {
     public CarForm(ScreenManager screenManager, Car entity, CarService service) {
-        super(screenManager, entity, service);
+        super(screenManager, entity, service, "");
     }
 
     @Override
@@ -21,8 +21,5 @@ public class CarForm extends Form<Car, CarService> {
 
     }
 
-    @Override
-    public void save() throws IOException {
 
-    }
 }

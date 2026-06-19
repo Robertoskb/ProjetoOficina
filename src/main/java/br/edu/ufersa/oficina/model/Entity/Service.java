@@ -26,4 +26,9 @@ public class Service extends Entity{
                 ", " + name +
                 ", " + price + ")");
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }

@@ -8,11 +8,11 @@ import java.io.IOException;
 
 public class ClientForm extends Form<Client, ClientService>{
     public ClientForm(ScreenManager screenManager, Client entity, ClientService service) {
-        super(screenManager, entity, service);
+        super(screenManager, entity, service, "");
     }
 
     public ClientForm(ScreenManager screenManager, ClientService service) {
-        super(screenManager, service);
+        super(screenManager, service, "");
     }
 
     @Override
@@ -25,8 +25,4 @@ public class ClientForm extends Form<Client, ClientService>{
 
     }
 
-    @Override
-    public void save() throws IOException {
-
-    }
 }
