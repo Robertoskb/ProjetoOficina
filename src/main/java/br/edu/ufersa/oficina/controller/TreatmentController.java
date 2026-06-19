@@ -38,10 +38,11 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
 
             String first = car.getModel() != null ? car.getModel(): "<Carro Removido>";
             String last = client.getName()!= null ? client.getName() : "<Cliente Removido>";
+            String plate = car.getPlate() != null ? car.getPlate(): "";
 
 
-            card.setTitle(first + " de " + last);
-            card.setDescription("R$ " + treatment.getPrice());
+            card.setTitle(first + " de " + last + " " + plate);
+            card.setDescription("R$ " + String.format("R$ %.2f", treatment.getPrice()));
             card.registerObserver(this);
 
             super.cards.add(card);

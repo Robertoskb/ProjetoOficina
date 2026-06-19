@@ -85,6 +85,9 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
             serviceNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
             servicePriceColumn.setCellValueFactory(new PropertyValueFactory<>("price"));
 
+            configurePartActionColumn();
+            configureServiceActionColumn();
+
             discountSpinner.setValueFactory(
                     new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 100, 0)
             );
@@ -115,6 +118,11 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
         startDatePicker.setValue(entity.getDate_start());
         finishDatePicker.setValue(entity.getDate_finish());
 
+        double total = getTotal();
+
+        if (entity.getPrice() < total)
+            discountSpinner.increment((int) Math.round(100 * (1.0 - entity.getPrice()/total)));
+
         totalLabel.setText(
                 String.format("R$ %.2f", entity.getPrice())
         );
@@ -134,6 +142,12 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
 
         entity.setDate_finish(finishDatePicker.getValue());
 
+        double total = getTotal();
+
+        entity.setPrice(total);
+    }
+
+    private double getTotal() {
         double total = selectedParts.stream()
                         .mapToDouble(Part::getPrice)
                         .sum()
@@ -142,7 +156,9 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
                                 .mapToDouble(Service::getPrice)
                                 .sum();
 
-        entity.setPrice(total);
+        total *= (1 - discountSpinner.getValue()/100.0);
+
+        return total;
     }
 
     @FXML private void addPart() {
@@ -156,7 +172,7 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
         }
     }
 
-    @FXML public void addService(){
+    @FXML private void addService(){
         Service serviceEntity = serviceComboBox.getValue();
 
         if (serviceEntity != null){
@@ -167,22 +183,66 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
         }
     }
 
+    private void removePart(Part part) {
+        selectedParts.remove(part);
+        partComboBox.getItems().add(part);
+        updateTotal();
+    }
+
+    private void removeService(Service service) {
+        selectedServices.remove(service);
+        serviceComboBox.getItems().add(service);
+        updateTotal();
+    }
+
     private void updateTotal() {
 
-        double total = 0;
-
-        total += selectedParts.stream()
-                .mapToDouble(Part::getPrice)
-                .sum();
-
-        total += selectedServices.stream()
-                .mapToDouble(Service::getPrice)
-                .sum();
-
-        total *= (1 - discountSpinner.getValue()/100.0);
+        double total = getTotal();
 
         totalLabel.setText(
                 String.format("R$ %.2f", total)
         );
+    }
+
+    private void configurePartActionColumn() {
+
+        partActionColumn.setCellFactory(param -> new TableCell<>() {
+
+            private final Button removeButton =
+                    new Button("Remover");
+
+            {
+                removeButton.setOnAction(event ->
+                        removePart(getTableRow().getItem()));
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                setGraphic(empty ? null : removeButton);
+            }
+        });
+    }
+
+    private void configureServiceActionColumn() {
+
+        serviceActionColumn.setCellFactory(param -> new TableCell<>() {
+
+            private final Button removeButton =
+                    new Button("Remover");
+
+            {
+                removeButton.setOnAction(event ->
+                        removeService(getTableRow().getItem()));
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+
+                setGraphic(empty ? null : removeButton);
+            }
+        });
     }
 }

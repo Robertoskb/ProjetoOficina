@@ -22,4 +22,11 @@ public class OrderForm extends TreatmentForm<Order, OrderService>{
         paidCheckBox.setSelected(entity.isCompleted());
     }
 
+    @Override
+    public void setEntityValues(){
+        super.setEntityValues();
+
+        entity.setCompleted(paidCheckBox.isSelected());
+    }
+
 }

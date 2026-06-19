@@ -40,11 +40,13 @@ public class LoginController extends BaseController{
 
                 screenManager.setUser(user);
                 screenManager.setScene("Main.fxml");
+                screenManager.getStage().setMaximized(true);
                 screenManager.show();
             }
             else{
                 screenManager.setUser(new User("Ghost", "", "", true)); // debug
                 screenManager.setScene("Main.fxml");
+                screenManager.getStage().setMaximized(true);
                 screenManager.show();//
             }
 
