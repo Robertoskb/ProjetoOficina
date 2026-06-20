@@ -97,7 +97,7 @@ public class ReportGenerator {
                     y = printWrapped(content, " - (nenhuma)", FONT, 10, MARGIN + 10, y, maxWidth - 10);
                 } else {
                     for (Part p : t.getParts()) {
-                        y = printWrapped(content, " - " + safe(p.getName()), FONT, 10, MARGIN + 10, y, maxWidth - 10);
+                        y = printWrapped(content, " - " + safe(p.getName()) + ": R$ " + safe(p.getPrice()), FONT, 10, MARGIN + 10, y, maxWidth - 10);
                     }
                 }
 
@@ -107,7 +107,7 @@ public class ReportGenerator {
                     y = printWrapped(content, " - (nenhum)", FONT, 10, MARGIN + 10, y, maxWidth - 10);
                 } else {
                     for (Service s : t.getServices()) {
-                        y = printWrapped(content, " - " + safe(s.getName()), FONT, 10, MARGIN + 10, y, maxWidth - 10);
+                        y = printWrapped(content, " - " + safe(s.getName()) +  ": R$ " + safe(s.getPrice()) , FONT, 10, MARGIN + 10, y, maxWidth - 10);
                     }
                 }
 
