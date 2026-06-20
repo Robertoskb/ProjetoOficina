@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class TreatmentForm<T extends Treatment, S extends TreatmentService<T>> extends Form<T , S>{
@@ -95,6 +96,8 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
             discountSpinner.valueProperty().addListener(
                     (obs, oldValue, newValue) -> updateTotal()
             );
+
+            startDatePicker.setValue(LocalDate.now());
 
             super.initialize();
 

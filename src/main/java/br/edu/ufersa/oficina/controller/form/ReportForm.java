@@ -47,6 +47,9 @@ public class ReportForm extends BaseController {
 
     public void initialize(){
         reportTypeComboBox.getItems().addAll("Orçamento", "Ordem de Serviço");
+        reportTypeComboBox.setValue(reportTypeComboBox.getItems().get(0));
+
+        endDatePicker.setValue(LocalDate.now());
 
     }
 
@@ -59,6 +62,8 @@ public class ReportForm extends BaseController {
                         "*.pdf"
                 )
         );
+
+        fileChooser.setInitialFileName(titleField.getText());
 
         Window stage = ((Node) event.getSource()).getScene().getWindow();
 
@@ -77,7 +82,7 @@ public class ReportForm extends BaseController {
             return;
 
         LocalDate start = startDatePicker.getValue();
-        LocalDate end = endDatePicker.getValue();
+        LocalDate end = endDatePicker.getValue().plusDays(1);
 
         try {
             if (reportTypeComboBox.getValue().equals(reportTypeComboBox.getItems().get(0))) {
