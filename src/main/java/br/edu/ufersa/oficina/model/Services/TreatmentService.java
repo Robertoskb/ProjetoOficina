@@ -3,9 +3,7 @@ package br.edu.ufersa.oficina.model.Services;
 import br.edu.ufersa.oficina.model.DAO.TreatmentDAO;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
-import br.edu.ufersa.oficina.model.Entity.Treatment;
-import br.edu.ufersa.oficina.model.Entity.Car;
-import br.edu.ufersa.oficina.model.Entity.Client;
+import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -43,6 +41,14 @@ public abstract class TreatmentService<T extends Treatment> implements GenericSe
             throw new MecException("Período inválido");
 
         return treatmentDAO.getTreatmentsByPeriod(start, end);
+    }
+
+    public ArrayList<Part> getPartsByTreatment(int id){
+        return treatmentDAO.getPartsByTreatment(id);
+    }
+
+    public ArrayList<Service> getServiceByTreatment(int id){
+        return treatmentDAO.getServicesByTreatment(id);
     }
 
     public void insert(T treatment) {

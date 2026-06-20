@@ -96,10 +96,8 @@
                                                                   <HBox alignment="CENTER_RIGHT" spacing="10">
       
                                                                       <children>
-      
-                                                                          <Button text="Cancelar" />
-      
-                                                                          <Button fx:id="generateButton" text="Gerar Relatório" />
+                                                                          
+                                                                          <Button fx:id="generateButton" onAction="#generate" text="Gerar Relatório" />
       
                                                                       </children>
       

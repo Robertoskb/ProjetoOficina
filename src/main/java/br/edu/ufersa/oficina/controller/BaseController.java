@@ -13,6 +13,14 @@ public abstract class BaseController {
         this.screenManager = screenManager;
     }
 
+    public void success(String message){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Sucesso!");
+        alert.setHeaderText(message);
+
+        alert.showAndWait();
+    }
+
     public void alert(String message){
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Erro!");
