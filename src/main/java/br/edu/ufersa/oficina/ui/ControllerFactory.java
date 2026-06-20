@@ -2,6 +2,7 @@ package br.edu.ufersa.oficina.ui;
 
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
 import br.edu.ufersa.oficina.controller.*;
+import br.edu.ufersa.oficina.controller.form.ReportForm;
 import br.edu.ufersa.oficina.model.Services.UserService;
 
 public class ControllerFactory {
@@ -21,6 +22,8 @@ public class ControllerFactory {
             return new MainController(screenManager);
         if (clazz == MenuController.class)
             return new MenuController(screenManager);
+        if (clazz == ReportForm.class)
+            return new ReportForm(screenManager);
         if (PaginatorController.class.isAssignableFrom(clazz)){
             try {
                 return clazz.getDeclaredConstructor(screenManager.getClass()).newInstance(screenManager);

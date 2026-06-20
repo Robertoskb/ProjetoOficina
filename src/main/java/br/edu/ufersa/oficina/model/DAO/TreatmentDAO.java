@@ -50,7 +50,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return treatments;
     }
 
-    private ArrayList<Part> getPartsByTreatment(int id){
+    public ArrayList<Part> getPartsByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT p.* FROM Part p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
@@ -71,7 +71,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return parts;
     }
 
-    private ArrayList<Service> getServicesByTreatment(int id){
+    public ArrayList<Service> getServicesByTreatment(int id){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.service_id = ts.service_id WHERE " + base + "_id = ?";

@@ -21,6 +21,8 @@ public class MainController extends BaseController{
     @FXML private Button btnPart;
     @FXML private Button btnBudget;
     @FXML private Button btnOrder;
+    @FXML private Button btnReport;
+
     @FXML private Button btnUser;
 
     @FXML private VBox btnContainer;
@@ -97,6 +99,11 @@ public class MainController extends BaseController{
     @FXML
     private void loadOrder() throws IOException{
         loadShow("Order.fxml", btnOrder);
+    }
+
+    @FXML
+    private void loadReport() throws IOException{
+        loadShow("form/reportForm.fxml", btnReport);
     }
 
     @FXML

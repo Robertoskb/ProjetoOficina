@@ -25,6 +25,7 @@
                 <Button fx:id="btnBudget" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadBudget" styleClass="sidebar-button" text="Orçamentos" />
 
                 <Button fx:id="btnOrder" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadOrder" styleClass="sidebar-button" text="Ordens de Serviço" />
+            <Button fx:id="btnReport" layoutX="10.0" layoutY="312.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadReport" styleClass="sidebar-button" text="Relatórios" />
 
                 <Region VBox.vgrow="ALWAYS" />
 
