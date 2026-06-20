@@ -2,6 +2,7 @@ module projetooficina{
     requires java.sql;
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.apache.pdfbox;
 
     opens br.edu.ufersa.oficina.controller to javafx.fxml, javafx.graphics;
     opens br.edu.ufersa.oficina.components to javafx.fxml, javafx.graphics;
