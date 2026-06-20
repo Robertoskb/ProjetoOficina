@@ -50,10 +50,10 @@ public class ReportForm extends BaseController {
 
         Window stage = ((Node) event.getSource()).getScene().getWindow();
 
-        File arquivoSelecionado = fileChooser.showSaveDialog(stage);
+        File selectedFile = fileChooser.showSaveDialog(stage);
 
-        if (arquivoSelecionado != null) {
-            pathField.setText(arquivoSelecionado.getAbsolutePath());
+        if (selectedFile != null) {
+            pathField.setText(selectedFile.getAbsolutePath());
         }
     }
 }
