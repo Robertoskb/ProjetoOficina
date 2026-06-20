@@ -9,6 +9,8 @@ public class Car extends Entity{
     private int mileage;
     private Client client;
 
+    public Car(){}
+
     public Car(int id, String brand, String model, String color, String plate, int year, int mileage, Client client) {
         setId(id);
         setBrand(brand);

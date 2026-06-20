@@ -6,6 +6,8 @@ public class Part extends Entity{
     private String manufacturer;
     private String model;
 
+    public Part(){}
+
     public Part(int id, String name, double price, String manufacturer, String model) {
         setId(id);
         setName(name);

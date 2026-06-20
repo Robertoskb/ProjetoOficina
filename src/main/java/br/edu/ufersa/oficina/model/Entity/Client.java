@@ -5,6 +5,8 @@ public class Client extends Entity{
     private String address;
     private long CPF;
 
+    public Client(){}
+
     public Client(int id, String name, String address, long CPF) {
         setId(id); setName(name); setAddress(address); setCPF(CPF);
     }
