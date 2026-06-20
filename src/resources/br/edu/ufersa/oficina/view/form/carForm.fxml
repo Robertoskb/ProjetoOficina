@@ -26,10 +26,10 @@
         <ComboBox fx:id="clientField" maxWidth="Infinity"/>
 
         <Label text="Marca"/>
-        <TextField fx:id="brandField" promptText="Digite a marca"/>
+        <ComboBox fx:id="brandField" maxWidth="Infinity"/>
 
         <Label text="Modelo"/>
-        <TextField fx:id="modelField" promptText="Digite o modelo"/>
+        <ComboBox fx:id="modelField" maxWidth="Infinity"/>
 
         <Label text="Cor"/>
         <TextField fx:id="colorField" promptText="Digite a cor"/>

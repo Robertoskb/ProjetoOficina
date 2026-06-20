@@ -21,6 +21,17 @@ public class PartForm extends Form<Part, PartsService> {
         super(screenManager, service, "Part.fxml");
     }
 
+    @FXML
+    public void initialize() {
+        priceField.textProperty().addListener((obs, oldVal, newVal) -> {
+            if (!newVal.matches("\\d*\\.?\\d*"))
+                priceField.setText(oldVal);
+        });
+
+        if (entity != null && entity.isValid())
+            fill();
+    }
+
     @Override
     public void fill() {
         nameField.setText(entity.getName());
