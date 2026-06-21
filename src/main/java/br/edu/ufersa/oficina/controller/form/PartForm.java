@@ -24,7 +24,6 @@ public class PartForm extends Form<Part, PartsService> {
 
     @FXML
     public void initialize() {
-
         nameField.getItems().addAll(
                 "Filtro de Óleo", "Pastilha de Freio", "Amortecedor Dianteiro",
                 "Bateria 60Ah", "Correia Dentada", "Vela de Ignição",
@@ -124,6 +123,12 @@ public class PartForm extends Form<Part, PartsService> {
                     modelField.getItems().addAll("Bosch HEF95-L", "Bosch TSC (Start-Stop)");
                 else if (newVal.equals("Valeo"))
                     modelField.getItems().addAll("Valeo FS10E1");
+            } else if (name.equals("Filtro de Óleo")) {
+                if (newVal.equals("Bosch")) modelField.getItems().addAll("Bosch Premium OB012");
+                else if (newVal.equals("Mann")) modelField.getItems().addAll("Mann-Filter W712");
+                else if (newVal.equals("Tecfil")) modelField.getItems().addAll("Tecfil PSL145");
+            } else {
+                modelField.getItems().addAll(newVal + " Linha Premium", newVal + " Universal Standard");
             }
         });
 
