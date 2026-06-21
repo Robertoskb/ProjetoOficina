@@ -55,8 +55,12 @@ public class CarController extends PaginatorController<CarService> {
         for (Car entityCar : currentCars) {
             CardSubject card = new CardSubject();
             card.setCardId(entityCar.getId());
-            card.setTitle(entityCar.getPlate());
-            card.setDescription(entityCar.getModel() + " - " + entityCar.getBrand());
+
+            Client client = entityCar.getClient();
+            String clientName = client.getName() != null? client.getName(): "<Cliente Removido>";
+
+            card.setTitle(entityCar.getModel() + " - " + entityCar.getBrand() + " de " + clientName);
+            card.setDescription("Placa: " + entityCar.getPlate());
             card.registerObserver(this);
             cards.add(card);
         }

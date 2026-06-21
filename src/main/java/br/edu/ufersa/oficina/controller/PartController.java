@@ -60,7 +60,7 @@ public class PartController extends PaginatorController<PartsService> {
         for (Part entityPart : currentParts) {
             CardSubject card = new CardSubject();
             card.setCardId(entityPart.getId());
-            card.setTitle(entityPart.getName());
+            card.setTitle(entityPart.getName() + " | " + entityPart.getModel());
             card.setDescription(String.format("R$ %.2f", entityPart.getPrice()));
             card.registerObserver(this);
             cards.add(card);
