@@ -36,7 +36,15 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
     public abstract void setEntityValues();
 
     @FXML public void save() throws IOException {
-        setEntityValues();
+        try {
+            setEntityValues();
+        }
+
+        catch (Exception e){
+            alert(e.getMessage());
+
+            return;
+        }
         if (isSaved()){
             leave(lastFxml);
         }
