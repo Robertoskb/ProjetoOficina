@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.utils;
+package br.edu.ufersa.oficina.controller;
 
 public interface Observer{
     void add();

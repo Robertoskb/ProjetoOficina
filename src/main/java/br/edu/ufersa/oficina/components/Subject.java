@@ -1,4 +1,6 @@
-package br.edu.ufersa.oficina.utils;
+package br.edu.ufersa.oficina.components;
+
+import br.edu.ufersa.oficina.controller.Observer;
 
 public interface Subject {
     public void registerObserver(Observer observer);

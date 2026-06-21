@@ -5,7 +5,6 @@ import br.edu.ufersa.oficina.components.CardAdd;
 import br.edu.ufersa.oficina.components.CardGeneric;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
-import br.edu.ufersa.oficina.utils.Observer;
 import br.edu.ufersa.oficina.utils.PaginationList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Pagination;

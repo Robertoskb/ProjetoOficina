@@ -1,10 +1,6 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.controller.form.Form;
-import br.edu.ufersa.oficina.model.Entity.Entity;
-import br.edu.ufersa.oficina.model.Services.GenericService;
-import br.edu.ufersa.oficina.utils.Observer;
-import br.edu.ufersa.oficina.utils.Subject;
+import br.edu.ufersa.oficina.controller.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 

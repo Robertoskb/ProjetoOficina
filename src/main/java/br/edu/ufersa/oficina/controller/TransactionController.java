@@ -8,7 +8,6 @@ import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.model.Services.ClientService;
 import br.edu.ufersa.oficina.model.Services.TransactionService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
-import br.edu.ufersa.oficina.utils.TransactionObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
