@@ -5,7 +5,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class CardGeneric extends AnchorPane {
+public abstract class CardGeneric extends AnchorPane {
     protected int cardId;
 
     public CardGeneric(String fxml) throws IOException {
