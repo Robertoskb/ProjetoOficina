@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class CardTransaction extends CardSubject implements TransactionSubject {
+public class CardTransaction extends CardEntity implements TransactionSubject {
     @FXML private Button btnCheck;
 
     private final ArrayList<TransactionObserver> observers = new ArrayList<>();

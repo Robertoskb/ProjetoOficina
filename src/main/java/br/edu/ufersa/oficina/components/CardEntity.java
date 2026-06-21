@@ -8,15 +8,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class CardSubject extends Card implements Subject {
+public class CardEntity extends Card implements Subject {
 
     protected ArrayList<Observer> observers = new ArrayList<>();
 
-    public CardSubject() throws IOException {
+    public CardEntity() throws IOException {
         super("entityCard.fxml");
     }
 
-    public CardSubject(String fxml) throws IOException {
+    public CardEntity(String fxml) throws IOException {
         super(fxml);
     }
 

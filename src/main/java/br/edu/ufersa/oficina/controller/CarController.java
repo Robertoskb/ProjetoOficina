@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardSubject;
+import br.edu.ufersa.oficina.components.CardEntity;
 import br.edu.ufersa.oficina.controller.form.CarForm;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Client;
@@ -11,7 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
 import javafx.scene.control.TextField;
 import javafx.util.StringConverter;
 
@@ -53,7 +52,7 @@ public class CarController extends PaginatorController<CarService> {
     @Override
     public void generateCards() throws IOException {
         for (Car entityCar : currentCars) {
-            CardSubject card = new CardSubject();
+            CardEntity card = new CardEntity();
             card.setCardId(entityCar.getId());
 
             Client client = entityCar.getClient();

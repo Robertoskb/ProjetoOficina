@@ -7,7 +7,7 @@ import javafx.scene.control.Button;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CardAdd extends CardGeneric implements Subject {
+public class CardAdd extends GenericCard implements Subject {
     @FXML private Button btnAdd;
 
     private final ArrayList<Observer> observers = new ArrayList<>();

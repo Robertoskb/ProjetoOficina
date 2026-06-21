@@ -2,7 +2,7 @@ package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.components.CardAdd;
-import br.edu.ufersa.oficina.components.CardGeneric;
+import br.edu.ufersa.oficina.components.GenericCard;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.PaginationList;
@@ -17,9 +17,9 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     @FXML protected VBox cardContainer;
     @FXML protected Pagination pagination;
 
-    protected PaginationList<CardGeneric> paginationList;
+    protected PaginationList<GenericCard> paginationList;
     protected final S service;
-    protected final ArrayList<CardGeneric> cards = new ArrayList<>();
+    protected final ArrayList<GenericCard> cards = new ArrayList<>();
     protected final int perPage = 4;
 
     public PaginatorController(ScreenManager screenManager, S service){
@@ -64,8 +64,8 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         return service;
     }
 
-    public void insertCards(ArrayList<CardGeneric> cards){
-        for (CardGeneric card: cards)
+    public void insertCards(ArrayList<GenericCard> cards){
+        for (GenericCard card: cards)
             cardContainer.getChildren().add(card);
     }
 

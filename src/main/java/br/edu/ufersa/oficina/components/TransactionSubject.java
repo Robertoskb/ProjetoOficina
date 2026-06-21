@@ -2,7 +2,7 @@ package br.edu.ufersa.oficina.components;
 
 import br.edu.ufersa.oficina.controller.TransactionObserver;
 
-public interface TransactionSubject {
+public interface TransactionSubject extends Subject {
     public void registerObserver(TransactionObserver observer);
 
     public void removeObserver(TransactionObserver observer);

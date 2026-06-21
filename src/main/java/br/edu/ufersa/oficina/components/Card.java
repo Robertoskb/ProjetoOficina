@@ -1,16 +1,14 @@
 package br.edu.ufersa.oficina.components;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public abstract class Card extends CardGeneric {
+public abstract class Card extends GenericCard {
     @FXML private Label lblTitle;
     @FXML private Label lblDescription;
 
@@ -25,7 +23,8 @@ public abstract class Card extends CardGeneric {
         super(fxml);
     }
 
-    public void delete() {}
+    public abstract void delete();
+    public abstract void edit();
 
     public void removeButton(Button btn){
         hbContainer.getChildren().remove(btn);

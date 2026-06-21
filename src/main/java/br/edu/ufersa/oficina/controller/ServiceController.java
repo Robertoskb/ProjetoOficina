@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardSubject;
+import br.edu.ufersa.oficina.components.CardEntity;
 import br.edu.ufersa.oficina.controller.form.ServiceForm;
 import br.edu.ufersa.oficina.model.Entity.Service;
 import br.edu.ufersa.oficina.model.Services.ServiceService;
@@ -27,7 +27,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
     @Override
     public void generateCards() throws IOException {
         for (Service entityService : currentServices) {
-            CardSubject card = new CardSubject();
+            CardEntity card = new CardEntity();
             card.setCardId(entityService.getId());
             card.setTitle(entityService.getName());
             card.setDescription(String.format("R$ %.2f", entityService.getPrice()));

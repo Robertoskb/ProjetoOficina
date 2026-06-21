@@ -5,10 +5,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public abstract class CardGeneric extends AnchorPane {
+public abstract class GenericCard extends AnchorPane {
     protected int cardId;
 
-    public CardGeneric(String fxml) throws IOException {
+    public GenericCard(String fxml) throws IOException {
         String basePath = "/br/edu/ufersa/oficina/view/components/";
         FXMLLoader loader = new FXMLLoader(getClass().getResource(basePath + fxml));
 
