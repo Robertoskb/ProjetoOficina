@@ -7,6 +7,9 @@
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane style="-fx-background-color: #14242B;"
             prefHeight="530.0" prefWidth="809.0"
@@ -17,6 +20,15 @@
     <center>
         <VBox fx:id="root" alignment="CENTER">
             <children>
+                <HBox alignment="CENTER" prefHeight="0.0" prefWidth="559.0">
+                    <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Peças">
+                            <font>
+                                <Font size="40.0" />
+                            </font>
+                        </Text>
+                    </children>
+                </HBox>
                 <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                     <padding>
                         <Insets left="15.0" right="15.0"/>
