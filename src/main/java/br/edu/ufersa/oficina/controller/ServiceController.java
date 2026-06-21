@@ -1,13 +1,10 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardAdd;
-import br.edu.ufersa.oficina.components.CardGeneric;
 import br.edu.ufersa.oficina.components.CardSubject;
 import br.edu.ufersa.oficina.controller.form.ServiceForm;
 import br.edu.ufersa.oficina.model.Entity.Service;
 import br.edu.ufersa.oficina.model.Services.ServiceService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
-import br.edu.ufersa.oficina.utils.PaginationList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -20,8 +17,21 @@ public class ServiceController extends PaginatorController<ServiceService> {
 
     @FXML private ComboBox<String> filterName;
 
+    protected ArrayList<Service> currentServices;
+
     public ServiceController(ScreenManager screenManager) {
         super(screenManager, new ServiceService());
+        currentServices = service.getAllServices();
+    }
+
+    public ArrayList<Service> getServicesByName(String name) throws Exception {
+        ArrayList<Service> filtered = new ArrayList<>();
+        for (Service s : service.getAllServices()) {
+            if (s.getName().equalsIgnoreCase(name)) {
+                filtered.add(s);
+            }
+        }
+        return filtered;
     }
 
     @Override
@@ -44,68 +54,37 @@ public class ServiceController extends PaginatorController<ServiceService> {
 
     @Override
     public void generateCards() throws IOException {
-        ArrayList<CardGeneric> baseCards = ((PaginatorController) this).cards;
-        for (Service entityService : service.getAllServices()) {
+        for (Service entityService : currentServices) {
             CardSubject card = new CardSubject();
             card.setCardId(entityService.getId());
             card.setTitle(entityService.getName());
             card.setDescription(String.format("R$ %.2f", entityService.getPrice()));
             card.registerObserver(this);
-            baseCards.add(card);
+            cards.add(card);
         }
     }
 
     @FXML
     public void filterByName() {
         String name = filterName.getValue();
-        if (name == null) { clearFilter(); return; }
-
-        try {
-            ArrayList<CardGeneric> baseCards = ((PaginatorController) this).cards;
-            baseCards.clear();
-            cardContainer.getChildren().clear();
-
-            CardAdd cardAdd = new CardAdd();
-            cardAdd.registerObserver(this);
-            baseCards.add(cardAdd);
-
-            for (Service s : service.getAllServices()) {
-                if (s.getName().equalsIgnoreCase(name)) {
-                    CardSubject card = new CardSubject();
-                    card.setCardId(s.getId());
-                    card.setTitle(s.getName());
-                    card.setDescription(String.format("R$ %.2f", s.getPrice()));
-                    card.registerObserver(this);
-                    baseCards.add(card);
-                }
+        if (name != null && !name.isEmpty()) {
+            try {
+                currentServices = getServicesByName(name);
+                loadPagination();
+            } catch (Exception e) {
+                alert(e.getMessage());
             }
-
-            paginationList = new PaginationList<>(baseCards, perPage);
-            updatePage(0);
-        } catch (Exception e) {
-            alert(e.getMessage());
         }
     }
 
     @FXML
     public void clearFilter() {
-        filterName.getSelectionModel().clearSelection();
-        filterName.setPromptText("Selecione o serviço");
+        filterName.setValue(null);
 
         try {
-            ArrayList<CardGeneric> baseCards = ((PaginatorController) this).cards;
-            baseCards.clear();
-            cardContainer.getChildren().clear();
-
-            CardAdd cardAdd = new CardAdd();
-            cardAdd.registerObserver(this);
-            baseCards.add(cardAdd);
-
-            generateCards();
-
-            paginationList = new PaginationList<>(baseCards, perPage);
-            updatePage(0);
-        } catch (IOException e) {
+            currentServices = service.getAllServices();
+            loadPagination();
+        } catch (Exception e) {
             alert(e.getMessage());
         }
     }
