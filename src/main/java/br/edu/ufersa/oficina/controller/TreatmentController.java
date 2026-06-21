@@ -44,6 +44,9 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     public void initialize() throws IOException{
         super.initialize();
 
+        filterDateStart.setValue(LocalDate.now().plusMonths(-1));
+        filterDateEnd.setValue(LocalDate.now());
+
         filterClient.getItems().addAll(clientService.getAllClients());
         filterCar.getItems().addAll(carService.getAllCars());
     }

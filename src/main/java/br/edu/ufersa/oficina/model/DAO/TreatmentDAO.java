@@ -128,7 +128,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     public ArrayList<T> getTreatmentsByCar(Car car){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE car_id = ? ";
+        String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE t.car_id = ? ";
 
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, car.getId());
