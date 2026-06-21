@@ -29,4 +29,9 @@ public class Client extends Entity{
                 ", " + address +
                 ", " + CPF + ")");
     }
+
+    @Override
+    public String toString(){
+        return name;
+    }
 }
