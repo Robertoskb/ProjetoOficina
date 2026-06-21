@@ -2,7 +2,7 @@ package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.components.CardAdd;
 import br.edu.ufersa.oficina.components.CardGeneric;
-import br.edu.ufersa.oficina.components.CardTreatment;
+import br.edu.ufersa.oficina.components.CardTransaction;
 import br.edu.ufersa.oficina.controller.form.BudgetForm;
 import br.edu.ufersa.oficina.model.Entity.Budget;
 import br.edu.ufersa.oficina.model.Entity.Car;
@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class BudgetController extends TreatmentController<Budget, BudgetService> {
+public class BudgetController extends TransactionController<Budget, BudgetService> {
 
 
     public BudgetController(ScreenManager screenManager) {
@@ -49,7 +49,7 @@ public class BudgetController extends TreatmentController<Budget, BudgetService>
     @Override
     public void edit(int id) {
         try {
-            Budget budget = service.getTreatmentById(id);
+            Budget budget = service.getTransactionById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/budgetForm.fxml");
             loader.setController(new BudgetForm(screenManager, budget, service));
             Parent view = loader.load();

@@ -13,7 +13,7 @@ import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.Entity.Order;
 
 
-public class OrderDAO extends TreatmentDAO<Order> {
+public class OrderDAO extends TransactionDAO<Order> {
     public OrderDAO() {
         super("`Order`", new OrderMapper(), "order");
     }

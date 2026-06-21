@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Order extends Treatment{
+public class Order extends Transaction {
     private boolean completed;
 
     public Order(){}

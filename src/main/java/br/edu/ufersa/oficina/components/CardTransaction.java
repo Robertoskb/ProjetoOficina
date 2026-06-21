@@ -1,8 +1,8 @@
 package br.edu.ufersa.oficina.components;
 
 import br.edu.ufersa.oficina.utils.Observer;
-import br.edu.ufersa.oficina.utils.TreatmentObserver;
-import br.edu.ufersa.oficina.utils.TreatmentSubject;
+import br.edu.ufersa.oficina.utils.TransactionObserver;
+import br.edu.ufersa.oficina.utils.TransactionSubject;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -12,13 +12,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
 
-public class CardTreatment extends CardSubject implements TreatmentSubject {
+public class CardTransaction extends CardSubject implements TransactionSubject {
     @FXML private Button btnCheck;
 
-    private final ArrayList<TreatmentObserver> observers = new ArrayList<>();
+    private final ArrayList<TransactionObserver> observers = new ArrayList<>();
 
-    public CardTreatment() throws IOException {
-        super("treatmentCard.fxml");
+    public CardTransaction() throws IOException {
+        super("transactionCard.fxml");
     }
 
     private boolean confirmFinish() {
@@ -37,36 +37,36 @@ public class CardTreatment extends CardSubject implements TreatmentSubject {
     }
 
     @Override
-    public void registerObserver(TreatmentObserver observer){
+    public void registerObserver(TransactionObserver observer){
         observers.add(observer);
     }
 
     @Override
-    public void removeObserver(TreatmentObserver observer){
+    public void removeObserver(TransactionObserver observer){
         observers.remove(observer);
     }
 
     @Override
     public void notifyFinish(int id) {
-        for (TreatmentObserver observer: observers)
+        for (TransactionObserver observer: observers)
             observer.finish(id);
     }
 
     @Override
     public void notifyAdd() {
-        for (TreatmentObserver observer: observers)
+        for (TransactionObserver observer: observers)
             observer.add();
     }
 
     @Override
     public void notifyEdit(int id){
-        for (TreatmentObserver observer: observers)
+        for (TransactionObserver observer: observers)
             observer.edit(id);
     }
 
     @Override
     public void notifyDelete(int id){
-        for (TreatmentObserver observer: observers)
+        for (TransactionObserver observer: observers)
             observer.delete(id);
     }
 

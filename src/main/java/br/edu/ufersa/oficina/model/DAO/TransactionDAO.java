@@ -5,32 +5,32 @@ import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
 import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
 import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
-import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.Transaction;
 import br.edu.ufersa.oficina.model.Entity.*;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
-    protected String treatmentParts = "_Parts";
-    protected String treatmentServices = "_Services";
+public abstract class TransactionDAO<T extends Transaction> extends GenericDAO<T>{
+    protected String transactionParts = "_Parts";
+    protected String transactionServices = "_Services";
     protected String base;
-    protected TreatmentPartServiceDAO tsd;
+    protected TransactionPartServiceDAO tsd;
 
-    public TreatmentDAO(String table, GenericMapper<T> factory, String base){
+    public TransactionDAO(String table, GenericMapper<T> factory, String base){
         super(table, factory);
         setBase(base);
 
         String base_temp = base.substring(0, 1).toUpperCase() + base.substring(1); // base to Base
-        setTreatmentParts(base_temp + treatmentParts);
-        setTreatmentServices(base_temp + treatmentServices);
+        setTransactionParts(base_temp + transactionParts);
+        setTransactionServices(base_temp + transactionServices);
 
-        setTsd(new TreatmentPartServiceDAO(base, treatmentParts, treatmentServices));
+        setTsd(new TransactionPartServiceDAO(base, transactionParts, transactionServices));
     }
 
-    public abstract void insert(T treatment);
-    public abstract void update(T treatment);
+    public abstract void insert(T transaction);
+    public abstract void update(T transaction);
 
     @Override
     public ArrayList<T> getAllEntities(){
@@ -38,22 +38,22 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id ORDER BY 1 DESC";
 
-        ArrayList<T> treatments;
+        ArrayList<T> transactions;
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
-            treatments = mapper.createArrayEntity(rs);
+            transactions = mapper.createArrayEntity(rs);
         }
 
         catch (SQLException e) {
             throw new MecException(e.getMessage());
         }
 
-        return treatments;
+        return transactions;
     }
 
-    public ArrayList<Part> getPartsByTreatment(int id){
+    public ArrayList<Part> getPartsByTransaction(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT p.* FROM Part p JOIN " + treatmentParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
+        String sql = "SELECT p.* FROM Part p JOIN " + transactionParts + " tp ON p.part_id = tp.part_id WHERE " + base + "_id = ? ";
 
         ArrayList<Part> parts;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
@@ -71,10 +71,10 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return parts;
     }
 
-    public ArrayList<Service> getServicesByTreatment(int id){
+    public ArrayList<Service> getServicesByTransaction(int id){
         Connection conn = ConnectionDB.getConnection();
 
-        String sql = "SELECT s.* FROM Service s JOIN " + treatmentServices + " ts ON s.service_id = ts.service_id WHERE " + base + "_id = ?";
+        String sql = "SELECT s.* FROM Service s JOIN " + transactionServices + " ts ON s.service_id = ts.service_id WHERE " + base + "_id = ?";
 
         ArrayList<Service> services;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
@@ -93,19 +93,19 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         return services;
     }
 
-    public T getTreatmentById(int id){
+    public T getTransactionById(int id){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id where " + base + "_id = ?";
 
-        T treatment;
+        T transaction;
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next())
-                    treatment = mapper.createEntity(rs);
+                    transaction = mapper.createEntity(rs);
                 else
-                    treatment = null;
+                    transaction = null;
             }
         }
 
@@ -113,19 +113,19 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
             throw new MecException(e.getMessage());
         }
 
-        if (treatment != null){
-            ArrayList<Part> parts = getPartsByTreatment(id);
-            ArrayList<Service> services = getServicesByTreatment(id);
+        if (transaction != null){
+            ArrayList<Part> parts = getPartsByTransaction(id);
+            ArrayList<Service> services = getServicesByTransaction(id);
 
-            treatment.setParts(parts);
-            treatment.setServices(services);
+            transaction.setParts(parts);
+            transaction.setServices(services);
         }
 
-        return treatment;
+        return transaction;
 
     }
 
-    public ArrayList<T> getTreatmentsByCar(Car car){
+    public ArrayList<T> getTransactionsByCar(Car car){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE t.car_id = ? ";
@@ -143,7 +143,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentsByClient(Client client){
+    public ArrayList<T> getTransactionsByClient(Client client){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE cl.client_id = ? ";
@@ -161,7 +161,7 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         }
     }
 
-    public ArrayList<T> getTreatmentsByPeriod(LocalDate start, LocalDate end){
+    public ArrayList<T> getTransactionsByPeriod(LocalDate start, LocalDate end){
         Connection conn = ConnectionDB.getConnection();
 
         String sql = "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE " + base + "_date_start BETWEEN ? AND ?";
@@ -181,20 +181,20 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
     }
 
 
-    public String getTreatmentParts() {
-        return treatmentParts;
+    public String getTransactionParts() {
+        return transactionParts;
     }
 
-    public void setTreatmentParts(String treatmentParts) {
-        this.treatmentParts = treatmentParts;
+    public void setTransactionParts(String transactionParts) {
+        this.transactionParts = transactionParts;
     }
 
-    public String getTreatmentServices() {
-        return treatmentServices;
+    public String getTransactionServices() {
+        return transactionServices;
     }
 
-    public void setTreatmentServices(String treatmentServices) {
-        this.treatmentServices = treatmentServices;
+    public void setTransactionServices(String transactionServices) {
+        this.transactionServices = transactionServices;
     }
 
     public String getBase() {
@@ -205,11 +205,11 @@ public abstract class TreatmentDAO<T extends Treatment> extends GenericDAO<T>{
         this.base = base;
     }
 
-    public TreatmentPartServiceDAO getTsd() {
+    public TransactionPartServiceDAO getTsd() {
         return tsd;
     }
 
-    public void setTsd(TreatmentPartServiceDAO tsd) {
+    public void setTsd(TransactionPartServiceDAO tsd) {
         this.tsd = tsd;
     }
 }

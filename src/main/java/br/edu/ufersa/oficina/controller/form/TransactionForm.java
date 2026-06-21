@@ -4,7 +4,7 @@ import br.edu.ufersa.oficina.model.Entity.*;
 import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.model.Services.PartsService;
 import br.edu.ufersa.oficina.model.Services.ServiceService;
-import br.edu.ufersa.oficina.model.Services.TreatmentService;
+import br.edu.ufersa.oficina.model.Services.TransactionService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,11 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TreatmentForm<T extends Treatment, S extends TreatmentService<T>> extends Form<T , S>{
+public abstract class TransactionForm<T extends Transaction, S extends TransactionService<T>> extends Form<T , S>{
     @FXML protected ComboBox<Car> carComboBox;
 
     @FXML protected ComboBox<Part> partComboBox;
@@ -61,11 +60,11 @@ public abstract class TreatmentForm<T extends Treatment, S extends TreatmentServ
     protected final PartsService partsService = new PartsService();
     protected final ServiceService serviceService = new ServiceService();
 
-    public TreatmentForm(ScreenManager screenManager, T entity, S service, String lastFxml) {
+    public TransactionForm(ScreenManager screenManager, T entity, S service, String lastFxml) {
         super(screenManager, entity, service, lastFxml);
     }
 
-    public TreatmentForm(ScreenManager screenManager, S service, String lastFxml) {
+    public TransactionForm(ScreenManager screenManager, S service, String lastFxml) {
         super(screenManager, service, lastFxml);
     }
 

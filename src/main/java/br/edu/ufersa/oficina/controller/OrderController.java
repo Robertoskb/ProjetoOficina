@@ -2,7 +2,7 @@ package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.components.CardAdd;
 import br.edu.ufersa.oficina.components.CardGeneric;
-import br.edu.ufersa.oficina.components.CardTreatment;
+import br.edu.ufersa.oficina.components.CardTransaction;
 import br.edu.ufersa.oficina.controller.form.OrderForm;
 import br.edu.ufersa.oficina.model.Entity.Order;
 import br.edu.ufersa.oficina.model.Entity.Car;
@@ -24,7 +24,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
-public class OrderController extends TreatmentController<Order, OrderService> {
+public class OrderController extends TransactionController<Order, OrderService> {
     public OrderController(ScreenManager screenManager) {
         super(screenManager, new OrderService());
     }
@@ -45,7 +45,7 @@ public class OrderController extends TreatmentController<Order, OrderService> {
     @Override
     public void edit(int id) {
         try {
-            Order order = service.getTreatmentById(id);
+            Order order = service.getTransactionById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
             loader.setController(new OrderForm(screenManager, order, service));
             Parent view = loader.load();

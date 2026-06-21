@@ -4,7 +4,7 @@ import br.edu.ufersa.oficina.model.Entity.Budget;
 import br.edu.ufersa.oficina.model.Services.BudgetService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
 
-public class BudgetForm extends TreatmentForm<Budget, BudgetService>{
+public class BudgetForm extends TransactionForm<Budget, BudgetService>{
     public BudgetForm(ScreenManager screenManager, Budget entity, BudgetService service) {
         super(screenManager, entity, service, "Budget.fxml");
     }

@@ -8,7 +8,7 @@ import br.edu.ufersa.oficina.model.Entity.*;
 import java.sql.*;
 
 
-public class BudgetDAO extends TreatmentDAO<Budget>{
+public class BudgetDAO extends TransactionDAO<Budget>{
     public BudgetDAO(){
         super("budget", new BudgetMapper(), "budget");
     }

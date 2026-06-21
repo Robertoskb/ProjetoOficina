@@ -86,20 +86,20 @@ public class ReportForm extends BaseController {
 
         try {
             if (reportTypeComboBox.getValue().equals(reportTypeComboBox.getItems().get(0))) {
-                ArrayList<Budget> budgets = budgetService.getTreatmentByPeriod(start, end);
+                ArrayList<Budget> budgets = budgetService.getTransactionByPeriod(start, end);
                 for (Budget budget : budgets) {
-                    budget.setParts(budgetService.getPartsByTreatment(budget.getId()));
-                    budget.setServices(budgetService.getServiceByTreatment(budget.getId()));
+                    budget.setParts(budgetService.getPartsByTransaction(budget.getId()));
+                    budget.setServices(budgetService.getServiceByTransaction(budget.getId()));
                 }
 
                 generateBudgetReport(budgets);
             }
 
             if (reportTypeComboBox.getValue().equals(reportTypeComboBox.getItems().get(1))) {
-                ArrayList<Order> orders = orderService.getTreatmentByPeriod(start, end);
+                ArrayList<Order> orders = orderService.getTransactionByPeriod(start, end);
                 for (Order order : orders) {
-                    order.setParts(orderService.getPartsByTreatment(order.getId()));
-                    order.setServices(orderService.getServiceByTreatment(order.getId()));
+                    order.setParts(orderService.getPartsByTransaction(order.getId()));
+                    order.setServices(orderService.getServiceByTransaction(order.getId()));
                 }
 
                 generateOrderReport(orders);

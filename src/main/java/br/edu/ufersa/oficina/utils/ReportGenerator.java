@@ -17,7 +17,7 @@ import org.apache.pdfbox.pdmodel.font.Standard14Fonts;
 import br.edu.ufersa.oficina.model.Entity.Order;
 import br.edu.ufersa.oficina.model.Entity.Part;
 import br.edu.ufersa.oficina.model.Entity.Service;
-import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.Transaction;
 
 public class ReportGenerator {
 
@@ -28,7 +28,7 @@ public class ReportGenerator {
     private static final float MARGIN = 50f;
     private static final float LINE_HEIGHT = 14f;
 
-    public static <T extends Treatment> void generateReport(String title, List<T> treatments, Path destination) throws IOException {
+    public static <T extends Transaction> void generateReport(String title, List<T> transactions, Path destination) throws IOException {
         try (PDDocument document = new PDDocument()) {
             PDPage page = new PDPage(PDRectangle.LETTER);
             document.addPage(page);
@@ -60,12 +60,12 @@ public class ReportGenerator {
             content.beginText();
             content.setFont(FONT, 10);
             content.newLineAtOffset(MARGIN, y);
-            content.showText("Registros: " + treatments.size() + "    |    Valor total: R$ " + String.format("%.2f", treatments.stream().mapToDouble(Treatment::getPrice).sum()));
+            content.showText("Registros: " + transactions.size() + "    |    Valor total: R$ " + String.format("%.2f", transactions.stream().mapToDouble(Transaction::getPrice).sum()));
             content.endText();
 
             y -= LINE_HEIGHT * 1.5f;
 
-            for (Treatment t : treatments) {
+            for (Transaction t : transactions) {
                 // check page space
                 float needed = LINE_HEIGHT * 6 + LINE_HEIGHT * (Math.max(1, t.getParts() == null ? 0 : t.getParts().size()))
                         + LINE_HEIGHT * (Math.max(1, t.getServices() == null ? 0 : t.getServices().size())) + 20;

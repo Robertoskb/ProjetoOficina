@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.model.Entity;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Budget extends Treatment{
+public class Budget extends Transaction {
     public Budget(){}
 
     public Budget(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){

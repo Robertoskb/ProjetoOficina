@@ -1,20 +1,15 @@
 package br.edu.ufersa.oficina.controller;
 
-import br.edu.ufersa.oficina.components.CardGeneric;
-import br.edu.ufersa.oficina.components.CardTreatment;
-import br.edu.ufersa.oficina.controller.form.TreatmentForm;
-import br.edu.ufersa.oficina.controller.form.UserForm;
+import br.edu.ufersa.oficina.components.CardTransaction;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Client;
-import br.edu.ufersa.oficina.model.Entity.Treatment;
+import br.edu.ufersa.oficina.model.Entity.Transaction;
 import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.model.Services.ClientService;
-import br.edu.ufersa.oficina.model.Services.TreatmentService;
+import br.edu.ufersa.oficina.model.Services.TransactionService;
 import br.edu.ufersa.oficina.ui.ScreenManager;
-import br.edu.ufersa.oficina.utils.TreatmentObserver;
+import br.edu.ufersa.oficina.utils.TransactionObserver;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 
@@ -22,8 +17,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TreatmentController<T extends Treatment, S extends TreatmentService<T>> extends PaginatorController<S> implements TreatmentObserver {
-    protected ArrayList<CardTreatment> cards = new ArrayList<>();
+public abstract class TransactionController<T extends Transaction, S extends TransactionService<T>> extends PaginatorController<S> implements TransactionObserver {
+    protected ArrayList<CardTransaction> cards = new ArrayList<>();
 
     @FXML protected ComboBox<Client> filterClient;
     @FXML protected ComboBox<Car> filterCar;
@@ -33,11 +28,11 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     protected final ClientService clientService = new ClientService();
     protected final CarService carService = new CarService();
 
-    protected ArrayList<T> treatments;
+    protected ArrayList<T> transactions;
 
-    public TreatmentController(ScreenManager screenManager, S service){
+    public TransactionController(ScreenManager screenManager, S service){
         super(screenManager, service);
-        treatments = service.getAllTreatments();
+        transactions = service.getAllTransactions();
     }
 
     @Override
@@ -53,15 +48,15 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
 
     @Override
     public void generateCards() throws IOException {
-        for (T treatment: treatments){
-            CardTreatment card = new CardTreatment();
+        for (T transaction: transactions){
+            CardTransaction card = new CardTransaction();
 
-            if (treatment.isFinish())
+            if (transaction.isFinish())
                 card.removeButton(card.getBtnCheck());
 
-            card.setCardId(treatment.getId());
+            card.setCardId(transaction.getId());
 
-            Car car = treatment.getCar();
+            Car car = transaction.getCar();
             Client client = car.getClient();
 
             String first = car.getModel() != null ? car.getModel(): "<Carro Removido>";
@@ -70,7 +65,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
 
 
             card.setTitle(first + " de " + last + " " + plate);
-            card.setDescription("R$ " + String.format("R$ %.2f", treatment.getPrice()));
+            card.setDescription("R$ " + String.format("R$ %.2f", transaction.getPrice()));
             card.registerObserver(this);
 
             super.cards.add(card);
@@ -84,7 +79,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
 
         if (start != null && end != null) {
             try {
-                treatments = service.getTreatmentByPeriod(start, end);
+                transactions = service.getTransactionByPeriod(start, end);
 
                 loadPagination();
             }
@@ -98,7 +93,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     @FXML public void carFilter() throws IOException {
         if (filterCar.getValue() != null) {
             try {
-                treatments = service.getTreatmentByCar(filterCar.getValue());
+                transactions = service.getTransactionByCar(filterCar.getValue());
 
                 loadPagination();
             }
@@ -111,7 +106,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     @FXML public void clientFilter() throws IOException {
         if (filterClient.getValue() != null){
             try {
-                treatments = service.getTreatmentByClient(filterClient.getValue());
+                transactions = service.getTransactionByClient(filterClient.getValue());
 
                 loadPagination();
             }
@@ -126,7 +121,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
     public void finish(int id) {
         try {
             service.finish(id);
-            for (CardTreatment card: cards)
+            for (CardTransaction card: cards)
                 if (card.getCardId() == id)
                     card.removeButton(card.getBtnCheck());
             updatePage(pagination.getCurrentPageIndex());
@@ -143,7 +138,7 @@ public abstract class TreatmentController<T extends Treatment, S extends Treatme
         filterDateStart.setValue(LocalDate.now());
         filterDateEnd.setValue(LocalDate.now());
 
-        treatments = service.getAllTreatments();
+        transactions = service.getAllTransactions();
 
         loadPagination();
     }

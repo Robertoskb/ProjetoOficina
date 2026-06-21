@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public abstract class Treatment extends Entity {
+public abstract class Transaction extends Entity {
     private ArrayList<Part> parts;
     private ArrayList<Service> services;
     private Car car;
@@ -12,9 +12,9 @@ public abstract class Treatment extends Entity {
     private LocalDate date_start;
     private LocalDate date_finish;
 
-    public Treatment(){}
+    public Transaction(){}
 
-    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
+    public Transaction(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -23,7 +23,7 @@ public abstract class Treatment extends Entity {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
+    public Transaction(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setParts(parts);
         setServices(services);
         setCar(car);
@@ -31,7 +31,7 @@ public abstract class Treatment extends Entity {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Transaction(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -42,7 +42,7 @@ public abstract class Treatment extends Entity {
 
     }
 
-    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Transaction(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setParts(parts);
         setServices(services);
         setCar(car);
