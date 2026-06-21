@@ -23,16 +23,16 @@
         </Text>
 
         <Label text="Nome"/>
-        <TextField fx:id="nameField" promptText="Digite o nome"/>
+        <ComboBox fx:id="nameField" maxWidth="Infinity"/>
+
+        <Label text="Fabricante"/>
+        <ComboBox fx:id="manufacturerField" maxWidth="Infinity"/>
+
+        <Label text="Modelo"/>
+        <ComboBox fx:id="modelField" maxWidth="Infinity"/>
 
         <Label text="Preço"/>
         <TextField fx:id="priceField" promptText="Digite o preço"/>
-
-        <Label text="Fabricante"/>
-        <TextField fx:id="manufacturerField" promptText="Digite o fabricante"/>
-
-        <Label text="Modelo"/>
-        <TextField fx:id="modelField" promptText="Digite o modelo"/>
 
         <Button prefWidth="200.0" text="Salvar" onAction="#save"/>
         <Button prefWidth="200.0" text="Cancelar" onAction="#cancel"/>

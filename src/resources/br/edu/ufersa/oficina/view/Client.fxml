@@ -1,16 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="530.0" prefWidth="809.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.oficina.controller.ClientController">
-   <children>
-      <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-         <padding>
-            <Insets left="15.0" right="15.0" />
-         </padding>
+<BorderPane style="-fx-background-color: #14242B;"
+            prefHeight="530.0" prefWidth="809.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="br.edu.ufersa.oficina.controller.ClientController">
+
+   <center>
+      <VBox fx:id="root" alignment="CENTER">
+         <children>
+            <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+               <padding>
+                  <Insets left="15.0" right="15.0"/>
+               </padding>
+            </VBox>
+            <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0"/>
+         </children>
       </VBox>
-      <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0" />
-   </children>
-</VBox>
+   </center>
+
+   <right>
+      <VBox spacing="12.0" style="-fx-background-color: #1E3540; -fx-background-radius: 10;"
+            prefWidth="250.0">
+         <padding>
+            <Insets top="20" right="15" bottom="20" left="15"/>
+         </padding>
+
+         <Label text="Filtros" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+
+         <Label text="Nome" style="-fx-text-fill: #AAAAAA;"/>
+         <HBox spacing="10.0">
+            <TextField fx:id="filterName" promptText="Buscar por nome" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS"/>
+            <Button text="Filtrar" onAction="#filter" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
+         </HBox>
+
+         <Label text="CPF" style="-fx-text-fill: #AAAAAA;"/>
+         <HBox spacing="10.0">
+            <TextField fx:id="filterCpf" promptText="Buscar por CPF" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS"/>
+            <Button text="Filtrar" onAction="#filter" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
+         </HBox>
+
+         <Button text="Limpar" maxWidth="Infinity" onAction="#clearFilter"
+                 style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;"/>
+      </VBox>
+   </right>
+
+</BorderPane>
