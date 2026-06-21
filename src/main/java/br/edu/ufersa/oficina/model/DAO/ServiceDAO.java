@@ -2,6 +2,8 @@ package br.edu.ufersa.oficina.model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
@@ -57,6 +59,18 @@ public class ServiceDAO extends GenericDAO<Service> {
     public Service getServiceById(int id) { return filterEntityById(id); }
 
     public ArrayList<Service> getServiceByName(String name)  {
-        return filterArrayEntity("service_name", name);
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT * FROM " + this.table + " WHERE service_name like ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, "%" + name + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                return mapper.createArrayEntity(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
     }
 }

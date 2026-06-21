@@ -56,7 +56,7 @@ public class ServiceService implements GenericService<Service>{
     }
 
     public ArrayList<Service> getServiceByName(String name)  {
-        ArrayList<Service> services = dao.filterArrayEntity("name", name);
+        ArrayList<Service> services = dao.getServiceByName(name);
         return services;
     }
 
