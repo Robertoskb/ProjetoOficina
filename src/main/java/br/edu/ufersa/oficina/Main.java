@@ -10,7 +10,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
 
-        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/br/edu/ufersa/oficina/icon.jpg")));
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/br/edu/ufersa/oficina/images/icon.jpg")));
 
         ScreenManager manager = new ScreenManager(stage);
 

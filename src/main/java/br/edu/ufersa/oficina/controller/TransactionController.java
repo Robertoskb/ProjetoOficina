@@ -58,6 +58,12 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
             Car car = transaction.getCar();
             Client client = car.getClient();
 
+            if (!car.isValid() || !client.isValid()){
+                card.removeButton(card.getBtnCheck());
+                card.removeButton(card.getBtnEdit());
+            }
+
+
             String first = car.getModel() != null ? car.getModel(): "<Carro Removido>";
             String last = client.getName()!= null ? client.getName() : "<Cliente Removido>";
             String plate = car.getPlate() != null ? car.getPlate(): "";
