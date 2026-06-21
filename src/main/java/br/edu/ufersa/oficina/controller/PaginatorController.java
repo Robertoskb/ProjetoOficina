@@ -30,8 +30,9 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
 
     public abstract void generateCards() throws IOException;
 
-    public void initialize() throws IOException {
-        pagination.setCurrentPageIndex(0);
+    public void loadPagination() throws IOException{
+        if (!cards.isEmpty())
+            cards.clear();
 
         try {
             generateCards();
@@ -52,6 +53,12 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         });
 
         updatePage(0);
+    }
+
+    public void initialize() throws IOException {
+        pagination.setCurrentPageIndex(0);
+
+        loadPagination();
     }
 
     public GenericService<?> getService() {

@@ -1,50 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20.0"
-      style="-fx-background-color: #14242B;"
-      xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml/1">
+<VBox alignment="CENTER" prefHeight="600.0" prefWidth="600.0" spacing="20.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
-    <VBox alignment="CENTER" maxWidth="400.0" spacing="12.0"
-          style="-fx-background-color: #F4F5F7; -fx-background-radius: 10;">
+    <VBox alignment="CENTER" maxWidth="400.0" spacing="12.0" style="-fx-background-color: #F4F5F7; -fx-background-radius: 10;">
 
         <padding>
-            <Insets bottom="25" left="25" right="25" top="25"/>
+            <Insets bottom="25" left="25" right="25" top="25" />
         </padding>
 
         <Text text="Cadastro de Carro">
-            <font><Font size="24.0"/></font>
+            <font><Font size="24.0" /></font>
         </Text>
 
-        <Label text="Cliente"/>
-        <ComboBox fx:id="clientField" maxWidth="Infinity"/>
+        <Label text="Cliente" />
+        <ComboBox fx:id="clientField" maxWidth="Infinity" />
 
-        <Label text="Marca"/>
-        <TextField fx:id="brandField" promptText="Digite a marca"/>
+        <Label text="Marca" />
+      <ComboBox fx:id="brandField" maxWidth="Infinity" />
 
-        <Label text="Modelo"/>
-        <TextField fx:id="modelField" promptText="Digite o modelo"/>
+        <Label text="Modelo" />
+      <ComboBox fx:id="modelField" maxWidth="Infinity" />
 
-        <Label text="Cor"/>
-        <TextField fx:id="colorField" promptText="Digite a cor"/>
+        <Label text="Cor" />
+        <TextField fx:id="colorField" promptText="Digite a cor" />
 
-        <Label text="Placa"/>
-        <TextField fx:id="plateField" promptText="Digite a placa"/>
+        <Label text="Placa" />
+        <TextField fx:id="plateField" promptText="Digite a placa" />
 
-        <Label text="Ano"/>
-        <TextField fx:id="yearField" promptText="Digite o ano"/>
+        <Label text="Ano" />
+        <TextField fx:id="yearField" promptText="Digite o ano" />
 
-        <Label text="Quilometragem"/>
-        <TextField fx:id="mileageField" promptText="Digite a quilometragem"/>
+        <Label text="Quilometragem" />
+        <TextField fx:id="mileageField" promptText="Digite a quilometragem" />
 
-        <Button prefWidth="200.0" text="Salvar" onAction="#save"/>
-        <Button prefWidth="200.0" text="Cancelar" onAction="#cancel"/>
+        <Button onAction="#save" prefWidth="200.0" text="Salvar" />
+        <Button onAction="#cancel" prefWidth="200.0" text="Cancelar" />
 
     </VBox>
 </VBox>
