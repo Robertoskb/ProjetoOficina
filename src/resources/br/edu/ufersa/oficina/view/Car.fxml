@@ -7,7 +7,6 @@
 <?import javafx.scene.control.Pagination?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <BorderPane style="-fx-background-color: #14242B;"
@@ -39,19 +38,28 @@
             <Label text="Filtros" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
 
             <Label text="Cliente" style="-fx-text-fill: #AAAAAA;"/>
-            <HBox spacing="10.0">
-                <ComboBox fx:id="filterClient" maxWidth="Infinity" promptText="Selecione o cliente" HBox.hgrow="ALWAYS"/>
-                <Button text="Filtrar" onAction="#filter" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
-            </HBox>
+            <ComboBox fx:id="filterClient" maxWidth="Infinity" style="-fx-background-radius: 5;"/>
 
-            <Label text="Placa" style="-fx-text-fill: #AAAAAA;"/>
-            <HBox spacing="10.0">
-                <TextField fx:id="filterPlate" promptText="Buscar por placa" style="-fx-background-radius: 5;" HBox.hgrow="ALWAYS"/>
-                <Button text="Filtrar" onAction="#filter" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
-            </HBox>
+            <Button text="Filtrar por Cliente" maxWidth="Infinity" onAction="#filterByClient"
+                    style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
+
+            <Label text="Placa do Carro" style="-fx-text-fill: #AAAAAA;">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="filterPlate" promptText="Digite a placa" style="-fx-background-radius: 5;"/>
+
+            <Button text="Filtrar por Placa" maxWidth="Infinity" onAction="#filterByPlate"
+                    style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
 
             <Button text="Limpar" maxWidth="Infinity" onAction="#clearFilter"
-                    style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;"/>
+                    style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;">
+                <VBox.margin>
+                    <Insets top="15.0"/>
+                </VBox.margin>
+            </Button>
+
         </VBox>
     </right>
 

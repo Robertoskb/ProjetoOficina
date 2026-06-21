@@ -16,41 +16,56 @@
 
     <center>
         <VBox fx:id="root" alignment="CENTER">
-            <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
-                <padding>
-                    <Insets left="15.0" right="15.0"/>
-                </padding>
-            </VBox>
-            <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0"/>
+            <children>
+                <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                    <padding>
+                        <Insets left="15.0" right="15.0"/>
+                    </padding>
+                </VBox>
+                <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0"/>
+            </children>
         </VBox>
     </center>
 
     <right>
         <VBox spacing="12.0" style="-fx-background-color: #1E3540; -fx-background-radius: 10;"
-              prefWidth="200.0">
+              prefWidth="250.0">
             <padding>
                 <Insets top="20" right="15" bottom="20" left="15"/>
             </padding>
 
             <Label text="Filtros" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
 
-            <Label text="Nome" style="-fx-text-fill: #AAAAAA;"/>
-            <ComboBox fx:id="filterName" maxWidth="Infinity" promptText="Selecione o nome"/>
-            <Button text="Filtrar por Nome" prefWidth="170.0" onAction="#filterByName"
-                    style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
-
             <Label text="Fabricante" style="-fx-text-fill: #AAAAAA;"/>
-            <ComboBox fx:id="filterManufacturer" maxWidth="Infinity" promptText="Selecione o fabricante"/>
-            <Button text="Filtrar por Fabricante" prefWidth="170.0" onAction="#filterByManufacturer"
+            <ComboBox fx:id="filterManufacturer" maxWidth="Infinity" style="-fx-background-radius: 5;"/>
+            <Button text="Filtrar por Fabricante" maxWidth="Infinity" onAction="#filterByManufacturer"
                     style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
 
-            <Label text="Modelo" style="-fx-text-fill: #AAAAAA;"/>
-            <ComboBox fx:id="filterModel" maxWidth="Infinity" promptText="Selecione o modelo"/>
-            <Button text="Filtrar por Modelo" prefWidth="170.0" onAction="#filterByModel"
+            <Label text="Modelo" style="-fx-text-fill: #AAAAAA;">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <ComboBox fx:id="filterModel" maxWidth="Infinity" style="-fx-background-radius: 5;"/>
+            <Button text="Filtrar por Modelo" maxWidth="Infinity" onAction="#filterByModel"
                     style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
 
-            <Button text="Limpar" prefWidth="170.0" onAction="#clearFilter"
-                    style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;"/>
+            <Label text="Nome da Peça" style="-fx-text-fill: #AAAAAA;">
+                <VBox.margin>
+                    <Insets top="5.0"/>
+                </VBox.margin>
+            </Label>
+            <ComboBox fx:id="filterName" maxWidth="Infinity" style="-fx-background-radius: 5;"/>
+            <Button text="Filtrar por Nome" maxWidth="Infinity" onAction="#filterByName"
+                    style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;"/>
+
+            <Button text="Limpar Tudo" maxWidth="Infinity" onAction="#clearFilter"
+                    style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;">
+                <VBox.margin>
+                    <Insets top="15.0"/>
+                </VBox.margin>
+            </Button>
+
         </VBox>
     </right>
 

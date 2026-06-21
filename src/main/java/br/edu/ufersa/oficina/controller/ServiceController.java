@@ -8,48 +8,20 @@ import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class ServiceController extends PaginatorController<ServiceService> {
 
-    @FXML private ComboBox<String> filterName;
+    @FXML private TextField filterName;
 
     protected ArrayList<Service> currentServices;
 
     public ServiceController(ScreenManager screenManager) {
         super(screenManager, new ServiceService());
         currentServices = service.getAllServices();
-    }
-
-    public ArrayList<Service> getServicesByName(String name) throws Exception {
-        ArrayList<Service> filtered = new ArrayList<>();
-        for (Service s : service.getAllServices()) {
-            if (s.getName().equalsIgnoreCase(name)) {
-                filtered.add(s);
-            }
-        }
-        return filtered;
-    }
-
-    @Override
-    public void initialize() throws IOException {
-        filterName.getItems().addAll(
-                "Troca de Óleo", "Alinhamento", "Balanceamento",
-                "Troca de Pastilhas de Freio", "Revisão Completa",
-                "Troca de Correia Dentada", "Limpeza de Bicos Injetores",
-                "Troca de Bateria", "Diagnóstico Eletrônico",
-                "Troca de Amortecedores", "Troca de Embreagem",
-                "Troca de Radiador", "Troca de Velas",
-                "Higienização do Ar Condicionado", "Recarga de Ar Condicionado",
-                "Troca de Filtro de Ar", "Troca de Filtro de Combustível",
-                "Troca de Rolamento", "Funilaria Simples",
-                "Polimento e Cristalização"
-        );
-
-        super.initialize();
     }
 
     @Override
@@ -66,20 +38,22 @@ public class ServiceController extends PaginatorController<ServiceService> {
 
     @FXML
     public void filterByName() {
-        String name = filterName.getValue();
-        if (name != null && !name.isEmpty()) {
+        String name = filterName.getText();
+        if (name != null && !name.trim().isEmpty()) {
             try {
-                currentServices = getServicesByName(name);
+                currentServices = service.getServiceByName(name.trim());
                 loadPagination();
             } catch (Exception e) {
                 alert(e.getMessage());
             }
+        } else {
+            clearFilter();
         }
     }
 
     @FXML
     public void clearFilter() {
-        filterName.setValue(null);
+        filterName.clear();
 
         try {
             currentServices = service.getAllServices();
