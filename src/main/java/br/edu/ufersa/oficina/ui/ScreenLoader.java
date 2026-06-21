@@ -28,4 +28,8 @@ public class ScreenLoader {
 
         return loader.load();
     }
+
+    public ControllerFactory getFactory() {
+        return factory;
+    }
 }

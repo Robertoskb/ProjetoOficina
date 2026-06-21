@@ -58,6 +58,12 @@ public abstract class TreatmentService<T extends Treatment> implements GenericSe
         if (treatment.getServices().isEmpty() && treatment.getParts().isEmpty())
             throw new MecException("Atendimento vazio de serviços e peças");
 
+        if (treatment.getDate_start() == null)
+            throw new MecException("Data de não pode ser nula");
+
+        if (treatment.getDate_finish() != null && treatment.getDate_start().isAfter(treatment.getDate_finish()))
+            throw new MecException("Data de início não pode ser posterior a data de finalização");
+
 
         treatmentDAO.insert(treatment);
     }
@@ -71,6 +77,12 @@ public abstract class TreatmentService<T extends Treatment> implements GenericSe
 
         if (treatment.getServices().isEmpty() && treatment.getParts().isEmpty())
             throw new MecException("Atendimento vazio de serviços e peças");
+
+        if (treatment.getDate_start() == null)
+            throw new MecException("Data de não pode ser nula");
+
+        if (treatment.getDate_finish() != null && treatment.getDate_start().isAfter(treatment.getDate_finish()))
+            throw new MecException("Data de início não pode ser posterior a data de finalização");
 
         treatmentDAO.update(treatment);
     }
