@@ -32,9 +32,6 @@ public class MainController extends BaseController{
 
     private Button currentButton = null;
 
-    private Form<?, ?> childForm;
-    private PaginatorController<?> childPagination;
-
     private void setCenter(String fxml) throws IOException{
         Parent view = screenManager.getScreenLoader().load(fxml);
 
