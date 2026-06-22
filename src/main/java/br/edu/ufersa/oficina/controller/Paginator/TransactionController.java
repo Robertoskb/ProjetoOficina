@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.Paginator;
 
 import br.edu.ufersa.oficina.components.CardTransaction;
 import br.edu.ufersa.oficina.model.Entity.Car;
@@ -7,7 +7,6 @@ import br.edu.ufersa.oficina.model.Entity.Transaction;
 import br.edu.ufersa.oficina.model.Services.CarService;
 import br.edu.ufersa.oficina.model.Services.ClientService;
 import br.edu.ufersa.oficina.model.Services.TransactionService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;

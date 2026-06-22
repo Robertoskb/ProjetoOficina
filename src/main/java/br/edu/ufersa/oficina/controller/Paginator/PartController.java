@@ -1,10 +1,9 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.Paginator;
 
 import br.edu.ufersa.oficina.components.CardEntity;
 import br.edu.ufersa.oficina.controller.form.PartForm;
 import br.edu.ufersa.oficina.model.Entity.Part;
 import br.edu.ufersa.oficina.model.Services.PartsService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.Paginator;
 
 public interface Observer{
     void add();

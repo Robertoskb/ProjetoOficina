@@ -1,10 +1,10 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.Paginator;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.components.CardAdd;
 import br.edu.ufersa.oficina.components.GenericCard;
+import br.edu.ufersa.oficina.controller.BaseController;
 import br.edu.ufersa.oficina.model.Services.GenericService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.PaginationList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Pagination;

@@ -1,9 +1,8 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.Paginator;
 
 import br.edu.ufersa.oficina.controller.form.BudgetForm;
 import br.edu.ufersa.oficina.model.Entity.Budget;
 import br.edu.ufersa.oficina.model.Services.BudgetService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
