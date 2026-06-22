@@ -74,7 +74,7 @@ public class PartController extends PaginatorController<PartService> {
                 currentParts = service.getPartsByManufacturer(manufacturer.trim());
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -89,7 +89,7 @@ public class PartController extends PaginatorController<PartService> {
                 currentParts = service.getPartsByModel(model.trim());
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -104,7 +104,7 @@ public class PartController extends PaginatorController<PartService> {
                 currentParts = service.getPartsByName(name.trim());
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -121,7 +121,7 @@ public class PartController extends PaginatorController<PartService> {
             currentParts = service.getAllParts();
             loadPagination();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -134,7 +134,7 @@ public class PartController extends PaginatorController<PartService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -148,7 +148,7 @@ public class PartController extends PaginatorController<PartService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

@@ -89,7 +89,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
             }
 
             catch (Exception e){
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         }
 
@@ -103,7 +103,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
             }
 
             catch (Exception e){
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         }
     }
@@ -116,7 +116,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
             }
 
             catch (Exception e){
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         }
     }
@@ -132,7 +132,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
         }
 
         catch (Exception e){
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 

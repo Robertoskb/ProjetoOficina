@@ -43,7 +43,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
                 currentServices = service.getServiceByName(name.trim());
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -58,7 +58,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
             currentServices = service.getAllServices();
             loadPagination();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -71,7 +71,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

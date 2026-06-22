@@ -23,7 +23,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -37,7 +37,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

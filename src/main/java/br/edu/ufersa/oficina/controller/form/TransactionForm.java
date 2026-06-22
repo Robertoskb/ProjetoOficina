@@ -100,7 +100,7 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
             super.initialize();
 
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 

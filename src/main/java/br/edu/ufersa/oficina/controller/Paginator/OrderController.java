@@ -20,7 +20,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -34,7 +34,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

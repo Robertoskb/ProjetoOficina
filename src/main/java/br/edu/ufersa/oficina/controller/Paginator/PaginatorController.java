@@ -41,7 +41,7 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         }
 
         catch (MecException e){
-            alert(e.getMessage());
+            error(e.getMessage());
         }
 
         paginationList = new PaginationList<>(cards, perPage);
@@ -85,7 +85,7 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         }
 
         catch (Exception e){
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 

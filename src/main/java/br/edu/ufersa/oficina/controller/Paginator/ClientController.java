@@ -36,7 +36,7 @@ public class ClientController extends PaginatorController<ClientService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -50,7 +50,7 @@ public class ClientController extends PaginatorController<ClientService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

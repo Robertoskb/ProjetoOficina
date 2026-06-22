@@ -3,7 +3,6 @@ package br.edu.ufersa.oficina.controller.form;
 import br.edu.ufersa.oficina.controller.BaseController;
 import br.edu.ufersa.oficina.model.Entity.Entity;
 import br.edu.ufersa.oficina.model.Services.GenericService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 
@@ -39,7 +38,7 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
         }
 
         catch (Exception e){
-            alert(e.getMessage());
+            error(e.getMessage());
 
             return;
         }
@@ -71,7 +70,7 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
             return true;
 
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
 
             return false;
         }
@@ -83,7 +82,7 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
 
             return true;
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
 
             return false;
         }
@@ -97,7 +96,7 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
         }
 
         catch (Exception e){
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 

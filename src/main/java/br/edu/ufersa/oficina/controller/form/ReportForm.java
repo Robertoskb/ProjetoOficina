@@ -5,7 +5,6 @@ import br.edu.ufersa.oficina.model.Entity.Budget;
 import br.edu.ufersa.oficina.model.Entity.Order;
 import br.edu.ufersa.oficina.model.Services.BudgetService;
 import br.edu.ufersa.oficina.model.Services.OrderService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import br.edu.ufersa.oficina.utils.ReportGenerator;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -110,7 +109,7 @@ public class ReportForm extends BaseController {
         }
 
         catch (Exception e){
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 

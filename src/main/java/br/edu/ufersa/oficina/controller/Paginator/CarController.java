@@ -72,7 +72,7 @@ public class CarController extends PaginatorController<CarService> {
                 currentCars = service.getCarsByClientId(selectedClient.getId());
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -89,7 +89,7 @@ public class CarController extends PaginatorController<CarService> {
                 currentCars.add(foundCar);
                 loadPagination();
             } catch (Exception e) {
-                alert(e.getMessage());
+                error(e.getMessage());
             }
         } else {
             clearFilter();
@@ -105,7 +105,7 @@ public class CarController extends PaginatorController<CarService> {
             currentCars = service.getAllCars();
             loadPagination();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -118,7 +118,7 @@ public class CarController extends PaginatorController<CarService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -132,7 +132,7 @@ public class CarController extends PaginatorController<CarService> {
             screenManager.setCenter(view);
             screenManager.show();
         } catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }

@@ -50,7 +50,7 @@ public class UserController extends PaginatorController<UserService>{
             screenManager.show();
         }
         catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class UserController extends PaginatorController<UserService>{
             screenManager.show();
         }
         catch (Exception e) {
-            alert(e.getMessage());
+            error(e.getMessage());
         }
     }
 }
