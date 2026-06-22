@@ -10,8 +10,9 @@ import java.util.logging.Logger;
 public class ScreenLoader {
     private final ControllerFactory factory;
 
-    public ScreenLoader(ScreenManager screenManager){
-        this.factory = new ControllerFactory(screenManager);
+
+    public ScreenLoader(){
+        this.factory = new ControllerFactory();
     }
 
     public FXMLLoader loader(String fxml){

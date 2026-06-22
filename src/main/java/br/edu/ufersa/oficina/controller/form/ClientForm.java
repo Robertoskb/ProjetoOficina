@@ -13,12 +13,8 @@ public class ClientForm extends Form<Client, ClientService> {
     @FXML private TextField addressField;
     @FXML private TextField cpfField;
 
-    public ClientForm(ScreenManager screenManager, Client entity, ClientService service) {
-        super(screenManager, entity, service, "Client.fxml");
-    }
-
-    public ClientForm(ScreenManager screenManager, ClientService service) {
-        super(screenManager, service, "Client.fxml");
+    public ClientForm(Client entity, ClientService service) {
+        super(entity, service, "Client.fxml");
     }
 
     @FXML

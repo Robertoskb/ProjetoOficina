@@ -25,8 +25,8 @@ public class CarController extends PaginatorController<CarService> {
     protected ArrayList<Car> currentCars;
     private final ClientService clientService = new ClientService();
 
-    public CarController(ScreenManager screenManager) {
-        super(screenManager, new CarService());
+    public CarController(CarService carService) {
+        super(carService);
         currentCars = service.getAllCars();
     }
 
@@ -114,7 +114,7 @@ public class CarController extends PaginatorController<CarService> {
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/carForm.fxml");
-            loader.setController(new CarForm(screenManager, new Car(), service));
+            loader.setController(new CarForm(new Car(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -128,7 +128,7 @@ public class CarController extends PaginatorController<CarService> {
         try {
             Car c = service.getCarById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/carForm.fxml");
-            loader.setController(new CarForm(screenManager, c, service));
+            loader.setController(new CarForm(c, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

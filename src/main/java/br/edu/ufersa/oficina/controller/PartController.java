@@ -23,8 +23,8 @@ public class PartController extends PaginatorController<PartsService> {
 
     protected ArrayList<Part> currentParts;
 
-    public PartController(ScreenManager screenManager) {
-        super(screenManager, new PartsService());
+    public PartController(PartsService partsService) {
+        super(partsService);
         currentParts = service.getAllParts();
     }
 
@@ -130,7 +130,7 @@ public class PartController extends PaginatorController<PartsService> {
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/partForm.fxml");
-            loader.setController(new PartForm(screenManager, new Part(), service));
+            loader.setController(new PartForm(new Part(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -144,7 +144,7 @@ public class PartController extends PaginatorController<PartsService> {
         try {
             Part p = service.getPartById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/partForm.fxml");
-            loader.setController(new PartForm(screenManager, p, service));
+            loader.setController(new PartForm(p, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

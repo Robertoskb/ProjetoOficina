@@ -11,8 +11,8 @@ import javafx.scene.Parent;
 import java.io.IOException;
 
 public class UserController extends PaginatorController<UserService>{
-    public UserController(ScreenManager screenManager){
-        super(screenManager, new UserService());
+    public UserController(UserService userService){
+        super(userService);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class UserController extends PaginatorController<UserService>{
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/userForm.fxml");
 
-            loader.setController(new UserForm(screenManager, new User(), service));
+            loader.setController(new UserForm(new User(), service));
 
             Parent view = loader.load();
 
@@ -62,7 +62,7 @@ public class UserController extends PaginatorController<UserService>{
 
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/userForm.fxml");
 
-            loader.setController(new UserForm(screenManager, user, service));
+            loader.setController(new UserForm(user, service));
 
             Parent view = loader.load();
 

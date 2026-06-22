@@ -8,15 +8,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class OrderController extends TransactionController<Order, OrderService> {
-    public OrderController(ScreenManager screenManager) {
-        super(screenManager, new OrderService());
+    public OrderController(OrderService service) {
+        super(service);
     }
 
     @Override
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
-            loader.setController(new OrderForm(screenManager, new Order(), service));
+            loader.setController(new OrderForm(new Order(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -30,7 +30,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
         try {
             Order order = service.getTransactionById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
-            loader.setController(new OrderForm(screenManager, order, service));
+            loader.setController(new OrderForm(order, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

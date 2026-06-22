@@ -14,12 +14,8 @@ public class PartForm extends Form<Part, PartsService> {
     @FXML private ComboBox<String> modelField;
     @FXML private TextField priceField;
 
-    public PartForm(ScreenManager screenManager, Part entity, PartsService service) {
-        super(screenManager, entity, service, "Part.fxml");
-    }
-
-    public PartForm(ScreenManager screenManager, PartsService service) {
-        super(screenManager, service, "Part.fxml");
+    public PartForm(Part entity, PartsService service) {
+        super(entity, service, "Part.fxml");
     }
 
     @FXML

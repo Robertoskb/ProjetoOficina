@@ -6,12 +6,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.layout.BorderPane;
 
 public abstract class BaseController {
-    protected final ScreenManager screenManager;
+    protected final ScreenManager screenManager = ScreenManager.getInstance();
     protected BaseController parentController;
-
-    public BaseController(ScreenManager screenManager){
-        this.screenManager = screenManager;
-    }
 
     public void success(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

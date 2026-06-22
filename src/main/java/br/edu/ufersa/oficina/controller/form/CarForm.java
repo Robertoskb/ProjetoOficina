@@ -22,12 +22,8 @@ public class CarForm extends Form<Car, CarService> {
 
     private final ClientService clientService = new ClientService();
 
-    public CarForm(ScreenManager screenManager, Car entity, CarService service) {
-        super(screenManager, entity, service, "Car.fxml");
-    }
-
-    public CarForm(ScreenManager screenManager, CarService service) {
-        super(screenManager, service, "Car.fxml");
+    public CarForm(Car entity, CarService service) {
+        super(entity, service, "Car.fxml");
     }
 
     @FXML

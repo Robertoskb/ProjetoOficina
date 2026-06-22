@@ -14,15 +14,13 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
     protected E entity;
     protected String lastFxml;
 
-    public Form(ScreenManager screenManager, E entity, S service, String lastFxml) {
-        super(screenManager);
+    public Form(E entity, S service, String lastFxml) {
         setEntity(entity);
         setService(service);
         setLastFxml(lastFxml);
     }
 
-    public Form(ScreenManager screenManager, S service, String lastFxml){
-        super(screenManager);
+    public Form(S service, String lastFxml){
         setService(service);
         setLastFxml(lastFxml);
     }

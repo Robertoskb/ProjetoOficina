@@ -11,13 +11,10 @@ public class ServiceForm extends Form<Service, ServiceService> {
     @FXML private TextField nameField;
     @FXML private TextField priceField;
 
-    public ServiceForm(ScreenManager screenManager, Service entity, ServiceService service) {
-        super(screenManager, entity, service, "Service.fxml");
+    public ServiceForm(Service entity, ServiceService service) {
+        super(entity, service, "Service.fxml");
     }
 
-    public ServiceForm(ScreenManager screenManager, ServiceService service) {
-        super(screenManager, service, "Service.fxml");
-    }
 
     @FXML
     public void initialize() {

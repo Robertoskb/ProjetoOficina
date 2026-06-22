@@ -9,15 +9,22 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ScreenManager {
-    private final Stage stage;
+    private Stage stage;
     private final ScreenLoader screenLoader;
     private User user;
     private BorderPane root;
-    
-    public ScreenManager(Stage primaryStage){
-        stage = primaryStage;
-        screenLoader = new ScreenLoader(this);
+    private static ScreenManager screenManager;
+
+    private ScreenManager(){
+        screenLoader = new ScreenLoader();
     }
+
+    public static ScreenManager getInstance(){
+        if (screenManager == null)
+             screenManager = new  ScreenManager();
+        return screenManager;
+    }
+
 
     public void setScene(String fxml) throws IOException{
         Parent root = screenLoader.load(fxml);
@@ -25,6 +32,10 @@ public class ScreenManager {
         Scene scene = new Scene(root);
 
         stage.setScene(scene);
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public void setCenter(Parent view){

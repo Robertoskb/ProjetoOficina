@@ -21,8 +21,7 @@ public class LoginController extends BaseController{
 
     private final UserService userService;
 
-    public LoginController(UserService userService, ScreenManager screenManager){
-        super(screenManager);
+    public LoginController(UserService userService){
         this.userService = userService;
     }
 

@@ -10,8 +10,8 @@ import javafx.scene.Parent;
 public class BudgetController extends TransactionController<Budget, BudgetService> {
 
 
-    public BudgetController(ScreenManager screenManager) {
-        super(screenManager, new BudgetService());
+    public BudgetController(BudgetService service) {
+        super(service);
     }
 
 
@@ -19,7 +19,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/budgetForm.fxml");
-            loader.setController(new BudgetForm(screenManager, new Budget(), service));
+            loader.setController(new BudgetForm(new Budget(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -33,7 +33,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
         try {
             Budget budget = service.getTransactionById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/budgetForm.fxml");
-            loader.setController(new BudgetForm(screenManager, budget, service));
+            loader.setController(new BudgetForm(budget, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

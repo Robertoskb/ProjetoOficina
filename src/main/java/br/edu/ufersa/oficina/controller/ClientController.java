@@ -12,8 +12,8 @@ import java.io.IOException;
 
 public class ClientController extends PaginatorController<ClientService> {
 
-    public ClientController(ScreenManager screenManager) {
-        super(screenManager, new ClientService());
+    public ClientController(ClientService clientService) {
+        super(clientService);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class ClientController extends PaginatorController<ClientService> {
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/clientForm.fxml");
-            loader.setController(new ClientForm(screenManager, new Client(), service));
+            loader.setController(new ClientForm(new Client(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -46,7 +46,7 @@ public class ClientController extends PaginatorController<ClientService> {
         try {
             Client client = service.getClientById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/clientForm.fxml");
-            loader.setController(new ClientForm(screenManager, client, service));
+            loader.setController(new ClientForm(client, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

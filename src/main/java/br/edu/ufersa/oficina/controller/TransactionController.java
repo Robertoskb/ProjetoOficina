@@ -29,8 +29,8 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
 
     protected ArrayList<T> transactions;
 
-    public TransactionController(ScreenManager screenManager, S service){
-        super(screenManager, service);
+    public TransactionController(S transactionService){
+        super(transactionService);
         transactions = service.getAllTransactions();
     }
 

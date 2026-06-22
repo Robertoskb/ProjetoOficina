@@ -2,36 +2,50 @@ package br.edu.ufersa.oficina.ui;
 
 import br.edu.ufersa.oficina.Exceptions.MecNotFoundException;
 import br.edu.ufersa.oficina.controller.*;
+import br.edu.ufersa.oficina.controller.form.OrderForm;
 import br.edu.ufersa.oficina.controller.form.ReportForm;
-import br.edu.ufersa.oficina.model.Services.UserService;
+import br.edu.ufersa.oficina.model.Services.*;
 
 public class ControllerFactory {
     private final UserService userService = new UserService();
-
-
-    private final ScreenManager screenManager;
-
-    public ControllerFactory(ScreenManager screenManager){
-        this.screenManager = screenManager;
-    }
+    private final ClientService clientService = new ClientService();
+    private final CarService carService = new CarService();
+    private final PartsService partsService = new PartsService();
+    private final ServiceService serviceService = new ServiceService();
+    private final BudgetService budgetService = new BudgetService();
+    private final OrderService orderService = new OrderService();
 
     public Object create(Class<?> clazz) {
-        if (clazz == LoginController.class)
-            return new LoginController(userService, screenManager);
         if (clazz == MainController.class)
-            return new MainController(screenManager);
+            return new MainController();
+
+        if (clazz == LoginController.class)
+            return new LoginController(userService);
+
         if (clazz == MenuController.class)
-            return new MenuController(screenManager);
+            return new MenuController(orderService);
+
+        if (clazz == ClientController.class)
+            return new ClientController(clientService);
+
+        if (clazz == CarController.class)
+            return new CarController(carService);
+
+        if (clazz == PartController.class)
+            return new PartController(partsService);
+
+        if (clazz == ServiceController.class)
+            return new ServiceController(serviceService);
+
+        if (clazz == BudgetController.class)
+            return new BudgetController(budgetService);
+
+        if (clazz == OrderController.class)
+            return new OrderController(orderService);
+
         if (clazz == ReportForm.class)
-            return new ReportForm(screenManager);
-        if (PaginatorController.class.isAssignableFrom(clazz)){
-            try {
-                return clazz.getDeclaredConstructor(screenManager.getClass()).newInstance(screenManager);
-            }
-            catch (Exception e){
-                throw new MecNotFoundException("Controller não encontrado");
-            }
-        }
+            return new ReportForm(orderService, budgetService);
+
 
         throw new MecNotFoundException("Controller não encontrado");
     }

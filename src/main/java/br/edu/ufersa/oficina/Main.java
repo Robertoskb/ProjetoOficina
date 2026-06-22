@@ -13,7 +13,8 @@ public class Main extends Application {
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/br/edu/ufersa/oficina/images/icon.jpg")));
         stage.setTitle("MecProject");
 
-        ScreenManager manager = new ScreenManager(stage);
+        ScreenManager manager = ScreenManager.getInstance();
+        manager.setStage(stage);
 
         manager.setScene("login.fxml");
 

@@ -10,15 +10,19 @@ public class MenuController extends BaseController{
     @FXML private Text txtOrderFinished;
     @FXML private Text txtOrderPaidPending;
 
-    private final OrderService service = new OrderService();
+    private OrderService service;
 
-    public MenuController(ScreenManager screenManager){
-        super(screenManager);
+    public MenuController(OrderService orderService){
+        setService(orderService);
     }
 
     public void initialize(){
         txtOrderInProgress.setText("" + service.getTransactionInProgress().size());
         txtOrderFinished.setText("" + service.getTransactionCompleteThisMonth().size());
         txtOrderPaidPending.setText("" + service.getTransactionPaidPending().size());
+    }
+
+    public void setService(OrderService service) {
+        this.service = service;
     }
 }

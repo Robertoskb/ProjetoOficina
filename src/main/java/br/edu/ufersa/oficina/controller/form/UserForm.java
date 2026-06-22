@@ -28,12 +28,8 @@ public class UserForm extends Form<User, UserService> {
     @FXML
     private Button saveButton;
 
-    public UserForm(ScreenManager screenManager, User user, UserService service) {
-        super(screenManager, user, service, "User.fxml");
-    }
-
-    public UserForm(ScreenManager screenManager, UserService service) {
-        super(screenManager, service, "User.fxml");
+    public UserForm(User user, UserService service) {
+        super(user, service, "User.fxml");
     }
 
     @Override

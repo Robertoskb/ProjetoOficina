@@ -38,11 +38,12 @@ public class ReportForm extends BaseController {
 
     @FXML private Button generateButton;
 
-    private final OrderService orderService = new OrderService();
-    private final BudgetService budgetService = new BudgetService();
+    private OrderService orderService;
+    private BudgetService budgetService;
 
-    public ReportForm(ScreenManager screenManager) {
-        super(screenManager);
+    public ReportForm(OrderService orderService, BudgetService budgetService) {
+        setOrderService(orderService);
+        setBudgetService(budgetService);
     }
 
     public void initialize(){
@@ -119,5 +120,13 @@ public class ReportForm extends BaseController {
 
     public void generateOrderReport(ArrayList<Order> orders) throws IOException {
         ReportGenerator.generateReport(titleField.getText().trim(), orders, Paths.get(pathField.getText()));
+    }
+
+    public void setBudgetService(BudgetService budgetService) {
+        this.budgetService = budgetService;
+    }
+
+    public void setOrderService(OrderService orderService) {
+        this.orderService = orderService;
     }
 }

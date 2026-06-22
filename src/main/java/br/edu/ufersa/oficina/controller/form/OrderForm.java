@@ -7,12 +7,8 @@ import br.edu.ufersa.oficina.ui.ScreenManager;
 import java.io.IOException;
 
 public class OrderForm extends TransactionForm<Order, OrderService>{
-    public OrderForm(ScreenManager screenManager, Order entity, OrderService service) {
-        super(screenManager, entity, service, "Order.fxml");
-    }
-
-    public OrderForm(ScreenManager screenManager, OrderService service) {
-        super(screenManager, service, "Order.fxml");
+    public OrderForm(Order entity, OrderService service) {
+        super(entity, service, "Order.fxml");
     }
 
     @Override

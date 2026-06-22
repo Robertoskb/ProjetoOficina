@@ -19,8 +19,8 @@ public class ServiceController extends PaginatorController<ServiceService> {
 
     protected ArrayList<Service> currentServices;
 
-    public ServiceController(ScreenManager screenManager) {
-        super(screenManager, new ServiceService());
+    public ServiceController(ServiceService serviceService) {
+        super(serviceService);
         currentServices = service.getAllServices();
     }
 
@@ -67,7 +67,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/serviceForm.fxml");
-            loader.setController(new ServiceForm(screenManager, new Service("", 0), service));
+            loader.setController(new ServiceForm(new Service("", 0), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -81,7 +81,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
         try {
             Service s = service.getServiceById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/serviceForm.fxml");
-            loader.setController(new ServiceForm(screenManager, s, service));
+            loader.setController(new ServiceForm(s, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

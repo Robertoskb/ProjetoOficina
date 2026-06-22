@@ -60,12 +60,12 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
     protected final PartsService partsService = new PartsService();
     protected final ServiceService serviceService = new ServiceService();
 
-    public TransactionForm(ScreenManager screenManager, T entity, S service, String lastFxml) {
-        super(screenManager, entity, service, lastFxml);
+    public TransactionForm(T entity, S service, String lastFxml) {
+        super(entity, service, lastFxml);
     }
 
-    public TransactionForm(ScreenManager screenManager, S service, String lastFxml) {
-        super(screenManager, service, lastFxml);
+    public TransactionForm(S service, String lastFxml) {
+        super(service, lastFxml);
     }
 
     @Override

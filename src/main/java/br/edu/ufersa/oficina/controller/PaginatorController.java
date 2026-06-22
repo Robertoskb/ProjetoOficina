@@ -18,13 +18,12 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     @FXML protected Pagination pagination;
 
     protected PaginationList<GenericCard> paginationList;
-    protected final S service;
+    protected S service;
     protected final ArrayList<GenericCard> cards = new ArrayList<>();
     protected final int perPage = 4;
 
-    public PaginatorController(ScreenManager screenManager, S service){
-        super(screenManager);
-        this.service = service;
+    public PaginatorController(S service){
+        setService(service);
     }
 
     public abstract void generateCards() throws IOException;
@@ -88,5 +87,9 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         catch (Exception e){
             alert(e.getMessage());
         }
+    }
+
+    public void setService(S service) {
+        this.service = service;
     }
 }
