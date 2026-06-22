@@ -15,7 +15,7 @@ public class ControllerFactory {
     private final BudgetService budgetService = new BudgetService();
     private final OrderService orderService = new OrderService();
 
-    public Object create(Class<?> clazz) {
+    public BaseController create(Class<?> clazz) {
         if (clazz == MainController.class)
             return new MainController();
 
