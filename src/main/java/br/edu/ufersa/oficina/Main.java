@@ -11,6 +11,7 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
 
         stage.getIcons().add(new Image(Main.class.getResourceAsStream("/br/edu/ufersa/oficina/images/icon.jpg")));
+        stage.setTitle("MecProject");
 
         ScreenManager manager = new ScreenManager(stage);
 
