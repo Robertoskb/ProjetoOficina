@@ -87,6 +87,14 @@ public abstract class Transaction extends Entity {
         return price;
     }
 
+    public int getDiscount(){
+        double totalParts = parts.stream().mapToDouble(Part::getPrice).sum();
+        double totalServices = services.stream().mapToDouble(Service::getPrice).sum();
+        double total = totalParts + totalServices;
+
+        return Math.toIntExact(Math.round(100 * (1.0 - price / total)));
+    }
+
     public void setPrice(double price) {
         if (price > 0)
             this.price = price;

@@ -86,6 +86,8 @@ public class ReportGenerator {
                 y = printWrapped(content, "Data início: " + (t.getDate_start() == null ? "-" : t.getDate_start().format(DATE_FORMAT)), FONT, 10, MARGIN, y, maxWidth);
                 y = printWrapped(content, "Data fim: " + (t.getDate_finish() == null ? "-" : t.getDate_finish().format(DATE_FORMAT)), FONT, 10, MARGIN, y, maxWidth);
                 y = printWrapped(content, String.format("Valor: R$ %.2f", t.getPrice()), FONT, 10, MARGIN, y, maxWidth);
+                if (t.getDiscount() > 0)
+                    y = printWrapped(content, "Desconto Aplicado: " + t.getDiscount() + "%", FONT, 10, MARGIN, y, maxWidth);
                 if (t.getClass() == Order.class) {
                     Order o = (Order) t;
                     y = printWrapped(content, "Pago: " + (o.isCompleted() ? "Sim" : "Não"), FONT, 10, MARGIN, y, maxWidth);
