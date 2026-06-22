@@ -70,7 +70,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
 
 
             card.setTitle(first + " de " + last + " " + plate);
-            card.setDescription("R$ " + String.format("R$ %.2f", transaction.getPrice()));
+            card.setDescription(String.format("R$ %.2f", transaction.getPrice()));
             card.registerObserver(this);
 
             super.cards.add(card);
