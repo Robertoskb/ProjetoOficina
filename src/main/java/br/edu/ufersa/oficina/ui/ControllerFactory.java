@@ -29,7 +29,7 @@ public class ControllerFactory {
             return new ClientController(clientService);
 
         if (clazz == CarController.class)
-            return new CarController(carService);
+            return new CarController(carService, clientService);
 
         if (clazz == PartController.class)
             return new PartController(partService);

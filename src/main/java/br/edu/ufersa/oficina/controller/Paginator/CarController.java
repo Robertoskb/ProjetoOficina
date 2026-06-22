@@ -22,10 +22,11 @@ public class CarController extends PaginatorController<CarService> {
     @FXML private TextField filterPlate;
 
     protected ArrayList<Car> currentCars;
-    private final ClientService clientService = new ClientService();
+    private ClientService clientService;
 
-    public CarController(CarService carService) {
+    public CarController(CarService carService, ClientService clientService) {
         super(carService);
+        setClientService(clientService);
         currentCars = service.getAllCars();
     }
 
@@ -134,5 +135,9 @@ public class CarController extends PaginatorController<CarService> {
         } catch (Exception e) {
             error(e.getMessage());
         }
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
     }
 }
