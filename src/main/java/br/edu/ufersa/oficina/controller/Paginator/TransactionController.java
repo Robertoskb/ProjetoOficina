@@ -14,7 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 public abstract class TransactionController<T extends Transaction, S extends TransactionService<T,?>> extends PaginatorController<T, S> implements TransactionObserver {
-    protected ArrayList<CardTransaction> cards = new ArrayList<>();
+    protected final ArrayList<CardTransaction> cards = new ArrayList<>();
 
     @FXML protected ComboBox<Client> filterClient;
     @FXML protected ComboBox<Car> filterCar;
