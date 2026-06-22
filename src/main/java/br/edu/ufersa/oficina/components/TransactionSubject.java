@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.controller.TransactionObserver;
+import br.edu.ufersa.oficina.controller.form.TransactionObserver;
 
 public interface TransactionSubject extends Subject {
     public void registerObserver(TransactionObserver observer);

@@ -1,7 +1,7 @@
 package br.edu.ufersa.oficina.controller;
 
 import br.edu.ufersa.oficina.controller.form.Form;
-import br.edu.ufersa.oficina.ui.ScreenManager;
+import br.edu.ufersa.oficina.controller.form.PaginatorController;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;

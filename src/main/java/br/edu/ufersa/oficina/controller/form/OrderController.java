@@ -1,9 +1,7 @@
-package br.edu.ufersa.oficina.controller;
+package br.edu.ufersa.oficina.controller.form;
 
-import br.edu.ufersa.oficina.controller.form.OrderForm;
 import br.edu.ufersa.oficina.model.Entity.Order;
 import br.edu.ufersa.oficina.model.Services.OrderService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
