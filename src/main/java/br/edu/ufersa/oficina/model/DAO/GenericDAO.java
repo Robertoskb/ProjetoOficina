@@ -1,6 +1,7 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Entity.Entity;
 import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 
@@ -10,7 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public abstract class GenericDAO<E> {
+public abstract class GenericDAO<E extends Entity> {
     protected String table;
     protected GenericMapper<E> mapper;
     protected String prefix;
