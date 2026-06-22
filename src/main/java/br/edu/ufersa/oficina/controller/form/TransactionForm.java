@@ -62,11 +62,7 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
     public TransactionForm(T entity, S service, String lastFxml) {
         super(entity, service, lastFxml);
     }
-
-    public TransactionForm(S service, String lastFxml) {
-        super(service, lastFxml);
-    }
-
+    
     @Override
     public void initialize(){
         try {
