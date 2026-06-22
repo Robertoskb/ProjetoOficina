@@ -7,7 +7,6 @@ import javafx.scene.layout.BorderPane;
 
 public abstract class BaseController {
     protected final ScreenManager screenManager = ScreenManager.getInstance();
-    protected BaseController parentController;
 
     public void success(String message){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -24,8 +23,5 @@ public abstract class BaseController {
 
         alert.showAndWait();
     }
-
-    public void setParentController(BaseController controller){
-        this.parentController = controller;
-    }
+    
 }
