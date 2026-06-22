@@ -38,10 +38,10 @@ public class ControllerFactory {
             return new ServiceController(serviceService);
 
         if (clazz == BudgetController.class)
-            return new BudgetController(budgetService);
+            return new BudgetController(budgetService, clientService, carService, partService, serviceService);
 
         if (clazz == OrderController.class)
-            return new OrderController(orderService);
+            return new OrderController(orderService, clientService, carService, partService, serviceService);
 
         if (clazz == UserController.class)
             return new UserController(userService);

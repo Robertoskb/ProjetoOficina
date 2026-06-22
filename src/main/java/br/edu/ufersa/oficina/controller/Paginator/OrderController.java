@@ -2,20 +2,20 @@ package br.edu.ufersa.oficina.controller.Paginator;
 
 import br.edu.ufersa.oficina.controller.form.OrderForm;
 import br.edu.ufersa.oficina.model.Entity.Order;
-import br.edu.ufersa.oficina.model.Services.OrderService;
+import br.edu.ufersa.oficina.model.Services.*;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 public class OrderController extends TransactionController<Order, OrderService> {
-    public OrderController(OrderService service) {
-        super(service);
+    public OrderController(OrderService service, ClientService clientService, CarService carService, PartService partService, ServiceService serviceService) {
+        super(service, clientService, carService, partService, serviceService);
     }
 
     @Override
     public void add() {
         try {
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
-            loader.setController(new OrderForm(new Order(), service));
+            loader.setController(new OrderForm(new Order(), service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();
@@ -29,7 +29,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
         try {
             Order order = service.getTransactionById(id);
             FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
-            loader.setController(new OrderForm(order, service));
+            loader.setController(new OrderForm(order, service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);
             screenManager.show();

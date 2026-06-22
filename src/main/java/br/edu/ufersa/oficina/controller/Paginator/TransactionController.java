@@ -4,9 +4,7 @@ import br.edu.ufersa.oficina.components.CardTransaction;
 import br.edu.ufersa.oficina.model.Entity.Car;
 import br.edu.ufersa.oficina.model.Entity.Client;
 import br.edu.ufersa.oficina.model.Entity.Transaction;
-import br.edu.ufersa.oficina.model.Services.CarService;
-import br.edu.ufersa.oficina.model.Services.ClientService;
-import br.edu.ufersa.oficina.model.Services.TransactionService;
+import br.edu.ufersa.oficina.model.Services.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -23,13 +21,19 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
     @FXML protected DatePicker filterDateStart;
     @FXML protected DatePicker filterDateEnd;
 
-    protected final ClientService clientService = new ClientService();
-    protected final CarService carService = new CarService();
+    protected ClientService clientService;
+    protected CarService carService;
+    protected PartService partService;
+    protected ServiceService serviceService;
 
     protected ArrayList<T> transactions;
 
-    public TransactionController(S transactionService){
+    public TransactionController(S transactionService, ClientService clientService, CarService carService, PartService partService, ServiceService serviceService){
         super(transactionService);
+        setClientService(clientService);
+        setCarService(carService);
+        setPartService(partService);
+        setServiceService(serviceService);
         transactions = service.getAllTransactions();
     }
 
@@ -147,4 +151,19 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
         loadPagination();
     }
 
+    public void setServiceService(ServiceService serviceService) {
+        this.serviceService = serviceService;
+    }
+
+    public void setPartService(PartService partService) {
+        this.partService = partService;
+    }
+
+    public void setCarService(CarService carService) {
+        this.carService = carService;
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
+    }
 }

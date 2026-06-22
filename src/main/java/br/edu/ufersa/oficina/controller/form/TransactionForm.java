@@ -55,14 +55,17 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
     protected final ObservableList<Service> selectedServices =
             FXCollections.observableArrayList();
 
-    protected final CarService carService = new CarService();
-    protected final PartService partService = new PartService();
-    protected final ServiceService serviceService = new ServiceService();
+    protected CarService carService;
+    protected PartService partService;
+    protected ServiceService serviceService;
 
-    public TransactionForm(T entity, S service, String lastFxml) {
+    public TransactionForm(T entity, S service, String lastFxml, CarService carService, PartService partService, ServiceService serviceService) {
         super(entity, service, lastFxml);
+        setCarService(carService);
+        setPartService(partService);
+        setServiceService(serviceService);
     }
-    
+
     @Override
     public void initialize(){
         try {
@@ -241,5 +244,17 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
                 setGraphic(empty ? null : removeButton);
             }
         });
+    }
+
+    public void setServiceService(ServiceService serviceService) {
+        this.serviceService = serviceService;
+    }
+
+    public void setPartService(PartService partService) {
+        this.partService = partService;
+    }
+
+    public void setCarService(CarService carService) {
+        this.carService = carService;
     }
 }
