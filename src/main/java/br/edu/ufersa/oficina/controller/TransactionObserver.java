@@ -1,4 +1,4 @@
-package br.edu.ufersa.oficina.controller.form;
+package br.edu.ufersa.oficina.controller;
 
 public interface TransactionObserver extends Observer {
     void delete(int id);

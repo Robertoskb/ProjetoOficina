@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.controller.form.TransactionObserver;
+import br.edu.ufersa.oficina.controller.TransactionObserver;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
