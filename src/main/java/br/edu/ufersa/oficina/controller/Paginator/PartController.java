@@ -14,17 +14,15 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PartController extends PaginatorController<PartService> {
+public class PartController extends PaginatorController<Part, PartService> {
 
     @FXML private ComboBox<String> filterManufacturer;
     @FXML private ComboBox<String> filterModel;
     @FXML private ComboBox<String> filterName;
 
-    protected ArrayList<Part> currentParts;
-
     public PartController(PartService partService) {
         super(partService);
-        currentParts = service.getAllParts();
+        entities = service.getAllParts();
     }
 
     @Override
@@ -33,8 +31,8 @@ public class PartController extends PaginatorController<PartService> {
         Set<String> models = new HashSet<>();
         Set<String> names = new HashSet<>();
 
-        if (currentParts != null) {
-            for (Part p : currentParts) {
+        if (entities != null) {
+            for (Part p : entities) {
                 if (p.getManufacturer() != null && !p.getManufacturer().isEmpty()) {
                     manufacturers.add(p.getManufacturer());
                 }
@@ -56,7 +54,7 @@ public class PartController extends PaginatorController<PartService> {
 
     @Override
     public void generateCards() throws IOException {
-        for (Part entityPart : currentParts) {
+        for (Part entityPart : entities) {
             CardEntity card = new CardEntity();
             card.setCardId(entityPart.getId());
             card.setTitle(entityPart.getName() + " | " + entityPart.getModel());
@@ -71,7 +69,7 @@ public class PartController extends PaginatorController<PartService> {
         String manufacturer = filterManufacturer.getValue();
         if (manufacturer != null && !manufacturer.trim().isEmpty()) {
             try {
-                currentParts = service.getPartsByManufacturer(manufacturer.trim());
+                entities = service.getPartsByManufacturer(manufacturer.trim());
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -86,7 +84,7 @@ public class PartController extends PaginatorController<PartService> {
         String model = filterModel.getValue();
         if (model != null && !model.trim().isEmpty()) {
             try {
-                currentParts = service.getPartsByModel(model.trim());
+                entities = service.getPartsByModel(model.trim());
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -101,7 +99,7 @@ public class PartController extends PaginatorController<PartService> {
         String name = filterName.getValue();
         if (name != null && !name.trim().isEmpty()) {
             try {
-                currentParts = service.getPartsByName(name.trim());
+                entities = service.getPartsByName(name.trim());
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -118,7 +116,7 @@ public class PartController extends PaginatorController<PartService> {
         filterName.setValue(null);
 
         try {
-            currentParts = service.getAllParts();
+            entities = service.getAllParts();
             loadPagination();
         } catch (Exception e) {
             error(e.getMessage());

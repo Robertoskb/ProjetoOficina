@@ -16,18 +16,17 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class CarController extends PaginatorController<CarService> {
+public class CarController extends PaginatorController<Car,CarService> {
 
     @FXML private ComboBox<Client> filterClient;
     @FXML private TextField filterPlate;
 
-    protected ArrayList<Car> currentCars;
     private ClientService clientService;
 
     public CarController(CarService carService, ClientService clientService) {
         super(carService);
         setClientService(clientService);
-        currentCars = service.getAllCars();
+        entities = service.getAllCars();
     }
 
     @Override
@@ -51,7 +50,7 @@ public class CarController extends PaginatorController<CarService> {
 
     @Override
     public void generateCards() throws IOException {
-        for (Car entityCar : currentCars) {
+        for (Car entityCar : entities) {
             CardEntity card = new CardEntity();
             card.setCardId(entityCar.getId());
 
@@ -70,7 +69,7 @@ public class CarController extends PaginatorController<CarService> {
         Client selectedClient = filterClient.getValue();
         if (selectedClient != null) {
             try {
-                currentCars = service.getCarsByClientId(selectedClient.getId());
+                entities = service.getCarsByClientId(selectedClient.getId());
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -86,8 +85,8 @@ public class CarController extends PaginatorController<CarService> {
         if (plate != null && !plate.trim().isEmpty()) {
             try {
                 Car foundCar = service.getCarByPlate(plate.trim());
-                currentCars = new ArrayList<>();
-                currentCars.add(foundCar);
+                entities = new ArrayList<>();
+                entities.add(foundCar);
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -103,7 +102,7 @@ public class CarController extends PaginatorController<CarService> {
         filterClient.setValue(null);
 
         try {
-            currentCars = service.getAllCars();
+            entities = service.getAllCars();
             loadPagination();
         } catch (Exception e) {
             error(e.getMessage());

@@ -12,20 +12,18 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class ServiceController extends PaginatorController<ServiceService> {
+public class ServiceController extends PaginatorController<Service, ServiceService> {
 
     @FXML private TextField filterName;
 
-    protected ArrayList<Service> currentServices;
-
     public ServiceController(ServiceService serviceService) {
         super(serviceService);
-        currentServices = service.getAllServices();
+        entities = service.getAllServices();
     }
 
     @Override
     public void generateCards() throws IOException {
-        for (Service entityService : currentServices) {
+        for (Service entityService : entities) {
             CardEntity card = new CardEntity();
             card.setCardId(entityService.getId());
             card.setTitle(entityService.getName());
@@ -40,7 +38,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
         String name = filterName.getText();
         if (name != null && !name.trim().isEmpty()) {
             try {
-                currentServices = service.getServiceByName(name.trim());
+                entities = service.getServiceByName(name.trim());
                 loadPagination();
             } catch (Exception e) {
                 error(e.getMessage());
@@ -55,7 +53,7 @@ public class ServiceController extends PaginatorController<ServiceService> {
         filterName.clear();
 
         try {
-            currentServices = service.getAllServices();
+            entities = service.getAllServices();
             loadPagination();
         } catch (Exception e) {
             error(e.getMessage());

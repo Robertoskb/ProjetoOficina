@@ -9,7 +9,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 
-public class UserController extends PaginatorController<UserService>{
+public class UserController extends PaginatorController<User, UserService>{
     public UserController(UserService userService){
         super(userService);
     }

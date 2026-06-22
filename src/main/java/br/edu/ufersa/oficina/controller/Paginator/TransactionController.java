@@ -13,7 +13,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TransactionController<T extends Transaction, S extends TransactionService<T,?>> extends PaginatorController<S> implements TransactionObserver {
+public abstract class TransactionController<T extends Transaction, S extends TransactionService<T,?>> extends PaginatorController<T, S> implements TransactionObserver {
     protected ArrayList<CardTransaction> cards = new ArrayList<>();
 
     @FXML protected ComboBox<Client> filterClient;
@@ -26,15 +26,13 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
     protected PartService partService;
     protected ServiceService serviceService;
 
-    protected ArrayList<T> transactions;
-
     public TransactionController(S transactionService, ClientService clientService, CarService carService, PartService partService, ServiceService serviceService){
         super(transactionService);
         setClientService(clientService);
         setCarService(carService);
         setPartService(partService);
         setServiceService(serviceService);
-        transactions = service.getAllTransactions();
+        entities = service.getAllTransactions();
     }
 
     @Override
@@ -50,7 +48,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
 
     @Override
     public void generateCards() throws IOException {
-        for (T transaction: transactions){
+        for (T transaction: entities){
             CardTransaction card = new CardTransaction();
 
             if (transaction.isFinish())
@@ -87,7 +85,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
 
         if (start != null && end != null) {
             try {
-                transactions = service.getTransactionByPeriod(start, end);
+                entities = service.getTransactionByPeriod(start, end);
 
                 loadPagination();
             }
@@ -101,7 +99,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
     @FXML public void carFilter() throws IOException {
         if (filterCar.getValue() != null) {
             try {
-                transactions = service.getTransactionByCar(filterCar.getValue());
+                entities = service.getTransactionByCar(filterCar.getValue());
 
                 loadPagination();
             }
@@ -114,7 +112,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
     @FXML public void clientFilter() throws IOException {
         if (filterClient.getValue() != null){
             try {
-                transactions = service.getTransactionByClient(filterClient.getValue());
+                entities = service.getTransactionByClient(filterClient.getValue());
 
                 loadPagination();
             }
@@ -146,7 +144,7 @@ public abstract class TransactionController<T extends Transaction, S extends Tra
         filterDateStart.setValue(LocalDate.now());
         filterDateEnd.setValue(LocalDate.now());
 
-        transactions = service.getAllTransactions();
+        entities = service.getAllTransactions();
 
         loadPagination();
     }

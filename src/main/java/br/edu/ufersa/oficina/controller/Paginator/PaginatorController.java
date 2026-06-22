@@ -4,6 +4,7 @@ import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.components.CardAdd;
 import br.edu.ufersa.oficina.components.GenericCard;
 import br.edu.ufersa.oficina.controller.BaseController;
+import br.edu.ufersa.oficina.model.Entity.Entity;
 import br.edu.ufersa.oficina.model.Services.GenericService;
 import br.edu.ufersa.oficina.utils.PaginationList;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import javafx.scene.layout.VBox;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public abstract class PaginatorController<S extends GenericService<?>> extends BaseController implements Observer {
+public abstract class PaginatorController<E extends Entity, S extends GenericService<E>> extends BaseController implements Observer {
     @FXML protected VBox cardContainer;
     @FXML protected Pagination pagination;
 
@@ -21,6 +22,7 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
     protected S service;
     protected final ArrayList<GenericCard> cards = new ArrayList<>();
     protected final int perPage = 4;
+    protected ArrayList<E> entities;
 
     public PaginatorController(S service){
         setService(service);
@@ -75,7 +77,7 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
 
         pagination.setPageCount((cards.size()/(perPage)) + (cards.size()%perPage != 0 ? 1 : 0));
     }
-    
+
     @Override
     public void delete(int id){
         try {
