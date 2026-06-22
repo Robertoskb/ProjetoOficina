@@ -20,10 +20,11 @@ public class CarForm extends Form<Car, CarService> {
     @FXML private TextField yearField;
     @FXML private TextField mileageField;
 
-    private final ClientService clientService = new ClientService();
+    private ClientService clientService;
 
-    public CarForm(Car entity, CarService service) {
+    public CarForm(Car entity, CarService service, ClientService clientService) {
         super(entity, service, "Car.fxml");
+        setClientService(clientService);
     }
 
     @FXML
@@ -109,5 +110,9 @@ public class CarForm extends Form<Car, CarService> {
         entity.setYear(Integer.parseInt(yearField.getText()));
         entity.setMileage(Integer.parseInt(mileageField.getText()));
 
+    }
+
+    public void setClientService(ClientService clientService) {
+        this.clientService = clientService;
     }
 }
