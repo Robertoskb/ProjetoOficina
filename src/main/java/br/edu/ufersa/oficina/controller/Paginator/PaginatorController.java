@@ -76,6 +76,8 @@ public abstract class PaginatorController<S extends GenericService<?>> extends B
         pagination.setPageCount((cards.size()/(perPage)) + (cards.size()%perPage != 0 ? 1 : 0));
     }
 
+    public abstract void edit(int id);
+
     @Override
     public void delete(int id){
         try {
