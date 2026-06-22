@@ -7,7 +7,7 @@ import br.edu.ufersa.oficina.model.Entity.Part;
 
 import java.util.ArrayList;
 
-public class PartsService implements GenericService<Part>{
+public class PartService implements GenericService<Part>{
     
     private final PartDAO dao = new PartDAO();
 

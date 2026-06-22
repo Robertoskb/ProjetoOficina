@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.Entity.Part;
-import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Mappers.PartMapper;
 
 public class PartDAO extends GenericDAO<Part> {
 
     public PartDAO() {
 
-        super("Part", new PartsMapper());
+        super("Part", new PartMapper());
 
     }
 

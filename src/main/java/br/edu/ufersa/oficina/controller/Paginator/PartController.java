@@ -3,7 +3,7 @@ package br.edu.ufersa.oficina.controller.Paginator;
 import br.edu.ufersa.oficina.components.CardEntity;
 import br.edu.ufersa.oficina.controller.form.PartForm;
 import br.edu.ufersa.oficina.model.Entity.Part;
-import br.edu.ufersa.oficina.model.Services.PartsService;
+import br.edu.ufersa.oficina.model.Services.PartService;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PartController extends PaginatorController<PartsService> {
+public class PartController extends PaginatorController<PartService> {
 
     @FXML private ComboBox<String> filterManufacturer;
     @FXML private ComboBox<String> filterModel;
@@ -22,8 +22,8 @@ public class PartController extends PaginatorController<PartsService> {
 
     protected ArrayList<Part> currentParts;
 
-    public PartController(PartsService partsService) {
-        super(partsService);
+    public PartController(PartService partService) {
+        super(partService);
         currentParts = service.getAllParts();
     }
 

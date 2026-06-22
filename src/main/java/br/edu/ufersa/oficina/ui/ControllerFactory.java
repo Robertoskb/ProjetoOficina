@@ -10,7 +10,7 @@ public class ControllerFactory {
     private final UserService userService = new UserService();
     private final ClientService clientService = new ClientService();
     private final CarService carService = new CarService();
-    private final PartsService partsService = new PartsService();
+    private final PartService partService = new PartService();
     private final ServiceService serviceService = new ServiceService();
     private final BudgetService budgetService = new BudgetService();
     private final OrderService orderService = new OrderService();
@@ -32,7 +32,7 @@ public class ControllerFactory {
             return new CarController(carService);
 
         if (clazz == PartController.class)
-            return new PartController(partsService);
+            return new PartController(partService);
 
         if (clazz == ServiceController.class)
             return new ServiceController(serviceService);

@@ -1,20 +1,19 @@
 package br.edu.ufersa.oficina.controller.form;
 
 import br.edu.ufersa.oficina.model.Entity.Part;
-import br.edu.ufersa.oficina.model.Services.PartsService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
+import br.edu.ufersa.oficina.model.Services.PartService;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 
-public class PartForm extends Form<Part, PartsService> {
+public class PartForm extends Form<Part, PartService> {
 
     @FXML private ComboBox<String> nameField;
     @FXML private ComboBox<String> manufacturerField;
     @FXML private ComboBox<String> modelField;
     @FXML private TextField priceField;
 
-    public PartForm(Part entity, PartsService service) {
+    public PartForm(Part entity, PartService service) {
         super(entity, service, "Part.fxml");
     }
 

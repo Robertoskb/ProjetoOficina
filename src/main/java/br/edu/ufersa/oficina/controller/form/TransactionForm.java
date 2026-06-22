@@ -2,10 +2,9 @@ package br.edu.ufersa.oficina.controller.form;
 
 import br.edu.ufersa.oficina.model.Entity.*;
 import br.edu.ufersa.oficina.model.Services.CarService;
-import br.edu.ufersa.oficina.model.Services.PartsService;
+import br.edu.ufersa.oficina.model.Services.PartService;
 import br.edu.ufersa.oficina.model.Services.ServiceService;
 import br.edu.ufersa.oficina.model.Services.TransactionService;
-import br.edu.ufersa.oficina.ui.ScreenManager;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -57,7 +56,7 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
             FXCollections.observableArrayList();
 
     protected final CarService carService = new CarService();
-    protected final PartsService partsService = new PartsService();
+    protected final PartService partService = new PartService();
     protected final ServiceService serviceService = new ServiceService();
 
     public TransactionForm(T entity, S service, String lastFxml) {
@@ -73,7 +72,7 @@ public abstract class TransactionForm<T extends Transaction, S extends Transacti
         try {
             carComboBox.getItems().setAll(carService.getAllCars());
 
-            partComboBox.getItems().setAll(partsService.getAllParts());
+            partComboBox.getItems().setAll(partService.getAllParts());
             serviceComboBox.getItems().setAll(serviceService.getAllServices());
 
             partTable.setItems(selectedParts);

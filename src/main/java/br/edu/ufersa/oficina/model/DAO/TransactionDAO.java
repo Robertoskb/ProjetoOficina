@@ -2,7 +2,7 @@ package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
-import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Mappers.PartMapper;
 import br.edu.ufersa.oficina.model.Mappers.ServiceMapper;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.Entity.Transaction;
@@ -60,7 +60,7 @@ public abstract class TransactionDAO<T extends Transaction> extends GenericDAO<T
 
             ps.setInt(1, id);
             try (ResultSet rs = ps.executeQuery()){
-                parts = new PartsMapper().createArrayEntity(rs);
+                parts = new PartMapper().createArrayEntity(rs);
             }
         }
 
