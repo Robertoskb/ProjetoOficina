@@ -17,4 +17,6 @@ module projetooficina{
     exports br.edu.ufersa.oficina;
     exports br.edu.ufersa.oficina.controller.form;
     opens br.edu.ufersa.oficina.controller.form to javafx.fxml, javafx.graphics;
+    exports br.edu.ufersa.oficina.controller.Paginator;
+    opens br.edu.ufersa.oficina.controller.Paginator to javafx.fxml, javafx.graphics;
 }

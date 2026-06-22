@@ -1,6 +1,6 @@
 package br.edu.ufersa.oficina.components;
 
-import br.edu.ufersa.oficina.controller.Observer;
+import br.edu.ufersa.oficina.controller.Paginator.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
