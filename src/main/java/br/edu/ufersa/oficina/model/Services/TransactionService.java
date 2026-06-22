@@ -8,10 +8,10 @@ import br.edu.ufersa.oficina.model.Entity.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TransactionService<T extends Transaction> implements GenericService<T> {
-    protected TransactionDAO<T> transactionDAO;
+public abstract class TransactionService<T extends Transaction, D extends TransactionDAO<T>> implements GenericService<T> {
+    protected D transactionDAO;
 
-    public TransactionService(TransactionDAO<T> transactionDAO) {
+    public TransactionService(D transactionDAO) {
         setTransactionDAO(transactionDAO);
     }
 
@@ -79,7 +79,7 @@ public abstract class TransactionService<T extends Transaction> implements Gener
             throw new MecException("Atendimento vazio de serviços e peças");
 
         if (transaction.getDate_start() == null)
-            throw new MecException("Data de não pode ser nula");
+            throw new MecException("Data de início não pode ser nula");
 
         if (transaction.getDate_finish() != null && transaction.getDate_start().isAfter(transaction.getDate_finish()))
             throw new MecException("Data de início não pode ser posterior a data de finalização");
@@ -99,7 +99,7 @@ public abstract class TransactionService<T extends Transaction> implements Gener
         return transactionDAO;
     }
 
-    public void setTransactionDAO(TransactionDAO<T> transactionDAO) {
+    public void setTransactionDAO(D transactionDAO) {
         this.transactionDAO = transactionDAO;
     }
 }

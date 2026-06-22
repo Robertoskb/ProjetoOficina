@@ -181,6 +181,8 @@ public abstract class TransactionDAO<T extends Transaction> extends GenericDAO<T
     }
 
 
+
+
     public String getTransactionParts() {
         return transactionParts;
     }

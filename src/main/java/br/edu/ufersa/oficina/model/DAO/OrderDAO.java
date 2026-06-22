@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Mappers.OrderMapper;
@@ -16,6 +18,57 @@ import br.edu.ufersa.oficina.model.Entity.Order;
 public class OrderDAO extends TransactionDAO<Order> {
     public OrderDAO() {
         super("`Order`", new OrderMapper(), "order");
+    }
+
+    public ArrayList<Order> getTransactionCompleteThisMonth(){
+        Connection conn = ConnectionDB.getConnection();
+
+        Date today = Date.valueOf(LocalDate.now().plusDays(1));
+        Date month = Date.valueOf(LocalDate.now().withDayOfMonth(1));
+
+        String sql =  "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca " +
+                "ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE t.order_date_finish BETWEEN ? AND ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setDate(1, month);
+            ps.setDate(2, today);
+            try (ResultSet rs = ps.executeQuery()){
+                return mapper.createArrayEntity(rs);
+            }
+
+        }
+        catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
+
+    }
+
+    public ArrayList<Order> getTransactionPaidPending() {
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql =  "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca " +
+                "ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE  t.order_date_finish IS NOT NULL AND t.completed = false";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            return mapper.createArrayEntity(rs);
+        }
+        catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
+    }
+
+    public ArrayList<Order> getTransactionInProgress() {
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql =  "SELECT t.*, ca.*, cl.* FROM " + table + " t LEFT JOIN car ca " +
+                "ON t.car_id = ca.car_id LEFT JOIN client cl ON ca.client_id = cl.client_id WHERE t.order_date_finish IS NULL ";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
+            return mapper.createArrayEntity(rs);
+        }
+        catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
     }
 
     @Override
@@ -112,5 +165,6 @@ public class OrderDAO extends TransactionDAO<Order> {
             } catch (SQLException ignored) {}
         }
     }
+
 }
 

@@ -15,7 +15,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TransactionForm<T extends Transaction, S extends TransactionService<T>> extends Form<T , S>{
+public abstract class TransactionForm<T extends Transaction, S extends TransactionService<T, ?>> extends Form<T , S>{
     @FXML protected ComboBox<Car> carComboBox;
 
     @FXML protected ComboBox<Part> partComboBox;

@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public abstract class TransactionController<T extends Transaction, S extends TransactionService<T>> extends PaginatorController<S> implements TransactionObserver {
+public abstract class TransactionController<T extends Transaction, S extends TransactionService<T,?>> extends PaginatorController<S> implements TransactionObserver {
     protected ArrayList<CardTransaction> cards = new ArrayList<>();
 
     @FXML protected ComboBox<Client> filterClient;

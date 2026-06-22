@@ -49,7 +49,7 @@ public class ReportForm extends BaseController {
         reportTypeComboBox.getItems().addAll("Orçamento", "Ordem de Serviço");
         reportTypeComboBox.setValue(reportTypeComboBox.getItems().get(0));
 
-        startDatePicker.setValue(LocalDate.now().plusMonths(-1));
+        startDatePicker.setValue(LocalDate.now().withDayOfMonth(1));
         endDatePicker.setValue(LocalDate.now());
     }
 

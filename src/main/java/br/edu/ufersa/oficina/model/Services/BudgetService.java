@@ -5,7 +5,7 @@ import br.edu.ufersa.oficina.model.DAO.BudgetDAO;
 import br.edu.ufersa.oficina.model.Entity.Budget;
 import br.edu.ufersa.oficina.model.Entity.Order;
 
-public class BudgetService extends TransactionService<Budget> {
+public class BudgetService extends TransactionService<Budget, BudgetDAO> {
     public BudgetService(){
         super(new BudgetDAO());
     }
