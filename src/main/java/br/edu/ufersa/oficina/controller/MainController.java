@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
@@ -111,6 +112,9 @@ public class MainController extends BaseController{
     private void logout() throws IOException{
         screenManager.setUser(null);
         screenManager.setScene("login.fxml");
+        Stage stage = screenManager.getStage();
+        stage.setMaximized(false);
+        stage.sizeToScene();
         screenManager.show();
     }
 

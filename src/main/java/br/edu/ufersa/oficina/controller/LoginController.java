@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class LoginController extends BaseController{
 
@@ -39,13 +40,17 @@ public class LoginController extends BaseController{
 
                 screenManager.setUser(user);
                 screenManager.setScene("Main.fxml");
-                screenManager.getStage().setMaximized(true);
+                Stage stage = screenManager.getStage();
+                stage.setMaximized(false);
+                stage.setMaximized(true);
                 screenManager.show();
             }
             else{
                 screenManager.setUser(new User("Ghost", "", "", true)); // debug
                 screenManager.setScene("Main.fxml");
-                screenManager.getStage().setMaximized(true);
+                Stage stage = screenManager.getStage();
+                stage.setMaximized(false);
+                stage.setMaximized(true);
                 screenManager.show();//
             }
 

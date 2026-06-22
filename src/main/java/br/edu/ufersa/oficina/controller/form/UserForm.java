@@ -38,6 +38,9 @@ public class UserForm extends Form<User, UserService> {
         emailField.setText(entity.getEmail());
         passwordField.setText(entity.getPassword());
         adminCheckBox.setSelected(entity.isAdmin());
+
+        if (screenManager.getUser().getId() == entity.getId() && entity.isAdmin())
+            adminCheckBox.setDisable(true);
     }
 
     @Override

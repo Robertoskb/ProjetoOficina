@@ -43,6 +43,9 @@ public class ControllerFactory {
         if (clazz == OrderController.class)
             return new OrderController(orderService);
 
+        if (clazz == UserController.class)
+            return new UserController(userService);
+
         if (clazz == ReportForm.class)
             return new ReportForm(orderService, budgetService);
 
