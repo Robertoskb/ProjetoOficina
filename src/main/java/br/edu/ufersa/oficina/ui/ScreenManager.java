@@ -34,6 +34,11 @@ public class ScreenManager {
         stage.centerOnScreen();
 
         stage.setScene(scene);
+
+    }
+
+    public void show(){
+        stage.show();
     }
 
     public void setStage(Stage stage) {
@@ -48,9 +53,6 @@ public class ScreenManager {
         this.user = user;
     }
 
-    public void show(){
-        stage.show();
-    }
 
     public Stage getStage() {
         return stage;
