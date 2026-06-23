@@ -14,14 +14,14 @@ public class ConnectionDB {
 
     private static Connection connection;
 
+    private ConnectionDB(){}
+
     public static Connection getConnection(){
 
         try {
             if (connection == null) {
                 connection = DriverManager.getConnection(url, user, password);
-                System.out.println("Conectado com Sucesso");
             }
-
         }
 
         catch (SQLException e) {
