@@ -63,7 +63,7 @@ public class ServiceController extends PaginatorController<Service, ServiceServi
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/serviceForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/serviceForm.fxml");
             loader.setController(new ServiceForm(new Service("", 0), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -77,7 +77,7 @@ public class ServiceController extends PaginatorController<Service, ServiceServi
     public void edit(int id) {
         try {
             Service s = service.getServiceById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/serviceForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/serviceForm.fxml");
             loader.setController(new ServiceForm(s, service));
             Parent view = loader.load();
             screenManager.setCenter(view);

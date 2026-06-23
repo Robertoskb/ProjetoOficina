@@ -112,7 +112,7 @@ public class CarController extends PaginatorController<Car,CarService> {
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/carForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/carForm.fxml");
             loader.setController(new CarForm(new Car(), service, clientService));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -126,7 +126,7 @@ public class CarController extends PaginatorController<Car,CarService> {
     public void edit(int id) {
         try {
             Car c = service.getCarById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/carForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/carForm.fxml");
             loader.setController(new CarForm(c, service, clientService));
             Parent view = loader.load();
             screenManager.setCenter(view);

@@ -17,7 +17,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/budgetForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/budgetForm.fxml");
             loader.setController(new BudgetForm(new Budget(), service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -31,7 +31,7 @@ public class BudgetController extends TransactionController<Budget, BudgetServic
     public void edit(int id) {
         try {
             Budget budget = service.getTransactionById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/budgetForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/budgetForm.fxml");
             loader.setController(new BudgetForm(budget, service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);

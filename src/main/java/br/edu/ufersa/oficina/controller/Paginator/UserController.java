@@ -39,7 +39,7 @@ public class UserController extends PaginatorController<User, UserService>{
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/userForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/userForm.fxml");
 
             loader.setController(new UserForm(new User(), service));
 
@@ -59,7 +59,7 @@ public class UserController extends PaginatorController<User, UserService>{
         try {
             User user = service.getUserById(id);
 
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/userForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/userForm.fxml");
 
             loader.setController(new UserForm(user, service));
 

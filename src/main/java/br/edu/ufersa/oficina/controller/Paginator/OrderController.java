@@ -14,7 +14,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/orderForm.fxml");
             loader.setController(new OrderForm(new Order(), service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -28,7 +28,7 @@ public class OrderController extends TransactionController<Order, OrderService> 
     public void edit(int id) {
         try {
             Order order = service.getTransactionById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/orderForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/orderForm.fxml");
             loader.setController(new OrderForm(order, service, carService, partService, serviceService));
             Parent view = loader.load();
             screenManager.setCenter(view);

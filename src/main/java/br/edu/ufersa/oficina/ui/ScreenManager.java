@@ -1,6 +1,7 @@
 package br.edu.ufersa.oficina.ui;
 
 import br.edu.ufersa.oficina.model.Entity.User;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -39,6 +40,14 @@ public class ScreenManager {
 
     public void show(){
         stage.show();
+    }
+
+    public FXMLLoader loader(String fxml){
+        return screenLoader.loader(fxml);
+    }
+
+    public Parent load(String fxml) throws IOException {
+        return screenLoader.load(fxml);
     }
 
     public void setStage(Stage stage) {

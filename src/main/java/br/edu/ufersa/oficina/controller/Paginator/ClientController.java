@@ -30,7 +30,7 @@ public class ClientController extends PaginatorController<Client, ClientService>
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/clientForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/clientForm.fxml");
             loader.setController(new ClientForm(new Client(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -44,7 +44,7 @@ public class ClientController extends PaginatorController<Client, ClientService>
     public void edit(int id) {
         try {
             Client client = service.getClientById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/clientForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/clientForm.fxml");
             loader.setController(new ClientForm(client, service));
             Parent view = loader.load();
             screenManager.setCenter(view);

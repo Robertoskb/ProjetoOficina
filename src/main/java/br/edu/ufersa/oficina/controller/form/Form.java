@@ -90,7 +90,7 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
 
     public void leave(String fxml){
         try {
-            Parent view = screenManager.getScreenLoader().load(fxml);
+            Parent view = screenManager.load(fxml);
 
             screenManager.setCenter(view);
         }

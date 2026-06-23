@@ -33,7 +33,7 @@ public class MainController extends BaseController{
     private Button currentButton = null;
 
     private void setCenter(String fxml) throws IOException{
-        Parent view = screenManager.getScreenLoader().load(fxml);
+        Parent view = screenManager.load(fxml);
 
         root.setCenter(view);
     }

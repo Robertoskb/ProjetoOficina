@@ -126,7 +126,7 @@ public class PartController extends PaginatorController<Part, PartService> {
     @Override
     public void add() {
         try {
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/partForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/partForm.fxml");
             loader.setController(new PartForm(new Part(), service));
             Parent view = loader.load();
             screenManager.setCenter(view);
@@ -140,7 +140,7 @@ public class PartController extends PaginatorController<Part, PartService> {
     public void edit(int id) {
         try {
             Part p = service.getPartById(id);
-            FXMLLoader loader = screenManager.getScreenLoader().loader("form/partForm.fxml");
+            FXMLLoader loader = screenManager.loader("form/partForm.fxml");
             loader.setController(new PartForm(p, service));
             Parent view = loader.load();
             screenManager.setCenter(view);
