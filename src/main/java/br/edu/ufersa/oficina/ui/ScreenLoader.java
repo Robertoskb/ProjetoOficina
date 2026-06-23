@@ -17,7 +17,6 @@ public class ScreenLoader {
 
     public FXMLLoader loader(String fxml){
         String basePath = "/br/edu/ufersa/oficina/view/";
-        Logger.getLogger(FXMLLoader.class.getName()).setLevel(Level.OFF);
 
         return new FXMLLoader(getClass().getResource(basePath + fxml));
     }
