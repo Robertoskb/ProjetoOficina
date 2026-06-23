@@ -46,12 +46,7 @@ public class LoginController extends BaseController{
                 screenManager.show();
             }
             else{
-                screenManager.setUser(new User("Ghost", "", "", true)); // debug
-                screenManager.setScene("Main.fxml");
-                Stage stage = screenManager.getStage();
-                stage.setMaximized(false);
-                stage.setMaximized(true);
-                screenManager.show();//
+                txtError.setText("Campos Vazios!");
             }
 
         } catch (Exception e) {
