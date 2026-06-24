@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class Service {
-    private int id;
+public class Service extends Entity{
     private String name;
     private double price;
 
@@ -13,14 +12,12 @@ public class Service {
         setName(name); setPrice(price);
     }
 
-    public void setId(int id) { this.id = id; }
     public void setName(String name) { this.name = name; }
 
     public void setPrice(double price) {
         if (price > 0) { this.price = price; }
     }
 
-    public int getId() { return id; }
     public String getName() { return name; }
     public double getPrice() { return price; }
 
@@ -28,5 +25,10 @@ public class Service {
         System.out.println("(" + id +
                 ", " + name +
                 ", " + price + ")");
+    }
+
+    @Override
+    public String toString(){
+        return name;
     }
 }

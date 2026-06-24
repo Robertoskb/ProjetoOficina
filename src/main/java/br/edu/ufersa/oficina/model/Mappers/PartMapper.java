@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public class PartsMapper implements GenericMapper<Part> {
+public class PartMapper implements GenericMapper<Part> {
     public Part createEntity(ResultSet rs) throws SQLException {
         int id = rs.getInt("part_id");
         String name = rs.getString("part_name");

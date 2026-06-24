@@ -2,19 +2,20 @@ package br.edu.ufersa.oficina.model.DAO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 import br.edu.ufersa.oficina.model.Entity.Part;
-import br.edu.ufersa.oficina.model.Mappers.PartsMapper;
+import br.edu.ufersa.oficina.model.Mappers.PartMapper;
 
 public class PartDAO extends GenericDAO<Part> {
 
     public PartDAO() {
 
-        super("Parts", new PartsMapper());
+        super("Part", new PartMapper());
 
     }
 
@@ -32,7 +33,19 @@ public class PartDAO extends GenericDAO<Part> {
 
     public ArrayList<Part> getPartsByName(String name){
 
-        return filterArrayEntity("part_name", name);
+        Connection conn = ConnectionDB.getConnection();
+
+        String sql = "SELECT * FROM " + this.table + " WHERE part_name like ?";
+
+        try (PreparedStatement ps = conn.prepareStatement(sql)){
+            ps.setString(1, "%" + name + "%");
+            try (ResultSet rs = ps.executeQuery()) {
+                return mapper.createArrayEntity(rs);
+            }
+
+        } catch (SQLException e) {
+            throw new MecException(e.getMessage());
+        }
 
     }
 

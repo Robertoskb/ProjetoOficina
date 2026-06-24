@@ -1,6 +1,7 @@
 package br.edu.ufersa.oficina.model.DAO;
 
 import br.edu.ufersa.oficina.Exceptions.MecException;
+import br.edu.ufersa.oficina.model.Entity.Entity;
 import br.edu.ufersa.oficina.model.Mappers.GenericMapper;
 import br.edu.ufersa.oficina.model.Connection.ConnectionDB;
 
@@ -10,14 +11,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-public abstract class GenericDAO<E> {
+public abstract class GenericDAO<E extends Entity> {
     protected String table;
-    protected GenericMapper<E> factory;
+    protected GenericMapper<E> mapper;
     protected String prefix;
 
-    public GenericDAO(String table, GenericMapper<E> factory){
+    public GenericDAO(String table, GenericMapper<E> mapper){
         setTable(table);
-        setFactory(factory);
+        setMapper(mapper);
         setPrefix(table.toLowerCase().replace("`", ""));
 
     }
@@ -42,12 +43,11 @@ public abstract class GenericDAO<E> {
 
     public ArrayList<E> getAllEntities(){
         Connection conn = ConnectionDB.getConnection();
-        System.out.println(table);
 
-        String sql = "SELECT * FROM " + this.table;
+        String sql = "SELECT * FROM " + this.table + " ORDER BY 1 DESC";
 
         try (PreparedStatement ps = conn.prepareStatement(sql); ResultSet rs = ps.executeQuery()){
-            return factory.createArrayEntity(rs);
+            return mapper.createArrayEntity(rs);
         }
 
         catch (SQLException e){
@@ -63,7 +63,7 @@ public abstract class GenericDAO<E> {
         try (PreparedStatement ps = conn.prepareStatement(sql)){
             ps.setString(1, value);
             try (ResultSet rs = ps.executeQuery()) {
-                return factory.createArrayEntity(rs);
+                return mapper.createArrayEntity(rs);
             }
 
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public abstract class GenericDAO<E> {
             ps.setString(1, value);
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next())
-                    return factory.createEntity(rs);
+                    return mapper.createEntity(rs);
                 return null;
             }
 
@@ -101,12 +101,12 @@ public abstract class GenericDAO<E> {
         this.table = table;
     }
 
-    public GenericMapper<E> getFactory() {
-        return factory;
+    public GenericMapper<E> getMapper() {
+        return mapper;
     }
 
-    public void setFactory(GenericMapper<E> factory) {
-        this.factory = factory;
+    public void setMapper(GenericMapper<E> mapper) {
+        this.mapper = mapper;
     }
 
     public String getPrefix() {

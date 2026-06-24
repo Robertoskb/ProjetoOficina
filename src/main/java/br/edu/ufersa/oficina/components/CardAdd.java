@@ -1,0 +1,43 @@
+package br.edu.ufersa.oficina.components;
+
+import br.edu.ufersa.oficina.controller.Paginator.Observer;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class CardAdd extends GenericCard implements Subject {
+    @FXML private Button btnAdd;
+
+    private final ArrayList<Observer> observers = new ArrayList<>();
+
+    public CardAdd() throws IOException{
+        super("addCard.fxml");
+    }
+
+    public void add(){
+        notifyAdd();
+    }
+
+    @Override
+    public void registerObserver(Observer observer){
+        observers.add(observer);
+    }
+
+    @Override
+    public void removeObserver(Observer observer){
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notifyAdd() {
+        for (Observer observer: observers)
+            observer.add();
+    }
+
+    @Override
+    public void notifyDelete(int id){}
+    @Override
+    public void notifyEdit(int id) {}
+}

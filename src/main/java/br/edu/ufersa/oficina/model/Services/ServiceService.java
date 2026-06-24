@@ -7,10 +7,10 @@ import br.edu.ufersa.oficina.model.Entity.Service;
 
 import java.util.ArrayList;
 
-public class ServiceService {
+public class ServiceService implements GenericService<Service>{
     private final ServiceDAO dao = new ServiceDAO();
 
-    public void addService(Service service){
+    public void insert(Service service){
         String name;
         double price;
         name = service.getName();
@@ -24,6 +24,28 @@ public class ServiceService {
         }
     }
 
+    public void update(Service service){
+        getServiceById(service.getId());
+
+        String name;
+        double price;
+        name = service.getName();
+        price = service.getPrice();
+
+        if (!name.trim().isEmpty() && (price > 0)){
+            dao.update(service);
+        }
+        else {
+            throw new MecException("Campos vazios");
+        }
+    }
+
+    public void delete(int id) {
+        getServiceById(id);
+
+        dao.delete(id);
+    }
+
     public Service getServiceById(int id){
         Service service = dao.filterEntityById(id);
 
@@ -34,7 +56,7 @@ public class ServiceService {
     }
 
     public ArrayList<Service> getServiceByName(String name)  {
-        ArrayList<Service> services = dao.filterArrayEntity("name", name);
+        ArrayList<Service> services = dao.getServiceByName(name);
         return services;
     }
 

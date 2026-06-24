@@ -7,11 +7,11 @@ import br.edu.ufersa.oficina.model.Entity.Car;
 
 import java.util.ArrayList;
 
-public class CarService {
+public class CarService implements GenericService<Car>{
 
     private final CarDAO dao = new CarDAO();
 
-    public void addCar(Car car){
+    public void insert(Car car){
 
         if(car.getBrand().trim().isEmpty())
 
@@ -47,7 +47,7 @@ public class CarService {
         dao.insert(car);
     }
 
-    public void updateCar(Car car){
+    public void update(Car car){
 
         getCarById(car.getId());
 
@@ -69,7 +69,7 @@ public class CarService {
 
     }
 
-    public void deleteCar(int id){
+    public void delete(int id){
 
         getCarById(id);
 

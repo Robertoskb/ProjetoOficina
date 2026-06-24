@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Pagination?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane prefHeight="530.0" prefWidth="809.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.edu.ufersa.oficina.controller.Paginator.CarController">
+
+    <center>
+        <VBox fx:id="root" alignment="CENTER">
+            <children>
+            <HBox alignment="CENTER" prefHeight="0.0" prefWidth="559.0">
+               <children>
+                  <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Carros">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+                <VBox fx:id="cardContainer" maxWidth="900.0" prefHeight="200.0" prefWidth="100.0" spacing="15.0">
+                    <padding>
+                        <Insets left="15.0" right="15.0" />
+                    </padding>
+                </VBox>
+                <Pagination fx:id="pagination" currentPageIndex="1" prefHeight="30.0" prefWidth="810.0" />
+            </children>
+        </VBox>
+    </center>
+
+    <right>
+        <VBox prefWidth="250.0" spacing="12.0" style="-fx-background-color: #1E3540; -fx-background-radius: 10;">
+            <padding>
+                <Insets bottom="20" left="15" right="15" top="20" />
+            </padding>
+
+            <Label style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;" text="Filtros" />
+
+            <Label style="-fx-text-fill: #AAAAAA;" text="Cliente" />
+            <ComboBox fx:id="filterClient" maxWidth="Infinity" style="-fx-background-radius: 5;" />
+
+            <Button maxWidth="Infinity" onAction="#filterByClient" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;" text="Filtrar por Cliente" />
+
+            <Label style="-fx-text-fill: #AAAAAA;" text="Placa do Carro">
+                <VBox.margin>
+                    <Insets top="5.0" />
+                </VBox.margin>
+            </Label>
+            <TextField fx:id="filterPlate" promptText="Digite a placa" style="-fx-background-radius: 5;" />
+
+            <Button maxWidth="Infinity" onAction="#filterByPlate" style="-fx-background-color: #2E8B57; -fx-text-fill: white; -fx-background-radius: 5;" text="Filtrar por Placa" />
+
+            <Button maxWidth="Infinity" onAction="#clearFilter" style="-fx-background-color: #555555; -fx-text-fill: white; -fx-background-radius: 5;" text="Limpar">
+                <VBox.margin>
+                    <Insets top="15.0" />
+                </VBox.margin>
+            </Button>
+
+        </VBox>
+    </right>
+
+</BorderPane>

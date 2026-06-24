@@ -7,11 +7,11 @@ import br.edu.ufersa.oficina.model.Entity.Part;
 
 import java.util.ArrayList;
 
-public class PartsService {
+public class PartService implements GenericService<Part>{
     
     private final PartDAO dao = new PartDAO();
 
-    public void addPart(Part part) {
+    public void insert(Part part) {
         
         if(part.getName().trim().isEmpty())
 
@@ -34,7 +34,7 @@ public class PartsService {
 
     }
 
-    public void updatePart(Part part){
+    public void update(Part part){
 
         getPartById(part.getId());
         dao.update(part);
@@ -51,7 +51,7 @@ public class PartsService {
         return part;
     }
 
-    public void deletePart(int id){
+    public void delete(int id){
 
         getPartById(id);
         dao.delete(id);

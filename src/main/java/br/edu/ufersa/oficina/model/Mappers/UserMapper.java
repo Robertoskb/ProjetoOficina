@@ -12,8 +12,10 @@ public class UserMapper implements GenericMapper<User> {
         String name = rs.getString("user_name");
         String email = rs.getString("email");
         String password = rs.getString("password");
+        boolean admin = rs.getBoolean("admin");
 
-        return new User(id, name, email, password);
+
+        return new User(id, name, email, password, admin);
     }
 
     public ArrayList<User> createArrayEntity(ResultSet rs) throws SQLException {

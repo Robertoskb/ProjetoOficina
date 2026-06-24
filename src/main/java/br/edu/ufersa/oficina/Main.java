@@ -1,45 +1,27 @@
 package br.edu.ufersa.oficina;
 
-import br.edu.ufersa.oficina.model.Services.*;
-import br.edu.ufersa.oficina.model.Entity.*;
+import br.edu.ufersa.oficina.ui.ScreenManager;
+import javafx.application.Application;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
-public class Main {
+public class Main extends Application {
+
+    @Override
+    public void start(Stage stage) throws Exception {
+
+        stage.getIcons().add(new Image(Main.class.getResourceAsStream("/br/edu/ufersa/oficina/images/icon.jpg")));
+        stage.setTitle("MecProject");
+
+        ScreenManager manager = ScreenManager.getInstance();
+        manager.setStage(stage);
+
+        manager.setScene("login.fxml");
+
+        manager.show();
+    }
+
     public static void main(String[] args) {
-        CarService cs = new CarService();
-        PartsService ps = new PartsService();
-
-       for (Car c: cs.getAllCars())
-            c.show();
-
-        for (Part p: ps.getAllParts())
-            p.show();
-
-        ClientService csv = new ClientService();
-        ServiceService ss = new ServiceService();
-
-        for (Client c: csv.getAllClients())
-            c.show();
-
-        for (Service s: ss.getAllServices())
-            s.show();
-
-        UserService us = new UserService();
-        BudgetService bs = new BudgetService();
-        OrderService os = new OrderService();
-
-        for (Budget b: bs.getAllTreatments()){
-            b = bs.getTreatmentById(b.getId());
-            for (Part p: b.getParts())
-                p.show();
-            for (Service s: b.getServices())
-                s.show();
-        }
-        for (Order o: os.getAllTreatments()){
-            o = os.getTreatmentById(o.getId());
-            for (Part p: o.getParts())
-                p.show();
-            for (Service s: o.getServices())
-                s.show();
-        }
+        launch(args);
     }
 }

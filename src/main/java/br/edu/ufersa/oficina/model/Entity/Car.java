@@ -1,7 +1,6 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class Car {
-    private int id;
+public class Car extends Entity{
     private String brand;
     private String model;
     private String color;
@@ -9,6 +8,8 @@ public class Car {
     private int year;
     private int mileage;
     private Client client;
+
+    public Car(){}
 
     public Car(int id, String brand, String model, String color, String plate, int year, int mileage, Client client) {
         setId(id);
@@ -33,14 +34,6 @@ public class Car {
 
     public void show() {
         System.out.println("(" + this.plate + ", " + this.brand + " " + this.model + ", Dono: " + this.client.getName() + ")");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getBrand() {
@@ -97,5 +90,10 @@ public class Car {
 
     public void setClient(Client client) {
         this.client = client;
+    }
+
+    @Override
+    public String toString(){
+        return plate;
     }
 }

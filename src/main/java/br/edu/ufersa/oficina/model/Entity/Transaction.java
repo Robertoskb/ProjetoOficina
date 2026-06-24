@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 
-public class Treatment {
-    private int id;
+public abstract class Transaction extends Entity {
     private ArrayList<Part> parts;
     private ArrayList<Service> services;
     private Car car;
@@ -13,7 +12,9 @@ public class Treatment {
     private LocalDate date_start;
     private LocalDate date_finish;
 
-    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
+    public Transaction(){}
+
+    public Transaction(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -22,7 +23,7 @@ public class Treatment {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
+    public Transaction(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price){
         setParts(parts);
         setServices(services);
         setCar(car);
@@ -30,7 +31,7 @@ public class Treatment {
         setDate_start(LocalDate.now());
     }
 
-    public Treatment(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Transaction(int id, ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setId(id);
         setParts(parts);
         setServices(services);
@@ -41,7 +42,7 @@ public class Treatment {
 
     }
 
-    public Treatment(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
+    public Transaction(ArrayList<Part> parts, ArrayList<Service> services, Car car, double price, LocalDate date_start, LocalDate date_finish){
         setParts(parts);
         setServices(services);
         setCar(car);
@@ -50,18 +51,12 @@ public class Treatment {
         setDate_finish(date_finish);
 
     }
+
+    public abstract void finish();
+    public abstract boolean isFinish();
 
     public void show(){
         System.out.println("(" + id + ", " + car.getId() + ", " + price + ", " + date_start.toString() + ")");
-    }
-
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public ArrayList<Part> getParts() {
@@ -90,6 +85,14 @@ public class Treatment {
 
     public double getPrice() {
         return price;
+    }
+
+    public int getDiscount(){
+        double totalParts = parts.stream().mapToDouble(Part::getPrice).sum();
+        double totalServices = services.stream().mapToDouble(Service::getPrice).sum();
+        double total = totalParts + totalServices;
+
+        return Math.toIntExact(Math.round(100 * (1.0 - price / total)));
     }
 
     public void setPrice(double price) {

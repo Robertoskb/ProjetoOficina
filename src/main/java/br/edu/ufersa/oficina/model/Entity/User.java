@@ -1,36 +1,31 @@
 package br.edu.ufersa.oficina.model.Entity;
 
-public class User {
+public class User extends Entity{
 
-    private int id;
     private String name;
     private String email;
     private String password;
+    private boolean admin;
 
+    public User(){}
 
-    public User(int id, String name, String email, String password){
+    public User(int id, String name, String email, String password, boolean admin){
         setId(id);
         setName(name);
         setEmail(email);
         setPassword(password);
+        setAdmin(admin);
     }
 
-    public User(String name, String email, String password){
+    public User(String name, String email, String password, boolean admin){
         setName(name);
         setEmail(email);
         setPassword(password);
+        setAdmin(admin);
     }
 
     public void show(){
         System.out.println("(" + this.name + ", " + this.email + ")");
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -57,5 +52,11 @@ public class User {
         this.password = password;
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
 
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 }
