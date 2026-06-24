@@ -1,2 +1,5 @@
 # ProjetoOficina
 
+use o create.sql e o populate.sql para criação de população 
+do banco de dados, configure a classe ConnectionDB (se necessário), ative o banco, excute o programa 
+e faça login com email: admin@gmail.com e senha:123
