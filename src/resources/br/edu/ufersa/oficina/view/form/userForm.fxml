@@ -22,7 +22,7 @@
 
          <children>
 
-            <Text text="Cadastro de Usuário">
+            <Text text="Cadastro de Funcionário">
                <font>
                   <Font size="24.0" />
                </font>

@@ -20,7 +20,7 @@ public class PartForm extends Form<Part, PartService> {
     @FXML
     public void initialize() {
         nameField.getItems().addAll(
-                "Filtro de Óleo", "Pastilha de Freio", "Amortecedor Dianteiro",
+                "Filtro de Óleo", "Pastilha de Freio (Kit)", "Amortecedor Dianteiro",
                 "Bateria 60Ah", "Correia Dentada", "Vela de Ignição",
                 "Filtro de Ar", "Disco de Freio", "Radiador",
                 "Bomba de Combustível", "Alternador", "Motor de Partida",
