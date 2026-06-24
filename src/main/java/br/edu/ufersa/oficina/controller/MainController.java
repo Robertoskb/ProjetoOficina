@@ -97,8 +97,7 @@ public class MainController extends BaseController{
 
     @FXML
     private void loadReport() throws IOException{
-        if (screenManager.getUser().isAdmin())
-            loadShow("form/reportForm.fxml", btnReport);
+        loadShow("form/reportForm.fxml", btnReport);
     }
 
     @FXML
