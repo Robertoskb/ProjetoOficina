@@ -6,6 +6,7 @@
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TitledPane?>
@@ -14,7 +15,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-<?import javafx.scene.control.Spinner?>
 
 <BorderPane prefHeight="700.0" prefWidth="900.0" style="-fx-background-color: #14242B;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1">
 
@@ -42,7 +42,6 @@
 
                     <children>
 
-                        <!-- Veículo -->
 
                         <HBox alignment="CENTER_LEFT" spacing="10">
                             <children>
@@ -54,7 +53,6 @@
                             </children>
                         </HBox>
 
-                        <!-- Peças -->
 
                         <TitledPane expanded="true" text="Peças">
 
@@ -98,7 +96,6 @@
 
                         </TitledPane>
 
-                        <!-- Serviços -->
 
                         <TitledPane expanded="true" text="Serviços">
 
@@ -142,7 +139,6 @@
 
                         </TitledPane>
 
-                        <!-- Datas -->
 
                         <HBox alignment="CENTER_LEFT" spacing="20">
 
@@ -176,7 +172,6 @@
 
                         </HBox>
 
-                        <!-- Desconto -->
 
                         <HBox alignment="CENTER_LEFT" spacing="10">
 
@@ -184,15 +179,12 @@
 
                                 <Label text="Desconto (%):" />
 
-                                <Spinner fx:id="discountSpinner"
-                                         editable="true"
-                                         prefWidth="100" />
+                                <Spinner fx:id="discountSpinner" editable="true" prefWidth="100" />
 
                             </children>
 
                         </HBox>
 
-                        <!-- Total -->
 
                         <HBox alignment="CENTER_LEFT" spacing="10">
 
@@ -206,19 +198,17 @@
 
                         </HBox>
 
-                        <!-- Somente para Ordem de Serviço -->
 
                         <CheckBox fx:id="paidCheckBox" text="Pagamento realizado" />
 
-                        <!-- Botões -->
 
                         <HBox alignment="CENTER_RIGHT" spacing="10">
 
                             <children>
 
-                                <Button text="Cancelar" onAction="#cancel" />
+                                <Button onAction="#cancel" text="Cancelar" />
 
-                                <Button fx:id="saveButton" text="Salvar" onAction="#save" />
+                                <Button fx:id="saveButton" onAction="#save" text="Salvar" />
 
                             </children>
 
