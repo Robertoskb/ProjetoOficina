@@ -67,6 +67,8 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
         try {
             service.insert(entity);
 
+            success("Criado com sucesso");
+
             return true;
 
         } catch (Exception e) {
@@ -79,6 +81,8 @@ public abstract class Form<E extends Entity, S extends GenericService<E>> extend
     public boolean update(E entity){
         try {
             service.update(entity);
+
+            success("Atualizado com sucesso");
 
             return true;
         } catch (Exception e) {
